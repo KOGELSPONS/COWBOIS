@@ -24,6 +24,6 @@ class Player {
     }
   }
   camera(){
-      createcamera.setPosition(this.x, this.y,1000);
+      createcamera.setPosition(this.x, this.y,500);
   }
 }
