@@ -11,7 +11,6 @@ function setup() {
   background(0);
   frameRate(60);
   createcamera = createCamera();
-  drawTiles(map,3, 3, 500);
+  drawTiles(map, 3, 700, 500);
   player = new Player(1000,250,40,70);
-
 }

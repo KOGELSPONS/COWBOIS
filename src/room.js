@@ -21,20 +21,17 @@ class Room{
   }
 }
 
-function drawTiles(map, d_cols, s_cols, tilesize) {
+function drawTiles(map, d_cols, roomsize_x, roomsize_y) {
   for (let i = map.length - 1; i > -1; --i) {
     let value = map[i];
-    // source x , y
-    let sx = (value % s_cols) * tilesize;
-    let sy = Math.floor(value / s_cols) * tilesize;
+    
     // distenation x , y
-    let dx = (i % d_cols) * tilesize;
-    let dy = Math.floor(i / d_cols) * tilesize;
-    let dist = (i % s_cols) * 200;
-
+    let dx = (i % d_cols) * roomsize_x;
+    let dy = Math.floor(i / d_cols) * roomsize_y;
+    
     // render image
     if(value ==1){
-      rooms.push(new Room(dx+dist, dy, tilesize+200, tilesize));
+      rooms.push(new Room(dx, dy, roomsize_x, roomsize_y));
     }
   }
 }
