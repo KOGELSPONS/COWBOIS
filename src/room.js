@@ -37,7 +37,6 @@ class Room{
     this.y = y;
     this.w = w;
     this.h = h;
-    this.type = type;
   }
   show(){
     fill(200);
