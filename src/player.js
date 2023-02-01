@@ -1,3 +1,5 @@
+let inventory = [];
+var camX = 1125, camY = 250;
 class Player {
   constructor(x,y,w,h){
     this.x = x;
@@ -24,6 +26,10 @@ class Player {
     }
   }
   camera(){
-      createcamera.setPosition(this.x, this.y,500);
+    createcamera.setPosition(camX,camY,434);
+    
   }
+}  
+function addItem(item) {
+  inventory.push(item);
 }

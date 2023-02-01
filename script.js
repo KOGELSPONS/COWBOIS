@@ -1,9 +1,22 @@
 function draw() {
   background(0);
+  player.move();
+  
   rooms.forEach(r => {
       r.show();
-    })
+  })
+  
+  items.forEach(p => {
+    p.show();
+    p.pickup();
+  })
+  
+  player.camera();  
   player.show();
-  player.move();
-  player.camera();
+}
+
+function keyPressed() {
+  if (keyIsDown(82)) { //Press r-button 
+    checkRoom();
+  }
 }
