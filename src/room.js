@@ -54,7 +54,7 @@ class Room{
       if (collision(player.x, player.y, player.w, player.h  ,  this.x, this.y+this.h/2-50, 15, 100)) { 
         currentRoom -= 1
         player.x -= 60
-        camX -= 750;
+        camX -= 900;
       }
     } if (this.right == 1){
       fill(255);
@@ -62,7 +62,7 @@ class Room{
       if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w - 15, this.y+this.h/2-50, 15, 100)) { 
         currentRoom += 1
         player.x += 60
-        camX += 750;
+        camX += 900;
       }
     } if (this.top == 1){
       fill(255);
@@ -70,7 +70,7 @@ class Room{
       if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w/2 - 50, this.y, 100, 15)) { 
         currentRoom -= 3
         player.y -= 100
-        camY -= 500;
+        camY -= 510;
       }
     } if (this.bottom == 1){
       fill(255);
@@ -78,7 +78,7 @@ class Room{
       if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w/2 - 50, this.y + this.h-15, 100, 15)) { 
         currentRoom += 3
         player.y += 100
-        camY += 500;
+        camY += 510;
       }
     }
   }
