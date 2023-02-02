@@ -1,37 +1,8 @@
-let map = [
-    1, 1, 1,
-    0, 1, 0,
-    1, 1, 0,
-    0, 1, 1
-];
-let doorleft = [
-    0, 1, 1,
-    0, 0, 0,
-    0, 1, 0,
-    0, 0, 1
-];
-let doorright = [
-    1, 1, 0,
-    0, 0, 0,
-    1, 0, 0,
-    0, 1, 0
-];
-let doortop = [
-    0, 0, 0,
-    0, 1, 0,
-    0, 1, 0,
-    0, 1, 0
-];
-let doorbottom = [
-    0, 1, 0,
-    0, 1, 0,
-    0, 1, 0,
-    0, 0, 0
-];
-
 let rooms = [];
 
-var currentRoom = 1;
+var [DOORW, DOORH] = [100, 80]
+
+var currentRoom = 0;
 
 class Room{
   constructor(x,y,w,h,l,r,t,b,roomnumber){
@@ -48,42 +19,67 @@ class Room{
   show(){
     fill(200);
     rect(this.x, this.y, this.w, this.h); //room
+    fill(255);
     if (this.left == 1){
-      fill(255);
-      rect(this.x, this.y+this.h/2-50, 15, 100);//door (links)
-      if (collision(player.x, player.y, player.w, player.h  ,  this.x, this.y+this.h/2-50, 15, 100)) { 
+      image(DoorFinalLeft, this.x, this.y+this.h/2-DOORW/2, DOORH, DOORW);//door (links)
+      //rect(this.x, this.y+this.h/2-DOORW/2, DOORH, DOORW);//door (links)
+      if (collision(player.x, player.y, player.w, player.h  ,  this.x, this.y+this.h/2-DOORW/2, DOORH, DOORW)) { 
         currentRoom -= 1
-        player.x -= 60
-        camX -= 900;
+        player.x -= 5 + DOORH*2 + player.w
+        camX -= TILEX;
       }
     } if (this.right == 1){
-      fill(255);
-      rect(this.x + this.w - 15, this.y+this.h/2-50, 15, 100);//door (rechts)
-      if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w - 15, this.y+this.h/2-50, 15, 100)) { 
+      image(DoorFinalRight, this.x + this.w - DOORH, this.y+this.h/2-DOORW/2, DOORH, DOORW);//door (rechts)
+      //rect(this.x + this.w - DOORH, this.y+this.h/2-DOORW/2, DOORH, DOORW);//door (rechts)
+      if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w - DOORH, this.y+this.h/2-DOORW/2, DOORH, DOORW)) { 
         currentRoom += 1
-        player.x += 60
-        camX += 900;
+        player.x += 5 + DOORH*2 + player.w
+        camX += TILEX;
       }
     } if (this.top == 1){
-      fill(255);
-      rect(this.x + this.w/2 - 50, this.y, 100, 15);//door (boven)
-      if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w/2 - 50, this.y, 100, 15)) { 
+      image(DoorFinalTop, this.x + this.w/2 - DOORW/2, this.y, DOORW, DOORH);//door (boven)
+      //rect(this.x + this.w/2 - DOORW/2, this.y, DOORW, DOORH);//door (boven)
+      if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w/2 - DOORW/2, this.y, DOORW, DOORH)) { 
         currentRoom -= 3
-        player.y -= 100
-        camY -= 510;
+        player.y -= 5 + DOORH*2 + player.h
+        camY -= TILEY;
       }
     } if (this.bottom == 1){
-      fill(255);
-      rect(this.x + this.w/2 - 50, this.y + this.h-15, 100, 15);//door (onder)
-      if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w/2 - 50, this.y + this.h-15, 100, 15)) { 
+      image(DoorFinalBottom, this.x + this.w/2 - DOORW/2, this.y + this.h-DOORH, DOORW, DOORH);//door (onder)
+      //rect(this.x + this.w/2 - DOORW/2, this.y + this.h-DOORH, DOORW, DOORH);//door (onder)
+      if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w/2 - DOORW/2, this.y + this.h-DOORH, DOORW, DOORH)) { 
         currentRoom += 3
-        player.y += 100
-        camY += 510;
+        player.y += 5 + DOORH*2 + player.h
+        camY += TILEY;
       }
     }
   }
   collisionwalls(){
-    if (roomnumber == currentRoom){
+    if (this.roomnumber == currentRoom){
+      let borderleftx = this.x + DOORH
+      let borderrightx = this.x + this.w - DOORH
+      let bordertopy = this.y + DOORH
+      let borderbottomy = this.y + this.h - DOORH
+      noFill(); 
+      stroke("blue");
+      strokeWeight(2);
+      rect(borderleftx, bordertopy, this.w-DOORH*2, this.h-DOORH*2)
+      noStroke();
+
+      if (player.x + player.vx < borderleftx){
+        player.vx = 0;
+        player.x = borderleftx;
+      } else if (player.x + player.w + player.vx > borderrightx){
+        player.vx = 0;
+        player.x = borderrightx - player.w;
+      } if (player.y + player.vy < bordertopy){
+        player.vy = 0;
+        player.y = borderleftx;
+      } else if (player.y + player.h + player.vy > borderbottomy){
+        player.vy = 0;
+        player.y = borderbottomy - player.h;
+      }
+      
     }
   }
 }
@@ -102,7 +98,7 @@ function drawTiles(map, d_cols, roomsize_x, roomsize_y) {
     
     // render image
     if(value == 1){
-      rooms.push(new Room(dx, dy, roomsize_x, roomsize_y, l,r,t,b,map.length));
+      rooms.push(new Room(dx, dy, roomsize_x, roomsize_y, l,r,t,b,i));
     }
   }
 }
