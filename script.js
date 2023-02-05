@@ -1,12 +1,10 @@
-//items
-testitem = new Item(1000, 750, 'revolver');
-
-//list
-let items = [testitem];
-
+//test item
+//items.push(new Item(1000, 750,'revolver'))
 function draw() {
   background(0);
+  smooth();
   //First let the player move the chracter
+  //variable player.(class)move
   player.move();
   //Show the room and its doors
   //Check if the player is in contact with the wall
@@ -23,10 +21,15 @@ function draw() {
   //(thats why the order is important)
   player.show();
   player.camera();  
+  //console.log(colliding);
+  COLLISION = checkCollision();
+
 }
 
 function keyPressed() {
   if (keyIsDown(82)) { //Press r-button 
     checkRoom();
-  }
+  } if (keyIsDown(78)) { //Press n-button
+    console.log(maps);
+  } 
 }

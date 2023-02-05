@@ -1,5 +1,3 @@
-let inventory = [];
-
 var camX = TILEX/2, camY = TILEY/2;
 
 class Player {
@@ -8,6 +6,8 @@ class Player {
     this.y = y;
     this.w = w;
     this.h = h;
+    this.halfWidth = this.w/2;
+    this.halfHeight = this.h/2;
     this.vx = 0;
     this.vy = 0;
   }
@@ -16,6 +16,10 @@ class Player {
     this.x += this.vx;
     this.y += this.vy;
     
+    //Player Head
+    fill(255,255,0);
+    rect(this.x - 5, this.y - 40, this.w + 10, 40)
+    //Player bottom (collision)
     fill(255,0,0);
     rect(this.x, this.y, this.w, this.h);
   }
@@ -45,20 +49,21 @@ class Player {
       this.vy += 1;
     }
     //Max speed system
-    if (this.vx >= 8){
-      this.vx = 8
-    } if (this.vx <= -8){
-      this.vx = -8
-    } if (this.vy >= 8){
-      this.vy = 8
-    } if (this.vy <= -8){
-      this.vy = -8
+    if (this.vx >= 6){
+      this.vx = 6
+    } if (this.vx <= - 6){
+      this.vx = -6
+    } if (this.vy >= 6){
+      this.vy = 6
+    } if (this.vy <= - 6){
+      this.vy = - 6
     }
   }
   camera(){
     createcamera.setPosition(camX,camY,468); //468 best camera zoom
   }
 }  
+
 function addItem(item) {
   inventory.push(item);
 }
