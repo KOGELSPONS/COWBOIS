@@ -51,7 +51,7 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y) {
   for (let i = itemtiles.length - 1; i > -1; --i) {
     let value = itemtiles[i];
     let tileOffsetX = (currentRoom % 3) * 960;
-    let tileOffsetY = (currentRoom - (currentRoom % 3)) * 540;
+    let tileOffsetY = (Math.floor(currentRoom / 3)) * 540;
     // distenation x , y
     let dx = (i % d_cols) * itemsize_x;
     let dy = Math.floor(i / d_cols) * itemsize_y;
