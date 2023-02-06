@@ -13,13 +13,17 @@ var rooms = [];
 var inventory = [];
 var items = [];
 
-// Map objects
-var maps = {};
+//for(let i = 0; i < 5; i++){
+//  maps[i].rooms;
+//  maps[i].objects;
+//}
 
 // Variables
 var currentRoom = 0;
+var currentMap = 0;
 
 function setup() {
+  console.log(itemLocation);
   //Makes the canvas and adds it to the canvis-wrapper as its child
   myCanvas = createCanvas(W, H, WEBGL);
   myCanvas.parent("canvas-wrapper");
@@ -28,10 +32,10 @@ function setup() {
   createcamera = createCamera();
   // Makes the Tiles into a array (so it can be drawn)
   makeRoomTiles(map, 3, TILEX, TILEY); //16:9 (x60)
-  makeItemTiles(itemtiles, 16, 50,50);
+  makeItemTiles(itemLocation[currentRoom], 16, 50,50);
   //Generates the player and spawns it
   player = new Player(TILEX/2,TILEY/2,40,35);
-  spawn(); 
+  //spawn(); 
   //Loading in the images (later in json)
   DoorFinalBottom = loadImage('data/doors/DoorFinalBottom.png');
   DoorFinalLeft = loadImage('data/doors/DoorFinalLeft.png');

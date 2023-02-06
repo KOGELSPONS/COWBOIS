@@ -22,6 +22,7 @@ class Room{
           currentRoom -= 1
           player.x -= 10 + DOORH*2 + player.w
           camX -= TILEX;
+          makeItemTiles(itemLocation[currentRoom], 16, 50,50);
         }
       } if (this.right){
         image(DoorFinalRight, this.x + this.w - DOORH, this.y+this.h/2-DOORW/2, DOORH, DOORW);//door (rechts)
@@ -30,6 +31,7 @@ class Room{
           currentRoom += 1
           player.x += 10 + DOORH*2 + player.w
           camX += TILEX;
+          makeItemTiles(itemLocation[currentRoom], 16, 50,50);
         }
       } if (this.top){
         image(DoorFinalTop, this.x + this.w/2 - DOORW/2, this.y, DOORW, DOORH);//door (boven)
@@ -38,6 +40,7 @@ class Room{
           currentRoom -= 3
           player.y -= 10 + DOORH*2 + player.h
           camY -= TILEY;
+          makeItemTiles(itemLocation[currentRoom], 16, 50,50);
         }
       } if (this.bottom){
         image(DoorFinalBottom, this.x + this.w/2 - DOORW/2, this.y + this.h-DOORH, DOORW, DOORH);//door (onder)
@@ -46,6 +49,7 @@ class Room{
           currentRoom += 3
           player.y += 10 + DOORH*2 + player.h
           camY += TILEY;
+          makeItemTiles(itemLocation[currentRoom], 16, 50,50);
         }
       }
     }

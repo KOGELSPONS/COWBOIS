@@ -24,57 +24,44 @@ class Item{
         items.splice(idx,1)  
       }
       if(this.type == 'stone'){
-        if(COLLISION == "right"){
+        let COLLISION = checkCollision();
+        if(COLLISION  == "right"){
           player.x -= overlapXUpdt; 
-          this.vx = 0;
+          player.vx = 0;
         }
-        if(COLLISION == "left"){
+        if(COLLISION  == "left"){
           player.x += overlapXUpdt; 
-          this.vx = 0;
+          player.vx = 0;
         }
         if(COLLISION == "top"){
-          this.vy = 0;
           player.y += overlapYUpdt;
+          player.vy = 0;
         }
-        if(COLLISION == "bottom"){
+        if(COLLISION  == "bottom"){
           player.y -= overlapYUpdt;
-          this.vy = 0;
+          player.vy = 0;
         }
       }
     }
   }
 }  
-
-var itemtiles = [
-    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-  ];
-
-
-function spawn(){
-
-
-}  
+ 
 function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y) {
+  items = [];
   for (let i = itemtiles.length - 1; i > -1; --i) {
     let value = itemtiles[i];
-    
+    let tileOffsetX = (currentRoom % 3) * 960;
+    let tileOffsetY = (currentRoom - (currentRoom % 3)) * 540;
     // distenation x , y
     let dx = (i % d_cols) * itemsize_x;
     let dy = Math.floor(i / d_cols) * itemsize_y;
     
     // render image
     if(value == 1){
-      items.push(new Item(dx+80,dy+60,'revolver'))
+      items.push(new Item(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'revolver'))
     }
     if(value == 2){
-      items.push(new Item(dx+80,dy+60,'stone'))
+      items.push(new Item(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'stone'))
     }
   }
 }

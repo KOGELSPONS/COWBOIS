@@ -60,7 +60,7 @@ class Player {
     }
   }
   camera(){
-    createcamera.setPosition(camX,camY,468); //468 best camera zoom
+    createcamera.setPosition(camX,camY,800); //468 best camera zoom
   }
 }  
 

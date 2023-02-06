@@ -31,7 +31,7 @@ function checkCollision(){
           let overlapY = combinedHalfHeights - Math.abs(dy);          
   
           // collision is on the smallest overlap
-                    if(overlapX >= overlapY){
+          if(overlapX >= overlapY){
             if(dy > 0) {
               overlapYUpdt = overlapY;
               colliding = "top";
@@ -54,6 +54,6 @@ function checkCollision(){
         }
       }
   });
-
+  
   return colliding;
 }

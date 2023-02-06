@@ -22,8 +22,6 @@ function draw() {
   player.show();
   player.camera();  
   //console.log(colliding);
-  COLLISION = checkCollision();
-
 }
 
 function keyPressed() {
