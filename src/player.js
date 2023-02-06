@@ -1,4 +1,4 @@
-var camX = TILEX/2, camY = TILEY/2;
+var camX = TILEX*1.5, camY = TILEY/2;
 
 class Player {
   constructor(x,y,w,h){
@@ -60,7 +60,7 @@ class Player {
     }
   }
   camera(){
-    createcamera.setPosition(camX,camY,800); //468 best camera zoom
+    createcamera.setPosition(camX,camY,468); //468 best camera zoom
   }
 }  
 

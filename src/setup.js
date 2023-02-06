@@ -12,6 +12,8 @@ var room, player;
 var rooms = [];
 var inventory = [];
 var items = [];
+var explored = [1];
+var enemies = [];
 
 //for(let i = 0; i < 5; i++){
 //  maps[i].rooms;
@@ -19,11 +21,13 @@ var items = [];
 //}
 
 // Variables
-var currentRoom = 0;
+var currentRoom = 1;
 var currentMap = 0;
 
 function setup() {
   console.log(itemLocation);
+  console.log(theMaps);
+  console.log(enemies);
   //Makes the canvas and adds it to the canvis-wrapper as its child
   myCanvas = createCanvas(W, H, WEBGL);
   myCanvas.parent("canvas-wrapper");
@@ -31,10 +35,10 @@ function setup() {
   //Creates the camera
   createcamera = createCamera();
   // Makes the Tiles into a array (so it can be drawn)
-  makeRoomTiles(map, 3, TILEX, TILEY); //16:9 (x60)
-  makeItemTiles(itemLocation[currentRoom], 16, 50,50);
+  makeRoomTiles(theMaps[currentMap] , 3, TILEX, TILEY); //16:9 (x60)
+  makeItemTiles(itemLocation[currentRoom], 16, 50,50, currentRoom);
   //Generates the player and spawns it
-  player = new Player(TILEX/2,TILEY/2,40,35);
+  player = new Player(TILEX*1.5,TILEY/2,40,35);
   //spawn(); 
   //Loading in the images (later in json)
   DoorFinalBottom = loadImage('data/doors/DoorFinalBottom.png');

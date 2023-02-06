@@ -17,17 +17,23 @@ function draw() {
     p.show();
     p.pickup();
   })
+
+  enemies.forEach(e => {
+    e.show();
+    e.move();
+  })
   //After the player movement has been done and the changes by the collision system update the players position 
   //(thats why the order is important)
   player.show();
   player.camera();  
-  //console.log(colliding);
 }
 
 function keyPressed() {
   if (keyIsDown(82)) { //Press r-button 
     checkRoom();
   } if (keyIsDown(78)) { //Press n-button
-    console.log(maps);
+    console.log(theMaps);
+    console.log(itemLocation);
+    console.log(items);
   } 
 }
