@@ -75,16 +75,20 @@ class Room{
   }
   collisionwalls(){
     if (this.roomnumber == currentRoom){
-      let borderleftx = this.x + DOORH
-      let borderrightx = this.x + this.w - DOORH
-      let bordertopy = this.y + DOORH
-      let borderbottomy = this.y + this.h - DOORH
+      borderleftx = this.x + DOORH
+      borderrightx = this.x + this.w - DOORH
+      bordertopy = this.y + DOORH
+      borderbottomy = this.y + this.h - DOORH
       noFill(); 
       stroke("blue");
       strokeWeight(2);
       rect(borderleftx, bordertopy, this.w-DOORH*2, this.h-DOORH*2)
       noStroke();
-
+      
+      CENTERX = this.x;
+      CENTERY = this.y
+      
+      //LATER make this 1 system with bullet border detection and other out of map detections
       if (player.x + player.vx < borderleftx){
         player.vx = 0;
         player.x = borderleftx;

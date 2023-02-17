@@ -4,16 +4,20 @@ var [MOVESPEED, FRICTION] = [10,2];
 var [TILEX, TILEY] = [960,540];
 var [DOORW, DOORH] = [100, 80];
 
+var CENTERX, CENTERY;
+
 
 // Clear Variables
 var myCanvas;
 var borderleftx, borderrightx, bordertopy, borderbottomy;
 var room, player;
 var rooms = [];
-var inventory = [];
+var upgrades = [];
 var items = [];
 var explored = [1];
 var enemies = [];
+var bullets = [];
+var inventory = [];
 
 //for(let i = 0; i < 5; i++){
 //  maps[i].rooms;
@@ -23,6 +27,7 @@ var enemies = [];
 // Variables
 var currentRoom = 1;
 var currentMap = 0;
+var currentWeapon = 'pistol'
 
 function setup() {
   console.log(itemLocation);
@@ -41,6 +46,7 @@ function setup() {
   player = new Player(TILEX*1.5,TILEY/2,40,35);
   //spawn(); 
   //Loading in the images (later in json)
+  ghostenemy1 = loadImage('data/enemy/ghost1.gif');
   DoorFinalBottom = loadImage('data/doors/DoorFinalBottom.png');
   DoorFinalLeft = loadImage('data/doors/DoorFinalLeft.png');
   DoorFinalRight = loadImage('data/doors/DoorFinalRight.png');
@@ -50,4 +56,9 @@ function setup() {
   //And than removing the width so the CSS aspect-ratio takes over the width
   document.getElementById("defaultCanvas0").style.height = "100%";
   document.getElementById("defaultCanvas0").style.removeProperty("width");
+
+}
+function preload() {
+  rock = loadImage('data/stage1/rock.png');
+  revolver = loadImage('data/stage1/revolver.png');
 }

@@ -8,6 +8,8 @@ class Player {
     this.h = h;
     this.halfWidth = this.w/2;
     this.halfHeight = this.h/2;
+    this.mx = this.x + this.halfWidth;
+    this.my = this.y + this.halfHeight;
     this.vx = 0;
     this.vy = 0;
   }
@@ -15,6 +17,8 @@ class Player {
     //Apply the velocity to the seen player
     this.x += this.vx;
     this.y += this.vy;
+    this.mx = this.x + this.halfWidth;
+    this.my = this.y + this.halfHeight;
     
     //Player Head
     fill(255,255,0);
@@ -26,27 +30,27 @@ class Player {
   move(){
     // velocity adding system
     if (keyIsDown(68)) {
-      this.vx += 2;
+      this.vx += 1.5;
     }
     if (keyIsDown(65)) {
-      this.vx -= 2;
+      this.vx -= 1.5;
     }
     if (keyIsDown(87)) {
-      this.vy -= 2;
+      this.vy -= 1.5;
     }
     if (keyIsDown(83)) {
-      this.vy += 2;
+      this.vy += 1.5;
     }
 
     //Drag system
     if (this.vx > 0){
-      this.vx -= 1;
+      this.vx -= 0.5;
     } if (this.vx < 0){
-      this.vx += 1;
+      this.vx += 0.5;
     } if (this.vy > 0){
-      this.vy -= 1;
+      this.vy -= 0.5;
     } if (this.vy < 0){
-      this.vy += 1;
+      this.vy += 0.5;
     }
     //Max speed system
     if (this.vx >= 6){
@@ -61,6 +65,13 @@ class Player {
   }
   camera(){
     createcamera.setPosition(camX,camY,468); //468 best camera zoom
+  }
+  attack(direction){
+    if (currentWeapon == 'pistol' || 'revolver'){
+      bullets.push(new Bullet(this.mx, this.my, 10,10,player.vx,player.vy, currentWeapon, direction));
+    } else if (currentWeapon == 'shotgun'){
+      bullets.push(new Bullet(this.mx, this.my, 15,15,player.vx,player.vy, currentWeapon, direction));
+    }
   }
 }  
 
