@@ -9,20 +9,26 @@ function draw() {
   //Show the room and its doors
   //Check if the player is in contact with the wall
   rooms.forEach(r => {
-    r.collisionwalls();
-    r.show();
+    if (r.roomnumber == currentRoom){
+      r.collisionwalls();
+      r.show()
+    }
   })
   //Show and check if a player is in contact with a item
   items.forEach(i => {
-    i.interaction();
-    i.show();
-    i.pickup();
-    //i.inventory();
+    if (i.roomnumber == currentRoom){
+      i.interaction();
+      i.show();
+      i.pickup();
+    }
   })
+  inventoryF();
 
   enemies.forEach(e => {
-    e.move();
-    e.show();
+    if (e.roomnumber == currentRoom){
+      e.move();
+      e.show();
+    }
   })
   
   bullets.forEach(b => {

@@ -87,7 +87,7 @@ class Bullet {
       let TheEnenemy = enemies[i];
       if (collision(this.x,this.y,this.w,this.h , TheEnenemy.x,TheEnenemy.y,TheEnenemy.w,TheEnenemy.h)) {
         this.remove();
-        TheEnenemy.hit(2,Math.abs(this.vx) + Math.abs(this.vy));
+        TheEnenemy.hit(2 * player.damagemutliplier,Math.abs(this.vx) + Math.abs(this.vy));
       }
     }
   }

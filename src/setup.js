@@ -46,7 +46,8 @@ function setup() {
   player = new Player(TILEX*1.5,TILEY/2,40,35);
   //spawn(); 
   //Loading in the images (later in json)
-  ghostenemy1 = loadImage('data/enemy/ghost1.gif');
+  ghostenemy1_r = loadImage('data/enemy/ghost1_right.gif');
+  ghostenemy1_l = loadImage('data/enemy/ghost1_left.gif');
   DoorFinalBottom = loadImage('data/doors/DoorFinalBottom.png');
   DoorFinalLeft = loadImage('data/doors/DoorFinalLeft.png');
   DoorFinalRight = loadImage('data/doors/DoorFinalRight.png');

@@ -12,6 +12,8 @@ class Player {
     this.my = this.y + this.halfHeight;
     this.vx = 0;
     this.vy = 0;
+    this.damagemutliplier = 1;
+    this.distancemutliplier = 1;
   }
   show(){    
     //Apply the velocity to the seen player
@@ -28,6 +30,10 @@ class Player {
     rect(this.x, this.y, this.w, this.h);
   }
   move(){
+    // Update middle of thing X and Y
+    this.mx = this.x + this.halfWidth;
+    this.my = this.y + this.halfHeight;
+    
     // velocity adding system
     if (keyIsDown(68)) {
       this.vx += 1.5;

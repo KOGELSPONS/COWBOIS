@@ -1,3 +1,5 @@
+var pickedUp = false, pickupTimer = 2, inContact = false;
+
 class Item{
   constructor(x,y,type,name,numberroom){
     this.x = x;
@@ -5,30 +7,28 @@ class Item{
     this.type = type;
     this.name = name;
     this.roomnumber = numberroom;
+    this.itemOffset = false;
   }
   show(){
-    if (this.roomnumber == currentRoom){
       if(this.name == 'revolver'){
         fill('red')
         image(revolver, this.x, this.y, 50,50)
       }
       if(this.name == 'shotgun'){
         fill('red')
-      rect(this.x, this.y, 50,50);      
+        rect(this.x, this.y, 50,50);      
       }
       if(this.name == 'stone'){
         fill('gray')
-        image(rock, this.x, this.y, 50,50)
+        image(rock, this.x, this.y,50,50)
       }
       stroke(10);
       //rect(this.x, this.y, 50,50);
       noStroke();
-    }
   }
   interaction(){
-    if (this.roomnumber == currentRoom){
-      if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50)){
-        if(this.type == 'wall'){
+      if(this.type == 'wall'){
+        if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50)){
           let COLLISION = checkCollision();
           if(COLLISION  == "right"){
             player.x -= overlapXUpdt; 
@@ -48,36 +48,33 @@ class Item{
           }
         }
       }
-    }
   }
   pickup(){
-    if (this.roomnumber == currentRoom){
-      if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50)){
-        if(this.type == 'pickup'){
-          console.log("pick up item");
-          console.log(this);
+      if(this.type == 'pickup'){
+        if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50)){
+          // console.log("pick up item");
+          // console.log(this);
           inventory.push(this.name);
-          console.log('inventory: ' + inventory)
-          let idx = items.indexOf(this); 
-          console.log(items)
-          items.splice(idx,1);
-        }
+          if(inventory.length > 1){
+            this.name = inventory[0];
+            inventory.splice(inventory[0], 1);
+          }else{
+            let idx = items.indexOf(this); 
+            items.splice(idx,1);
+          }
+            if(!this.itemOffset){
+              this.x +=100;
+              this.itemOffset = true;
+            }else{
+              this.x -= 100;
+              this.itemOffset = false;
+            }
+          // console.log('inventory: ' + inventory)
+          // console.log(items)
+          }
+        console.log('yes')
       }
     }
-  }
-  inventory(){
-    fill('red')
-    for(let i = 100; i < 280; i+=60){
-      rect(CENTERX+i, CENTERY+480, 50,50)
-    }
-    if(inventory[0] == 'revolver'){
-      image(revolver, CENTERX+100, CENTERY+480, 50,50)
-    }
-    if(inventory[0] == 'shotgun'){
-      fill('blue')
-      rect(CENTERX+100, CENTERY+480, 50,50)
-    }
-  }
 }  
 function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
   //items = [];
@@ -102,5 +99,18 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
     if(value == 4){
       enemies.push(new Enemy(dx+80 + tileOffsetX, dy+60 + tileOffsetY, 80, 80, 'walker', numberroom, enemies, 1))
     }
+  }
+}
+function inventoryF(){
+  fill('red')
+  for(let i = 100; i < 280; i+=60){
+    rect(CENTERX+i, CENTERY+480, 50,50)
+  }
+  if(inventory[0] == 'revolver'){
+    image(revolver, CENTERX+100, CENTERY+480, 50,50)
+  }
+  if(inventory[0] == 'shotgun'){
+    fill('blue')
+    rect(CENTERX+100, CENTERY+480, 50,50)
   }
 }
