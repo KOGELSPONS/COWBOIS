@@ -54,6 +54,5 @@ function checkCollision(){
         }
       }
   });
-  
   return colliding;
 }

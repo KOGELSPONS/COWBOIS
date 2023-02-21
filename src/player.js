@@ -12,8 +12,15 @@ class Player {
     this.my = this.y + this.halfHeight;
     this.vx = 0;
     this.vy = 0;
+    this.friction = 0.90;
     this.damagemutliplier = 1;
     this.distancemutliplier = 1;
+    this.lastshot = 0;
+    this.nowshot = 100;
+    this.shottime = 100; //this.nowshot - this.lastshot
+    this.maxammo = 0;
+    this.ammo = this.maxammo;
+    this.able_to_shoot = false;
   }
   show(){    
     //Apply the velocity to the seen player
@@ -30,9 +37,29 @@ class Player {
     rect(this.x, this.y, this.w, this.h);
   }
   move(){
-    // Update middle of thing X and Y
-    this.mx = this.x + this.halfWidth;
-    this.my = this.y + this.halfHeight;
+    //Max speed system
+    if (this.vx >= 6){
+      this.vx = 6
+    } if (this.vx <= - 6){
+      this.vx = -6
+    } if (this.vy >= 6){
+      this.vy = 6
+    } if (this.vy <= - 6){
+      this.vy = - 6
+    }
+
+    //Drag system
+    if (0.2 > this.vx < -0.2){
+      this.vx = 0;
+    } else {
+      this.vx *= this.friction;
+    }
+    
+    if (0.2 > this.vy < -0.2){
+      this.vy = 0;
+    } else {
+      this.vy *= this.friction;
+    }
     
     // velocity adding system
     if (keyIsDown(68)) {
@@ -47,40 +74,66 @@ class Player {
     if (keyIsDown(83)) {
       this.vy += 1.5;
     }
-
-    //Drag system
-    if (this.vx > 0){
-      this.vx -= 0.5;
-    } if (this.vx < 0){
-      this.vx += 0.5;
-    } if (this.vy > 0){
-      this.vy -= 0.5;
-    } if (this.vy < 0){
-      this.vy += 0.5;
-    }
-    //Max speed system
-    if (this.vx >= 6){
-      this.vx = 6
-    } if (this.vx <= - 6){
-      this.vx = -6
-    } if (this.vy >= 6){
-      this.vy = 6
-    } if (this.vy <= - 6){
-      this.vy = - 6
-    }
   }
   camera(){
     createcamera.setPosition(camX,camY,468); //468 best camera zoom
   }
   attack(direction){
-    if (currentWeapon == 'pistol' || 'revolver'){
-      bullets.push(new Bullet(this.mx, this.my, 10,10,player.vx,player.vy, currentWeapon, direction));
-    } else if (currentWeapon == 'shotgun'){
-      bullets.push(new Bullet(this.mx, this.my, 15,15,player.vx,player.vy, currentWeapon, direction));
+      this.nowshot = new Date().getTime();
+      if (this.nowshot - this.lastshot >= this.shottime && this.ammo > 0 && this.able_to_shoot){
+        this.ammo -= 1;
+        this.lastshot = this.nowshot;
+        if (currentWeapon == 'revolver' || 'rifle'){
+          bullets.push(new Bullet(this.mx, this.my, 10,10,player.vx,player.vy, currentWeapon, direction));
+        } else if (currentWeapon == 'shotgun'){
+          bullets.push(new Bullet(this.mx, this.my, 15,15,player.vx,player.vy, currentWeapon, direction));
+        }
+      } else if (this.ammo == 0) {
+      // SOUND!!
+      this.ammo = this.maxammo;
+      this.lastshot = new Date().getTime() + 500;
     }
   }
-}  
+  inventory(){
+    stroke("black");
+    fill('white');
+    rect(CENTERX+100, CENTERY+480, 50,50);
+    rect(CENTERX+155, CENTERY+480, 50,50);
+    rect(CENTERX+210, CENTERY+480, 50,50);
+    noStroke();
 
-function addItem(item) {
-  inventory.push(item);
+    //inventory slot 0
+    if(inventory[0] == 'revolver'){
+      image(revolver, CENTERX+100, CENTERY+480, 50,50);
+      //border
+      this.able_to_shoot = true;
+      this.maxammo = 8;
+    } else if(inventory[0] == 'shotgun'){
+      fill('blue');
+      rect(CENTERX+100, CENTERY+480, 50,50);
+      //border
+      this.able_to_shoot = true;
+      this.maxammo = 6;
+    } else if(inventory[0] == 'rifle'){
+      fill('green');
+      rect(CENTERX+100, CENTERY+480, 50,50);
+      //border
+      this.able_to_shoot = true;
+      this.maxammo = 4;
+    } else {
+      fill('red');
+      rect(CENTERX + 100 , CENTERY+480, 50,50);
+      this.able_to_shoot = false;
+    }
+    //inventory slot 1
+    if(inventory[1] == "empty"){
+      fill('red');
+      rect(CENTERX + 155 , CENTERY+480, 50,50);
+    }
+    //inveotory slot 2
+    if(inventory[2] == "empty"){
+      fill('red');
+      rect(CENTERX + 210 , CENTERY+480, 50,50);
+    }
+  }
 }

@@ -1,13 +1,16 @@
 class Bullet {
-  constructor(x,y,w,h,addvx,addvy,type,direction){
-    this.x = x;
-    this.y = y;
+  constructor(mx,my,w,h,addvx,addvy,type,direction){
+    this.mx = mx;
+    this.my = my;
+
     this.w = w;
     this.h = h;
     this.halfWidth = this.w/2;
     this.halfHeight = this.h/2;
-    this.mx = this.x + this.halfWidth;
-    this.my = this.y + this.halfHeight;
+
+    this.x = mx - this.halfWidth;
+    this.y = my - this.halfHeight;
+    
     this.vx = 0;
     this.vy = 0;
     this.direction = direction;
@@ -16,15 +19,15 @@ class Bullet {
     this.AddVY = addvy;
     
     //Calculation 1 TIME
-    if (this.bullettype == 'pistol'){
-      this.AddV = 8;
-      this.friciton = 0.1;
+    if (this.bullettype == 'revolver'){
+      this.AddV = 10;
+      this.friciton = 0.98 * random(0.996 , 1);
     } else if (this.bullettype == 'shotgun') {
-      this.AddV = 7;
-      this.friciton = 0.15;
-    } else if (this.bullettype == 'revolver') {
-      this.AddV = 9;
-      this.friciton = 0.05;
+      this.AddV = 8;
+      this.friciton = 0.975 * random(0.996 , 1);
+    } else if (this.bullettype == 'rifle') {
+      this.AddV = 12;
+      this.friciton = 0.985 * random(0.996 , 1);
     } 
     
     if (this.direction == 'L') {
@@ -47,7 +50,7 @@ class Bullet {
   }
   move(){
     //Check if bullet not to slow
-    if (diff(this.vx,0) < 2 && diff(this.vy,0) < 2){
+    if (diff(this.vx,0) < 3 && diff(this.vy,0) < 3){
       this.remove();
     } else {
       //Check if bullet is in collision with wall (or soon to be)
@@ -61,15 +64,8 @@ class Bullet {
         this.remove();
       } else {
         //After is still exist go apply friction
-        if (this.vx > 0){
-          this.vx -= this.friciton;
-        } if (this.vx < 0){
-          this.vx += this.friciton;
-        } if (this.vy > 0){
-          this.vy -= this.friciton;
-        } if (this.vy < 0){
-          this.vy += this.friciton;
-        }
+        this.vx *= this.friciton;
+        this.vy *= this.friciton;
         //Than apply the velocity to the bullet
         this.x += this.vx;
         this.y += this.vy;
@@ -77,8 +73,6 @@ class Bullet {
     }
   }
   remove(){
-    console.log("ammo removed");
-    console.log(this);
     let idx = bullets.indexOf(this); 
     bullets.splice(idx,1);
   }

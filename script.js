@@ -2,7 +2,6 @@
 //items.push(new Item(1000, 750,'revolver'))
 function draw() {
   background(0);
-  smooth();
   //First let the player move the chracter
   //variable player.(class)move
   player.move();
@@ -22,7 +21,6 @@ function draw() {
       i.pickup();
     }
   })
-  inventoryF();
 
   enemies.forEach(e => {
     if (e.roomnumber == currentRoom){
@@ -40,6 +38,7 @@ function draw() {
   //(thats why the order is important)
   player.show();
   player.camera();  
+  player.inventory();
 }
 
 //Calculate the difference between 2 numbers but always return a positive number (so distance is not -5 but 5)

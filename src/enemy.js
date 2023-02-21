@@ -19,8 +19,8 @@ class Enemy{
   }
   show(){
       if(this.type == 'walker'){
-        //fill('red')    
-        //rect(this.x, this.y, this.w, this.h);
+        fill('red')    
+        rect(this.x, this.y, this.w, this.h);
         if(this.direction == "R"){
           image(ghostenemy1_r,this.x,this.y,this.w,this.h);
         }
@@ -31,10 +31,10 @@ class Enemy{
       translate(0,0,0.01);
       fill('white');
       stroke("black");
-      rect(this.x, this.y - 15, 50, 10);
+      rect(this.mx - 25, this.y - 15, 50, 10);
       noStroke();
       fill('red')
-      rect(this.x, this.y - 15, this.hp/2, 10);
+      rect(this.mx - 25, this.y - 15, this.hp/2, 10);
       translate(0,0,-0.01);
   }
 
@@ -91,8 +91,7 @@ class Enemy{
       
     } else if (type == "shoot") {
       
-    } else if (type == "molotov")
-    {
+    } else if (type == "molotov"){
       
     }
   }

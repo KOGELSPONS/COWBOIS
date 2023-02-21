@@ -1,7 +1,4 @@
-var theMaps = [
-
-
-  
+var theMaps = [  
   {
     "maprooms" : [  
         1, 1, 1,

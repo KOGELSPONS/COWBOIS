@@ -24,7 +24,7 @@ class Room{
           player.x -= 10 + DOORH*2 + player.w
           camX -= TILEX;
           if(!explored.includes(currentRoom)){
-            makeItemTiles(itemLocation[currentRoom], 16, 50,50, currentRoom);
+            makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
             explored.push(currentRoom);
           }
         }
@@ -38,7 +38,7 @@ class Room{
           player.x += 10 + DOORH*2 + player.w
           camX += TILEX;
           if(!explored.includes(currentRoom)){
-            makeItemTiles(itemLocation[currentRoom], 16, 50,50, currentRoom);
+            makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
             explored.push(currentRoom);
           }
         }
@@ -52,7 +52,7 @@ class Room{
           player.y -= 10 + DOORH*2 + player.h
           camY -= TILEY;
           if(!explored.includes(currentRoom)){
-            makeItemTiles(itemLocation[currentRoom], 16, 50,50, currentRoom);
+            makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
             explored.push(currentRoom);
           }
         }
@@ -66,7 +66,7 @@ class Room{
           player.y += 10 + DOORH*2 + player.h
           camY += TILEY;
           if(!explored.includes(currentRoom)){
-            makeItemTiles(itemLocation[currentRoom], 16, 50,50, currentRoom);
+            makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
             explored.push(currentRoom);
           }
         }

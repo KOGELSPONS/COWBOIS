@@ -17,7 +17,7 @@ var items = [];
 var explored = [1];
 var enemies = [];
 var bullets = [];
-var inventory = [];
+var inventory = ["empty","empty","empty"];
 
 //for(let i = 0; i < 5; i++){
 //  maps[i].rooms;
@@ -27,7 +27,7 @@ var inventory = [];
 // Variables
 var currentRoom = 1;
 var currentMap = 0;
-var currentWeapon = 'pistol'
+var currentWeapon = 'revolver'
 
 function setup() {
   console.log(itemLocation);
@@ -41,7 +41,7 @@ function setup() {
   createcamera = createCamera();
   // Makes the Tiles into a array (so it can be drawn)
   makeRoomTiles(theMaps[currentMap] , 3, TILEX, TILEY); //16:9 (x60)
-  makeItemTiles(itemLocation[currentRoom], 16, 50,50, currentRoom);
+  makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
   //Generates the player and spawns it
   player = new Player(TILEX*1.5,TILEY/2,40,35);
   //spawn(); 
