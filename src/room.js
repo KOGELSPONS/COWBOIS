@@ -84,9 +84,9 @@ class Room{
       strokeWeight(2);
       rect(borderleftx, bordertopy, this.w-DOORH*2, this.h-DOORH*2)
       noStroke();
-      
-      CENTERX = this.x;
-      CENTERY = this.y
+
+      ROOMX = this.x;
+      ROOMY = this.y
       
       //LATER make this 1 system with bullet border detection and other out of map detections
       if (player.x + player.vx < borderleftx){

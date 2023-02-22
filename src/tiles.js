@@ -47,10 +47,20 @@ class Item{
     }
   }
   pickup(){
-    if(this.type == 'weapon' || this.type == 'attactment' || this.type == 'booster'){
+    if(this.type != 'placable'){
       if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50)){
         // console.log("pick up item");
         // console.log(this);
+
+        //certain things only for 1 type
+        if (this.type == 'weapon'){
+          player.ammo = 0;
+        } else if (this.type == 'attactment'){
+          //reset stats??
+        } else if (this.type == 'booster'){
+          //reset booster time??
+        }
+        
         if (inventory[this.invlocation] == 'empty'){
           inventory[this.invlocation] = this.name;
           let idx = items.indexOf(this); 

@@ -4,7 +4,7 @@ var [MOVESPEED, FRICTION] = [10,2];
 var [TILEX, TILEY] = [960,540];
 var [DOORW, DOORH] = [100, 80];
 
-var CENTERX, CENTERY;
+var ROOMX, ROOMY;
 
 
 // Clear Variables
@@ -17,6 +17,7 @@ var items = [];
 var explored = [1];
 var enemies = [];
 var bullets = [];
+var enemybullets = [];
 var inventory = ["empty","empty","empty"];
 
 //for(let i = 0; i < 5; i++){
@@ -44,14 +45,7 @@ function setup() {
   makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
   //Generates the player and spawns it
   player = new Player(TILEX*1.5,TILEY/2,40,35);
-  //spawn(); 
-  //Loading in the images (later in json)
-  ghostenemy1_r = loadImage('data/enemy/ghost1_right.gif');
-  ghostenemy1_l = loadImage('data/enemy/ghost1_left.gif');
-  DoorFinalBottom = loadImage('data/doors/DoorFinalBottom.png');
-  DoorFinalLeft = loadImage('data/doors/DoorFinalLeft.png');
-  DoorFinalRight = loadImage('data/doors/DoorFinalRight.png');
-  DoorFinalTop = loadImage('data/doors/DoorFinalTop.png');
+  
   //Makes the screen resize canvis, without changing the actual game render size
   //So settings the style.height to 100% almost everybody has a screen that has less height that witdth
   //And than removing the width so the CSS aspect-ratio takes over the width
@@ -60,6 +54,15 @@ function setup() {
 
 }
 function preload() {
+  //Loading in the images/gifs (later in json)
   rock = loadImage('data/stage1/rock.png');
   revolver = loadImage('data/stage1/revolver.png');
+  ghostenemy1_r = loadImage('data/enemy/ghost1_right.gif');
+  ghostenemy1_l = loadImage('data/enemy/ghost1_left.gif');
+  DoorFinalBottom = loadImage('data/doors/DoorFinalBottom.png');
+  DoorFinalLeft = loadImage('data/doors/DoorFinalLeft.png');
+  DoorFinalRight = loadImage('data/doors/DoorFinalRight.png');
+  DoorFinalTop = loadImage('data/doors/DoorFinalTop.png');
+  //Loading the sounds (later in json)
+  
 }

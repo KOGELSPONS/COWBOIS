@@ -12,15 +12,25 @@ class Player {
     this.my = this.y + this.halfHeight;
     this.vx = 0;
     this.vy = 0;
+    
     this.friction = 0.90;
+    
+    this.hp = 100;
+    this.resistancemutliplier = 1;
     this.damagemutliplier = 1;
     this.distancemutliplier = 1;
+    this.reloadmutliplier = 1;
+    this.shoottimemutliplier = 1;
+    this.extraammo = 0;
+    
     this.lastshot = 0;
-    this.nowshot = 100;
-    this.shottime = 100; //this.nowshot - this.lastshot
+    this.nowshot = 0;
+    this.shottime = 0; //this.nowshot - this.lastshot
+    
     this.maxammo = 0;
     this.ammo = this.maxammo;
     this.able_to_shoot = false;
+    this.reloadtime = 0;
   }
   show(){    
     //Apply the velocity to the seen player
@@ -35,6 +45,16 @@ class Player {
     //Player bottom (collision)
     fill(255,0,0);
     rect(this.x, this.y, this.w, this.h);
+
+    //HP bar
+    translate(0,0,0.01);
+    fill('white');
+    stroke("black");
+    rect(ROOMX + TILEX - 300, ROOMY + 480, 200, 50);
+    noStroke();
+    fill('red')
+    rect(ROOMX + TILEX - 300, ROOMY + 480, this.hp*2, 50);
+    translate(0,0,-0.01);
   }
   move(){
     //Max speed system
@@ -91,49 +111,64 @@ class Player {
       } else if (this.ammo == 0) {
       // SOUND!!
       this.ammo = this.maxammo;
-      this.lastshot = new Date().getTime() + 500;
+      this.lastshot = new Date().getTime() + this.reloadtime;
+    }
+  }
+  hit(damage){
+    this.hp -= damage * this.resistancemutliplier;
+    if (this.hp < 0){
+      this.hp = 0;
     }
   }
   inventory(){
     stroke("black");
     fill('white');
-    rect(CENTERX+100, CENTERY+480, 50,50);
-    rect(CENTERX+155, CENTERY+480, 50,50);
-    rect(CENTERX+210, CENTERY+480, 50,50);
+    rect(ROOMX + 100, ROOMY+480, 50,50);
+    rect(ROOMX + 155, ROOMY+480, 50,50);
+    rect(ROOMX + 210, ROOMY+480, 50,50);
     noStroke();
 
     //inventory slot 0
     if(inventory[0] == 'revolver'){
-      image(revolver, CENTERX+100, CENTERY+480, 50,50);
+      image(revolver, ROOMX + 100, ROOMY+480, 50,50);
       //border
       this.able_to_shoot = true;
-      this.maxammo = 8;
+      this.maxammo = 8 + this.extraammo;
+      this.shottime = 100 * this.shoottimemutliplier;
+      this.reloadtime = 500 * this.reloadmutliplier;
+      
     } else if(inventory[0] == 'shotgun'){
       fill('blue');
-      rect(CENTERX+100, CENTERY+480, 50,50);
+      rect(ROOMX + 100, ROOMY+480, 50,50);
       //border
       this.able_to_shoot = true;
-      this.maxammo = 6;
+      this.maxammo = 6 + this.extraammo;
+      this.shottime = 150 * this.shoottimemutliplier;
+      this.reloadtime = 800 * this.reloadmutliplier;
+      
     } else if(inventory[0] == 'rifle'){
       fill('green');
-      rect(CENTERX+100, CENTERY+480, 50,50);
+      rect(ROOMX + 100, ROOMY+480, 50,50);
       //border
       this.able_to_shoot = true;
-      this.maxammo = 4;
+      this.maxammo = 4 + this.extraammo;
+      this.shottime = 200 * this.shoottimemutliplier;
+      this.reloadtime = 1000 * this.reloadmutliplier;
+      
     } else {
       fill('red');
-      rect(CENTERX + 100 , CENTERY+480, 50,50);
+      rect(ROOMX + 100 , ROOMY+480, 50,50);
       this.able_to_shoot = false;
     }
     //inventory slot 1
     if(inventory[1] == "empty"){
       fill('red');
-      rect(CENTERX + 155 , CENTERY+480, 50,50);
+      rect(ROOMX + 155 , ROOMY+480, 50,50);
     }
     //inveotory slot 2
     if(inventory[2] == "empty"){
       fill('red');
-      rect(CENTERX + 210 , CENTERY+480, 50,50);
+      rect(ROOMX + 210 , ROOMY+480, 50,50);
     }
   }
 }
