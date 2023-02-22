@@ -64,6 +64,8 @@ class Placable{
     this.y = y;
     this.w = 50;
     this.h = 50;
+    this.halfWidth = this.w/2;
+    this.halfHeight = this.h/2;
     this.mx = this.x + this.w/2
     this.my = this.y + this.h/2
     this.name = name;

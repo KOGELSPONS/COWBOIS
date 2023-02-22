@@ -13,11 +13,11 @@ function checkCollision(){
 
     if (item.roomnumber == currentRoom){
       // calculate difference from x and y axis centres
-      let dx = (player.x + player.halfWidth) - (item.x + 25);
-      let dy = (player.y + player.halfHeight) - (item.y + 25);
+      let dx = (player.x + player.halfWidth + player.vx) - (item.x + item.halfWidth);
+      let dy = (player.y + player.halfHeight + player.vy) - (item.y + item.halfHeight);
   
-      let combinedHalfWidths  = player.halfWidth + 25;
-      let combinedHalfHeights = player.halfHeight + 25;
+      let combinedHalfWidths  = player.halfWidth + item.halfWidth;
+      let combinedHalfHeights = player.halfHeight + item.halfHeight;
   
       // x-axis collision?
       if(Math.abs(dx) < combinedHalfWidths){
@@ -31,21 +31,25 @@ function checkCollision(){
           // collision is on the smallest overlap
           if(overlapX >= overlapY){
             if(dy > 0) { // Top collision
-              player.y += overlapY;
+              //player.y += overlapY;
+              player.y = item.y + item.h
               player.vy = 0;
             }
             else {  // Bottom collision    
-              player.y -= overlapY;
+              //player.y -= overlapY;
+              player.y = item.y - player.h
               player.vy = 0;
             }
           }
           else{
             if(dx > 0){ //Left collision
-              player.x += overlapX; 
+              //player.x += overlapX; 
+              player.x = item.x + item.w
               player.vx = 0;
             }
             else { //Right collision
-              player.x -= overlapX; 
+              //player.x -= overlapX; 
+              player.x = item.x - player.w
               player.vx = 0;
             }
           }
