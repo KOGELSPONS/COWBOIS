@@ -1,5 +1,4 @@
-var pickedUp = false, pickupTimer = 2, inContact = false;
-
+//In this class you can only find pickupable items
 class Item{
   constructor(x,y,type,name,numberroom,location){
     this.x = x;
@@ -11,9 +10,7 @@ class Item{
     this.invlocation = location;
   }
   show(){
-    if(this.name == 'stone'){
-      image(rock, this.x, this.y,50,50)
-    } else if(this.name == 'revolver'){
+    if(this.name == 'revolver'){
       image(revolver, this.x, this.y, 50,50)
     } else if(this.name == 'shotgun'){
       fill('blue')
@@ -23,32 +20,8 @@ class Item{
       rect(this.x, this.y, 50,50);      
     }
   }
-  interaction(){
-    if(this.type == 'placable'){
-      if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50)){
-        let COLLISION = checkCollision();
-        if(COLLISION  == "right"){
-          player.x -= overlapXUpdt; 
-          player.vx = 0;
-        }
-        if(COLLISION  == "left"){
-          player.x += overlapXUpdt; 
-          player.vx = 0;
-        }
-        if(COLLISION == "top"){
-          player.y += overlapYUpdt;
-          player.vy = 0;
-        }
-        if(COLLISION  == "bottom"){
-          player.y -= overlapYUpdt;
-          player.vy = 0;
-        }
-      }
-    }
-  }
   pickup(){
-    if(this.type != 'placable'){
-      if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50)){
+    if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50)){
         // console.log("pick up item");
         // console.log(this);
 
@@ -82,8 +55,28 @@ class Item{
         // console.log(items)
       }
     }
+}  
+
+//In this class there are only collision things sutch as walls
+class Placable{
+  constructor(x,y,name,numberroom){
+    this.x = x;
+    this.y = y;
+    this.w = 50;
+    this.h = 50;
+    this.mx = this.x + this.w/2
+    this.my = this.y + this.h/2
+    this.name = name;
+    this.roomnumber = numberroom;
+    this.itemOffset = false;
+  }
+  show(){
+    if(this.name == 'stone'){
+      image(rock, this.x, this.y,this.w,this.h)
+    } 
   }
 }  
+
 function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
   //items = [];
   for (let i = itemtiles.length - 1; i > -1; --i) {
@@ -98,7 +91,7 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
 
     // 1 -> 10 placables
     if(value == 1){
-      items.push(new Item(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'placable', 'stone', numberroom,-1))
+      placables.push(new Placable(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'stone', numberroom))
     }
 
     // 11 -> 20 enemies

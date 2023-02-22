@@ -13,10 +13,20 @@ function draw() {
       r.show()
     }
   })
+  
+  //Check if the player is in contact with any placables
+  checkCollision();
+
+  //Shows eatch placeable if the placeable is in the room
+  placables.forEach(p => {
+    if (p.roomnumber == currentRoom){
+      p.show();
+    }
+  })
+  
   //Show and check if a player is in contact with a item
   items.forEach(i => {
     if (i.roomnumber == currentRoom){
-      i.interaction();
       i.show();
       i.pickup();
     }

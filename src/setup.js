@@ -14,6 +14,7 @@ var room, player;
 var rooms = [];
 var upgrades = [];
 var items = [];
+var placables = [];
 var explored = [1];
 var enemies = [];
 var bullets = [];

@@ -8,12 +8,10 @@ function collision(x1,y1,w1,h1, x2,y2,w2,h2){
 }
 
 function checkCollision(){   
-
-  colliding = false;
-
   // check collision for each item
-  items.forEach(function(item) {
-        
+  placables.forEach(function(item) {
+
+    if (item.roomnumber == currentRoom){
       // calculate difference from x and y axis centres
       let dx = (player.x + player.halfWidth) - (item.x + 25);
       let dy = (player.y + player.halfHeight) - (item.y + 25);
@@ -32,27 +30,27 @@ function checkCollision(){
   
           // collision is on the smallest overlap
           if(overlapX >= overlapY){
-            if(dy > 0) {
-              overlapYUpdt = overlapY;
-              colliding = "top";
+            if(dy > 0) { // Top collision
+              player.y += overlapY;
+              player.vy = 0;
             }
-            else {            
-              overlapYUpdt = overlapY;
-              colliding = "bottom";
+            else {  // Bottom collision    
+              player.y -= overlapY;
+              player.vy = 0;
             }
           }
           else{
-            if(dx > 0){ 
-              overlapXUpdt = overlapX; 
-              colliding = "left";
+            if(dx > 0){ //Left collision
+              player.x += overlapX; 
+              player.vx = 0;
             }
-            else {
-              overlapXUpdt = overlapX;
-              colliding = "right";
+            else { //Right collision
+              player.x -= overlapX; 
+              player.vx = 0;
             }
           }
         }
       }
+    }
   });
-  return colliding;
 }
