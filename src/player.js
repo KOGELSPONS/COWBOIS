@@ -1,5 +1,4 @@
 var camX = TILEX*1.5, camY = TILEY/2;
-
 class Player {
   constructor(x,y,w,h){
     this.x = x;
@@ -31,6 +30,7 @@ class Player {
     this.ammo = this.maxammo;
     this.able_to_shoot = false;
     this.reloadtime = 0;
+    this.currentWeapon = 'null';
   }
   show(){    
     //Apply the velocity to the seen player
@@ -55,6 +55,21 @@ class Player {
     fill('red')
     rect(ROOMX + TILEX - 300, ROOMY + 480, this.hp*2, 50);
     translate(0,0,-0.01);
+    textSize(50);
+    text(this.ammo,ROOMX + TILEX-90, ROOMY+45 + 480);
+
+    if(reload_show_timer){
+      textSize(20)
+      text('(R)',ROOMX + TILEX-57, ROOMY+45 + 480)
+    }
+
+    if(this.able_to_shoot){
+      if (this.ammo == 0){
+        reload_show_timer = true;
+      }else if (this.lastshot <= new Date().getTime()){
+        reload_show_timer = false;
+      }
+    }
   }
   move(){
     //Max speed system
@@ -103,10 +118,10 @@ class Player {
       if (this.nowshot - this.lastshot >= this.shottime && this.ammo > 0 && this.able_to_shoot){
         this.ammo -= 1;
         this.lastshot = this.nowshot;
-        if (currentWeapon == 'revolver' || 'rifle'){
-          bullets.push(new Bullet(this.mx, this.my, 10,10,player.vx,player.vy, currentWeapon, direction));
-        } else if (currentWeapon == 'shotgun'){
-          bullets.push(new Bullet(this.mx, this.my, 15,15,player.vx,player.vy, currentWeapon, direction));
+        if (this.currentWeapon == 'revolver' || 'rifle'){
+          bullets.push(new Bullet(this.mx, this.my, 10,10,player.vx,player.vy, this.currentWeapon, direction));
+        } else if (this.currentWeapon == 'shotgun'){
+          bullets.push(new Bullet(this.mx, this.my, 15,15,player.vx,player.vy, this.currentWeapon, direction));
         }
       } else if (this.ammo == 0) {
       // SOUND!!
@@ -128,37 +143,39 @@ class Player {
     rect(ROOMX + 210, ROOMY+480, 50,50);
     noStroke();
 
-    //inventory slot 0
     if(inventory[0] == 'revolver'){
       image(revolver, ROOMX + 100, ROOMY+480, 50,50);
-      //border
-      this.able_to_shoot = true;
-      this.maxammo = 8 + this.extraammo;
-      this.shottime = 100 * this.shoottimemutliplier;
-      this.reloadtime = 500 * this.reloadmutliplier;
+
+      // this.able_to_shoot = true;
+      // this.maxammo = 8 + this.extraammo;
+      // this.shottime = 100 * this.shoottimemutliplier;
+      // this.reloadtime = 500 * this.reloadmutliplier;
+      // this.currentWeapon = inventory[0];
       
     } else if(inventory[0] == 'shotgun'){
       fill('blue');
       rect(ROOMX + 100, ROOMY+480, 50,50);
-      //border
-      this.able_to_shoot = true;
-      this.maxammo = 6 + this.extraammo;
-      this.shottime = 150 * this.shoottimemutliplier;
-      this.reloadtime = 800 * this.reloadmutliplier;
+
+      // this.able_to_shoot = true;
+      // this.maxammo = 2 + this.extraammo;
+      // this.shottime = 300 * this.shoottimemutliplier;
+      // this.reloadtime = 800 * this.reloadmutliplier;
+      // this.currentWeapon = inventory[0];
       
     } else if(inventory[0] == 'rifle'){
       fill('green');
       rect(ROOMX + 100, ROOMY+480, 50,50);
-      //border
-      this.able_to_shoot = true;
-      this.maxammo = 4 + this.extraammo;
-      this.shottime = 200 * this.shoottimemutliplier;
-      this.reloadtime = 1000 * this.reloadmutliplier;
+      
+      // this.able_to_shoot = true;
+      // this.maxammo = 4 + this.extraammo;
+      // this.shottime = 200 * this.shoottimemutliplier;
+      // this.reloadtime = 1000 * this.reloadmutliplier;
+      // this.currentWeapon = inventory[0];
       
     } else {
       fill('red');
       rect(ROOMX + 100 , ROOMY+480, 50,50);
-      this.able_to_shoot = false;
+      // this.able_to_shoot = false;
     }
     //inventory slot 1
     if(inventory[1] == "empty"){
@@ -169,6 +186,34 @@ class Player {
     if(inventory[2] == "empty"){
       fill('red');
       rect(ROOMX + 210 , ROOMY+480, 50,50);
+    }
+  }
+  update(){
+    if(inventory[0] == 'revolver'){
+      console.log('revolver');
+      this.able_to_shoot = true;
+      this.maxammo = 8 + this.extraammo;
+      this.shottime = 100 * this.shoottimemutliplier;
+      this.reloadtime = 500 * this.reloadmutliplier;
+      this.currentWeapon = inventory[0];
+      
+    } else if(inventory[0] == 'shotgun'){
+      console.log('shotgun');
+      this.able_to_shoot = true;
+      this.maxammo = 2 + this.extraammo;
+      this.shottime = 150 * this.shoottimemutliplier;
+      this.reloadtime = 800 * this.reloadmutliplier;
+      this.currentWeapon = inventory[0];
+      
+    } else if(inventory[0] == 'rifle'){
+      console.log('rifle');
+      this.able_to_shoot = true;
+      this.maxammo = 4 + this.extraammo;
+      this.shottime = 300 * this.shoottimemutliplier;
+      this.reloadtime = 1000 * this.reloadmutliplier;
+      this.currentWeapon = inventory[0];
+    } else {
+      this.able_to_shoot = false;
     }
   }
 }

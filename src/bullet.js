@@ -26,7 +26,7 @@ class Bullet {
     } else if (this.bullettype == 'shotgun') {
       this.AddV = 8;
       this.friciton = 0.975 * random(0.996 , 1);
-      this.damage = 4;
+      this.damage = 5;
     } else if (this.bullettype == 'rifle') {
       this.AddV = 12;
       this.friciton = 0.985 * random(0.996 , 1);

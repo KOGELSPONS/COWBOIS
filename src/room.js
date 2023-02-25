@@ -15,7 +15,8 @@ class Room{
       fill(200);
       rect(this.x, this.y, this.w, this.h); //room
       fill(255);
-      
+      image(wall_img,borderleftx-75, bordertopy-75, this.w-DOORH*2+150, this.h-DOORH*2+150);
+
       if (this.left){
         image(DoorFinalLeft, this.x, this.y+this.h/2-DOORW/2, DOORH, DOORW);//door (links)
         //rect(this.x, this.y+this.h/2-DOORW/2, DOORH + 5, DOORW);//door (links)
@@ -84,7 +85,6 @@ class Room{
       strokeWeight(2);
       rect(borderleftx, bordertopy, this.w-DOORH*2, this.h-DOORH*2)
       noStroke();
-
       ROOMX = this.x;
       ROOMY = this.y
       

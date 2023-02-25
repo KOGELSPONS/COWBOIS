@@ -20,6 +20,8 @@ var enemies = [];
 var bullets = [];
 var enemybullets = [];
 var inventory = ["empty","empty","empty"];
+var reload_show_timer = false;
+
 
 //for(let i = 0; i < 5; i++){
 //  maps[i].rooms;
@@ -29,7 +31,6 @@ var inventory = ["empty","empty","empty"];
 // Variables
 var currentRoom = 1;
 var currentMap = 0;
-var currentWeapon = 'revolver'
 
 function setup() {
   console.log(itemLocation);
@@ -41,6 +42,7 @@ function setup() {
   frameRate(60);
   //Creates the camera
   createcamera = createCamera();
+  textFont(pixel_font)
   // Makes the Tiles into a array (so it can be drawn)
   makeRoomTiles(theMaps[currentMap] , 3, TILEX, TILEY); //16:9 (x60)
   makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
@@ -57,13 +59,16 @@ function setup() {
 function preload() {
   //Loading in the images/gifs (later in json)
   rock = loadImage('data/stage1/rock.png');
+  vent = loadImage('data/stage1/vent.png');
   revolver = loadImage('data/stage1/revolver.png');
+  wall_img = loadImage('data/stage1/wall.png');
   ghostenemy1_r = loadImage('data/enemy/ghost1_right.gif');
   ghostenemy1_l = loadImage('data/enemy/ghost1_left.gif');
   DoorFinalBottom = loadImage('data/doors/DoorFinalBottom.png');
   DoorFinalLeft = loadImage('data/doors/DoorFinalLeft.png');
   DoorFinalRight = loadImage('data/doors/DoorFinalRight.png');
   DoorFinalTop = loadImage('data/doors/DoorFinalTop.png');
+  pixel_font = loadFont('data/fonts/font.otf')
   //Loading the sounds (later in json)
   
 }

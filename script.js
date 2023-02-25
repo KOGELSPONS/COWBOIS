@@ -21,6 +21,9 @@ function draw() {
   placables.forEach(p => {
     if (p.roomnumber == currentRoom){
       p.show();
+      if (p.name == "vent"){
+        p.vent();
+      }
     }
   })
   

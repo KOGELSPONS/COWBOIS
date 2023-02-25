@@ -44,6 +44,8 @@ class Item{
           inventory[this.invlocation] = oldname;
         }
 
+        player.update();
+      
         if(!this.itemOffset){
           this.x +=100;
           this.itemOffset = true;
@@ -51,15 +53,13 @@ class Item{
           this.x -= 100;
           this.itemOffset = false;
         }
-        // console.log('inventory: ' + inventory)
-        // console.log(items)
-      }
+      } 
     }
 }  
 
 //In this class there are only collision things sutch as walls
 class Placable{
-  constructor(x,y,name,numberroom){
+  constructor(x,y,name,collide,numberroom){
     this.x = x;
     this.y = y;
     this.w = 50;
@@ -69,6 +69,7 @@ class Placable{
     this.mx = this.x + this.w/2
     this.my = this.y + this.h/2
     this.name = name;
+    this.collide = collide;
     this.roomnumber = numberroom;
     this.itemOffset = false;
   }
@@ -76,6 +77,26 @@ class Placable{
     if(this.name == 'stone'){
       image(rock, this.x, this.y,this.w,this.h)
     } 
+    if(this.name == 'vent'){
+      image(vent, this.x, this.y,this.w,this.h)
+    } 
+  }
+  vent(){
+    if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50)){
+      player.x = this.mx;
+      player.y = this.my;
+      rooms = [];
+      upgrades = [];
+      items = [];
+      placables = [];
+      explored = [currentRoom];
+      enemies = [];
+      bullets = [];
+      enemybullets = [];
+      currentMap ++;
+      makeRoomTiles(theMaps[currentMap] , 3, TILEX, TILEY); 
+      makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
+    }
   }
 }  
 
@@ -91,32 +112,34 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
     
     // render image
 
-    // 1 -> 10 placables
+    // 1 -> 9 placables
     if(value == 1){
-      placables.push(new Placable(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'stone', numberroom))
+      placables.push(new Placable(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'stone',true, numberroom))
     }
-
-    // 11 -> 20 enemies
-    if(value == 11){
+    if(value == 9){
+      placables.push(new Placable(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'vent',false, numberroom))
+    }
+    // 10 -> 19 enemies
+    if(value == 10){
       enemies.push(new Enemy(dx+80 + tileOffsetX, dy+60 + tileOffsetY, 80, 80, 'walker', numberroom, enemies, 1))
     }
 
-    // 21 -> 30 weapons
-    if(value == 21){
+    // 20 -> 29 weapons
+    if(value == 20){
       items.push(new Item(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'weapon','revolver', numberroom,0))
     }
-    if(value == 22){
+    if(value == 21){
       items.push(new Item(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'weapon', 'shotgun', numberroom,0))
     }
-    if(value == 23){
+    if(value == 22){
       items.push(new Item(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'weapon', 'rifle', numberroom,0))
     }
-    // 31 -> 40 attactments
-    if(value == 31){
+    // 30 -> 39 attactments
+    if(value == 30){
       items.push(new Item(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'attactment', '??', numberroom,1))
     }
-    // 41 -> 50 boosters
-    if(value == 41){
+    // 40 -> 49 boosters
+    if(value == 40){
       items.push(new Item(dx+80 + tileOffsetX,dy+60 + tileOffsetY,'booster', '??', numberroom,2))
     }
   }

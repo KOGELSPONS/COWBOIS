@@ -11,7 +11,7 @@ function checkCollision(){
   // check collision for each item
   placables.forEach(function(item) {
 
-    if (item.roomnumber == currentRoom){
+    if (item.roomnumber == currentRoom && item.collide){
       // calculate difference from x and y axis centres
       let dx = (player.x + player.halfWidth + player.vx) - (item.x + item.halfWidth);
       let dy = (player.y + player.halfHeight + player.vy) - (item.y + item.halfHeight);
