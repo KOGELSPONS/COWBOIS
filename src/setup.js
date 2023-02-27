@@ -1,14 +1,14 @@
 // Tweakable variables
-var [WIDTH, W, HEIGHT, H] = [1600, 1600, 900, 900]; //16:9 ratio
-var [MOVESPEED, FRICTION] = [10,2];
-var [TILEX, TILEY] = [960,540];
-var [DOORW, DOORH] = [100, 80];
+const [WIDTH, W, HEIGHT, H] = [1600, 1600, 900, 900]; //16:9 ratio
+const [MOVESPEED, FRICTION] = [10,2];
+const [TILEX, TILEY] = [960,540];
+const [DOORW, DOORH] = [100, 80];
 
 var ROOMX, ROOMY;
 
 
 // Clear Variables
-var myCanvas;
+let myCanvas;
 var borderleftx, borderrightx, bordertopy, borderbottomy;
 var room, player;
 var rooms = [];
