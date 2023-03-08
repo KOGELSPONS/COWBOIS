@@ -15,7 +15,7 @@ class Room{
       fill(200);
       rect(this.x, this.y, this.w, this.h); //room
       fill(255);
-      image(wall_img,borderleftx-75, bordertopy-75, this.w-DOORH*2+150, this.h-DOORH*2+150);
+       image(wall_img,borderleftx-75, bordertopy-75, this.w-DOORH*2+150, this.h-DOORH*2+150);
 
       if (this.left){
         image(DoorFinalLeft, this.x, this.y+this.h/2-DOORW/2, DOORH, DOORW);//door (links)
@@ -124,9 +124,4 @@ function makeRoomTiles(map, d_cols, roomsize_x, roomsize_y) {
       rooms.push(new Room(dx, dy, roomsize_x, roomsize_y, l,r,t,b,i));
     }
   }
-}
-
-//DEBUG!!! OFZOIETS
-function checkRoom() {
-  console.log(currentRoom);
 }

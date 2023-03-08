@@ -11,8 +11,7 @@ class Enemy{
     this.type = type;
     this.roomnumber = numberroom;
     this.others = others;
-    this.xspeed = random(1, 1.8);
-    this.yspeed = random(1, 1.8);
+    this.speed = random(1, 1.8);
     this.hp = 100;
     this.damagemultiplier = mutlix;
     this.direction = "R";
@@ -58,10 +57,10 @@ class Enemy{
         //Walking to player system
         let angle = atan2(player.my - this.my, player.mx - this.mx);
         if (diff(this.my, player.my) >= 30){
-          let speed = sin(angle) * this.yspeed;
+          let speed = sin(angle) * this.speed ;
           this.y += speed;
         } if (diff(this.mx, player.mx) >= 30){
-          let speed = cos(angle) * this.xspeed;
+          let speed = cos(angle) * this.speed ;
           if (speed > 0){
             this.direction = "R";
           }else if (speed < 0){

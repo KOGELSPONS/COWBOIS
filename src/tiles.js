@@ -13,11 +13,9 @@ class Item{
     if(this.name == 'revolver'){
       image(revolver, this.x, this.y, 50,50)
     } else if(this.name == 'shotgun'){
-      fill('blue')
-      rect(this.x, this.y, 50,50);      
+      image(shotgun, this.x, this.y, 50,50)   
     } else if(this.name == 'rifle'){
-      fill('green')
-      rect(this.x, this.y, 50,50);      
+      image(rifle, this.x, this.y, 50,50)      
     }
   }
   pickup(){

@@ -8,8 +8,8 @@ class Bullet {
     this.halfWidth = this.w/2;
     this.halfHeight = this.h/2;
 
-    this.x = mx - this.halfWidth;
-    this.y = my - this.halfHeight;
+    this.x = this.mx - this.halfWidth;
+    this.y = this.my - this.halfHeight;
     
     this.vx = 0;
     this.vy = 0;
@@ -23,30 +23,50 @@ class Bullet {
       this.AddV = 10;
       this.friciton = 0.98 * random(0.996 , 1);
       this.damage = 3;
+      this.recoil = 3;
     } else if (this.bullettype == 'shotgun') {
       this.AddV = 8;
-      this.friciton = 0.975 * random(0.996 , 1);
-      this.damage = 5;
-    } else if (this.bullettype == 'rifle') {
+      this.friciton = 0.975 * random(0.985 , 1);
+      this.damage = 0.8;
+      this.recoil = 8;
+    } else if (this.bullettype == 'rifle') { //50 cal twerk
       this.AddV = 12;
       this.friciton = 0.985 * random(0.996 , 1);
       this.damage = 5;
+      this.recoil = 5;
     } 
     
     if (this.direction == 'L') {
       this.vx = -this.AddV;
       this.vy = this.AddVY;
+      if(this.bullettype == 'shotgun'){
+        this.vy += random(-4,4);
+      }
+      player.vx += this.recoil;
     } else if (this.direction == 'R') {
       this.vx = this.AddV;
       this.vy = this.AddVY;
+      if(this.bullettype == 'shotgun'){
+        this.vy += random(-4,4);
+      }
+      player.vx -= this.recoil;
     } else if (this.direction == 'U') {
       this.vx = this.AddVX;
       this.vy = -this.AddV;
+      if(this.bullettype == 'shotgun'){
+        this.vx += random(-4,4);
+      }
+      player.vy += this.recoil;
     } else if (this.direction == 'D') {
       this.vx = this.AddVX;
       this.vy = this.AddV;
+      if(this.bullettype == 'shotgun'){
+        this.vx += random(-4,4);
+      }
+      player.vy -= this.recoil;
     }
   }
+
   show(){
     fill(255,0,0);
     rect(this.x, this.y, this.w, this.h);

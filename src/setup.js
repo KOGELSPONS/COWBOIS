@@ -15,12 +15,12 @@ var rooms = [];
 var upgrades = [];
 var items = [];
 var placables = [];
-var explored = [1];
 var enemies = [];
 var bullets = [];
 var enemybullets = [];
-var inventory = ["empty","empty","empty"];
-var reload_show_timer = false;
+
+//debug
+var FPS, BulletCount;
 
 
 //for(let i = 0; i < 5; i++){
@@ -31,11 +31,22 @@ var reload_show_timer = false;
 // Variables
 var currentRoom = 1;
 var currentMap = 0;
+var gameState = 0;
+var inventory = ["empty","empty","empty"];
+var reload_show_timer = false;
+var explored = [1];
+
+function updateDebug(){
+  FPS = round(frameRate());
+  BulletCount = bullets.length;
+}
 
 function setup() {
   console.log(itemLocation);
   console.log(theMaps);
   console.log(enemies);
+  //framerate 
+  setInterval(updateDebug, 10); 
   //Makes the canvas and adds it to the canvis-wrapper as its child
   myCanvas = createCanvas(W, H, WEBGL);
   myCanvas.parent("canvas-wrapper");
@@ -61,6 +72,8 @@ function preload() {
   rock = loadImage('data/stage1/rock.png');
   vent = loadImage('data/stage1/vent.png');
   revolver = loadImage('data/stage1/revolver.png');
+  shotgun = loadImage('data/stage1/shotgun.png');
+  rifle = loadImage('data/stage1/rifle.png');
   wall_img = loadImage('data/stage1/wall.png');
   ghostenemy1_r = loadImage('data/enemy/ghost1_right.gif');
   ghostenemy1_l = loadImage('data/enemy/ghost1_left.gif');
