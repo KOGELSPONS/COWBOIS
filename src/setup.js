@@ -81,6 +81,9 @@ function preload() {
   DoorFinalLeft = loadImage('data/doors/DoorFinalLeft.png');
   DoorFinalRight = loadImage('data/doors/DoorFinalRight.png');
   DoorFinalTop = loadImage('data/doors/DoorFinalTop.png');
+  chest_open = loadImage('data/stage1/chest-open.png');
+  chest_closed = loadImage('data/stage1/chest-closed.png');
+  chest_animation = loadImage('data/stage1/chest-animation.gif');
   pixel_font = loadFont('data/fonts/font.otf')
   //Loading the sounds (later in json)
   

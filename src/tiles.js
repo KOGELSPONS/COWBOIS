@@ -10,16 +10,21 @@ class Item{
     this.invlocation = location;
   }
   show(){
-    if(this.name == 'revolver'){
-      image(revolver, this.x, this.y, 50,50)
-    } else if(this.name == 'shotgun'){
-      image(shotgun, this.x, this.y, 50,50)   
-    } else if(this.name == 'rifle'){
-      image(rifle, this.x, this.y, 50,50)      
+    if(enemies.length == 0){
+      if(this.name == 'revolver'){
+        image(revolver, this.x, this.y, 50,50)
+      } else if(this.name == 'shotgun'){
+        image(shotgun, this.x, this.y, 50,50)   
+      } else if(this.name == 'rifle'){
+        image(rifle, this.x, this.y, 50,50)      
+      }    
+    }else{
+      image(chest_closed, this.x, this.y, 50,50)
     }
+
   }
   pickup(){
-    if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50)){
+    if(collision(player.x,player.y,player.w,player.h, this.x,this.y,50,50) && enemies.length == 0){
         // console.log("pick up item");
         // console.log(this);
 
