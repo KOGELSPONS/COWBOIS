@@ -1,6 +1,6 @@
 // Tweakable variables
 const [WIDTH, W, HEIGHT, H] = [1600, 1600, 900, 900]; //16:9 ratio
-const [MOVESPEED, FRICTION] = [10,2];
+const [MOVESPEED, FRICTION] = [8,2];
 const [TILEX, TILEY] = [960,540];
 const [DOORW, DOORH] = [100, 80];
 

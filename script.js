@@ -65,6 +65,7 @@ function draw() {
     debug();
   } else if (gameState == 3){
     deadscreen();
+    
   }
 }
 
