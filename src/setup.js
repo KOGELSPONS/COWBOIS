@@ -4,10 +4,26 @@ const [MOVESPEED, FRICTION] = [8,2];
 const [TILEX, TILEY] = [960,540];
 const [DOORW, DOORH] = [100, 80];
 
-var ROOMX, ROOMY;
+// Variables
+var currentRoom = 1;
+var currentMap = 0;
+var gameState = 0;
+var inventory = ["empty","empty","empty"];
+var reload_show_timer = false;
+var explored = [1];
+
+// Debug boolean
+var showData = true;
+var showCollision = true;
+var debugColorInteract = 'pink';
+var debugColorStatic = 'blue';
+var debugColorEnemy = 'red';
+var debugColorPlayer = 'green';
+
 
 
 // Clear Variables
+var ROOMX, ROOMY;
 let myCanvas;
 var borderleftx, borderrightx, bordertopy, borderbottomy;
 var room, player;
@@ -20,7 +36,7 @@ var bullets = [];
 var enemybullets = [];
 
 //debug
-var FPS, BulletCount;
+var FPS, BulletCount, EnemyCount, ItemCount;
 
 
 //for(let i = 0; i < 5; i++){
@@ -28,17 +44,13 @@ var FPS, BulletCount;
 //  maps[i].objects;
 //}
 
-// Variables
-var currentRoom = 1;
-var currentMap = 0;
-var gameState = 0;
-var inventory = ["empty","empty","empty"];
-var reload_show_timer = false;
-var explored = [1];
 
 function updateDebug(){
   FPS = round(frameRate());
   BulletCount = bullets.length;
+  EnemyCount = enemies.length;
+  ItemCount = items.length;
+  StaticCount = placables.length;
 }
 
 function setup() {

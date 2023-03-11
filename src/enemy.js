@@ -17,9 +17,13 @@ class Enemy{
     this.direction = "R";
   }
   show(){
-      if(this.type == 'walker'){
-        fill('red')    
+      //Debug Rect
+      if (showCollision){
+        fill(debugColorEnemy);
         rect(this.x, this.y, this.w, this.h);
+      }
+    
+      if(this.type == 'walker'){
         if(this.direction == "R"){
           image(ghostenemy1_r,this.x,this.y,this.w,this.h);
         }
@@ -27,6 +31,8 @@ class Enemy{
           image(ghostenemy1_l,this.x,this.y,this.w,this.h);
         }
       }
+
+      //HP bar
       translate(0,0,0.01);
       fill('white');
       stroke("black");

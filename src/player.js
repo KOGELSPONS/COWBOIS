@@ -39,12 +39,14 @@ class Player {
     this.mx = this.x + this.halfWidth;
     this.my = this.y + this.halfHeight;
     
-    //Player Head
-    fill(255,255,0);
-    rect(this.x - 5, this.y - 40, this.w + 10, 40)
-    //Player bottom (collision)
-    fill(255,0,0);
-    rect(this.x, this.y, this.w, this.h);
+    //Player Head 
+    fill('aqua')
+    rect(this.x - 5, this.y - 40, this.w + 10, 40);
+    if (showCollision){
+      fill(debugColorPlayer);
+      //Player bottom (collision)
+      rect(this.x, this.y, this.w, this.h);
+    }
 
     //HP bar
     translate(0,0,0.01);
@@ -61,14 +63,6 @@ class Player {
     if(reload_show_timer){
       textSize(20);
       text('(R)',ROOMX + TILEX-57, ROOMY+45 + 480);
-    }
-
-    if(this.able_to_shoot){
-      if (this.ammo == 0){
-        reload_show_timer = true;
-      } else if (this.lastshot <= new Date().getTime()){
-        reload_show_timer = false;
-      }
     }
   }
   move(){
@@ -114,22 +108,21 @@ class Player {
     createcamera.setPosition(camX,camY,468); //468 best camera zoom
   }
   attack(direction){
-    console.log(this.currentWeapon)
-      this.nowshot = new Date().getTime();
-      if (this.nowshot - this.lastshot >= this.shottime && this.ammo > 0 && this.able_to_shoot){
-        this.ammo -= 1;
-        this.lastshot = this.nowshot;
-        if (this.currentWeapon == 'revolver' || this.currentWeapon == 'rifle'){
-          bullets.push(new Bullet(this.mx, this.my, 10,10,player.vx,player.vy, this.currentWeapon, direction));
-        }  
-        else if (this.currentWeapon == 'shotgun'){
-          for(let i = 0; i < 20; i +=1){
-            bullets.push(new Bullet(this.mx, this.my, 5,5,player.vx,player.vy, this.currentWeapon, direction));          
-          }
-
+    this.nowshot = new Date().getTime();
+    if (this.nowshot - this.lastshot >= this.shottime && this.ammo > 0 && this.able_to_shoot){
+      this.ammo -= 1;
+      this.lastshot = this.nowshot;
+      if (this.currentWeapon == 'revolver' || this.currentWeapon == 'rifle'){
+        bullets.push(new Bullet(this.mx, this.my, 8,player.vx,player.vy, this.currentWeapon, direction));
+      }  
+      else if (this.currentWeapon == 'shotgun'){
+        for(let i = 0; i < 20; i +=1){
+          bullets.push(new Bullet(this.mx, this.my, 5,player.vx,player.vy, this.currentWeapon, direction));          
         }
-      } else if (this.ammo == 0) {
-        this.reload();
+
+      }
+    } else if (this.ammo == 0) {
+      this.reload();
     }
   }
   reload(){
@@ -144,6 +137,15 @@ class Player {
     }
   }
   inventory(){
+
+    if(this.able_to_shoot){
+      if (this.ammo == 0){
+        reload_show_timer = true;
+      } else if (this.lastshot <= new Date().getTime()){
+        reload_show_timer = false;
+      }
+    }
+    
     stroke("black");
     fill('white');
     rect(ROOMX + 100, ROOMY+480, 50,50);

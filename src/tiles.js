@@ -10,6 +10,12 @@ class Item{
     this.invlocation = location;
   }
   show(){
+    //Debug rect
+    if (showCollision){
+      fill(debugColorInteract);
+      rect(this.x, this.y, 50, 50);
+    }
+    
     if(enemies.length == 0){
       if(this.name == 'revolver'){
         image(revolver, this.x, this.y, 50,50)
@@ -77,6 +83,12 @@ class Placable{
     this.itemOffset = false;
   }
   show(){
+    //Debug Rect
+    if (showCollision){
+      fill(debugColorStatic);
+      rect(this.x, this.y, 50, 50);
+    }
+    
     if(this.name == 'stone'){
       image(rock, this.x, this.y,this.w,this.h)
     } 

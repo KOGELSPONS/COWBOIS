@@ -12,14 +12,27 @@ class Room{
   }
   show(){
     if (this.roomnumber == currentRoom){
-      fill(200);
-      rect(this.x, this.y, this.w, this.h); //room
-      fill(255);
-       image(wall_img,borderleftx-75, bordertopy-75, this.w-DOORH*2+150, this.h-DOORH*2+150);
+      ROOMX = this.x;
+      ROOMY = this.y;
+      
+      image(wall_img,this.x, this.y);
 
+      //Debug Rect
+      if (showCollision){
+        fill(debugColorInteract);
+        if (this.left){
+          rect(this.x, this.y+this.h/2-DOORW/2, DOORH + 5, DOORW);//door (links)
+        } if (this.right){
+          rect(this.x + this.w - DOORH - 5, this.y+this.h/2-DOORW/2, DOORH + 5, DOORW);//door (rechts)
+        } if (this.top){
+          rect(this.x + this.w/2 - DOORW/2, this.y , DOORW, DOORH + 5);//door (boven)
+        } if (this.bottom){
+          rect(this.x + this.w/2 - DOORW/2, this.y + this.h-DOORH - 5, DOORW, DOORH + 5);//door (onder)
+        }
+      }
+      
       if (this.left){
         image(DoorFinalLeft, this.x, this.y+this.h/2-DOORW/2, DOORH, DOORW);//door (links)
-        //rect(this.x, this.y+this.h/2-DOORW/2, DOORH + 5, DOORW);//door (links)
         if (collision(player.x, player.y, player.w, player.h  ,  this.x, this.y+this.h/2-DOORW/2, DOORH + 5, DOORW) && enemies.length == 0) { 
           currentRoom -= 1
           player.x -= 10 + DOORH*2 + player.w
@@ -33,7 +46,6 @@ class Room{
       
       if (this.right){
         image(DoorFinalRight, this.x + this.w - DOORH, this.y+this.h/2-DOORW/2, DOORH, DOORW);//door (rechts)
-        //rect(this.x + this.w - DOORH - 5, this.y+this.h/2-DOORW/2, DOORH + 5, DOORW);//door (rechts)
         if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w - DOORH - 5, this.y+this.h/2-DOORW/2, DOORH + 5, DOORW) && enemies.length == 0) { 
           currentRoom += 1
           player.x += 10 + DOORH*2 + player.w
@@ -47,7 +59,6 @@ class Room{
       
       if (this.top){
         image(DoorFinalTop, this.x + this.w/2 - DOORW/2, this.y, DOORW, DOORH);//door (boven)
-        //rect(this.x + this.w/2 - DOORW/2, this.y , DOORW, DOORH + 5);//door (boven)
         if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w/2 - DOORW/2, this.y , DOORW, DOORH + 5) && enemies.length == 0) { 
           currentRoom -= 3
           player.y -= 10 + DOORH*2 + player.h
@@ -61,7 +72,6 @@ class Room{
       
       if (this.bottom){
         image(DoorFinalBottom, this.x + this.w/2 - DOORW/2, this.y + this.h-DOORH, DOORW, DOORH);//door (onder)
-        //rect(this.x + this.w/2 - DOORW/2, this.y + this.h-DOORH - 5, DOORW, DOORH + 5);//door (onder)
         if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w/2 - DOORW/2, this.y + this.h-DOORH - 5, DOORW, DOORH + 5) && enemies.length == 0) { 
           currentRoom += 3
           player.y += 10 + DOORH*2 + player.h
@@ -80,13 +90,13 @@ class Room{
       borderrightx = this.x + this.w - DOORH
       bordertopy = this.y + DOORH
       borderbottomy = this.y + this.h - DOORH
-      noFill(); 
-      stroke("blue");
-      strokeWeight(2);
-      rect(borderleftx, bordertopy, this.w-DOORH*2, this.h-DOORH*2)
-      noStroke();
-      ROOMX = this.x;
-      ROOMY = this.y
+      if (showCollision){
+        noFill();
+        stroke(debugColorStatic);
+        strokeWeight(2);
+        rect(borderleftx, bordertopy, this.w-DOORH*2, this.h-DOORH*2);
+        noStroke();
+      }
       
       //LATER make this 1 system with bullet border detection and other out of map detections
       if (player.x + player.vx < borderleftx){

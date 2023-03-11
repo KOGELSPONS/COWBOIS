@@ -46,7 +46,6 @@ function draw() {
       if (e.roomnumber == currentRoom){
         e.move();
         e.show();
-        
       }
     })
     
@@ -64,8 +63,10 @@ function draw() {
     //debug
     debug();
   } else if (gameState == 3){
-    deadscreen();
+    //deadscreen();
     
+  }else if(gameState == 1000000000){
+    console.log("GAMESTATE 1000000000 HEHEHEHA")
   }
 }
 
@@ -79,7 +80,11 @@ function diff (num1, num2) {
 }
 
 function keyPressed() {
-  if (keyIsDown(82)) { //Press r-button 
+  if (keyIsDown(33)) { //Press Page-up button
+    gameState += 1;
+  } if (keyIsDown(34)) { //Press Page-up button
+    gameState -= 1;
+  } if (keyIsDown(82)) { //Press r-button 
     player.reload();
   } if (keyIsDown(78)) { //Press n-button
     console.log(theMaps);
