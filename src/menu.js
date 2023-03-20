@@ -28,5 +28,6 @@ function debug(){
     text("Enemies: " + EnemyCount, ROOMX+5, ROOMY+40);
     text("Interact: " + ItemCount, ROOMX+5, ROOMY+50);
     text("Static: " + StaticCount, ROOMX+5, ROOMY+60);
+    text("Current Static: " + currentplaceables, ROOMX+5, ROOMY+70);
   }
 }

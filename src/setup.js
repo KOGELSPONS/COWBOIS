@@ -36,7 +36,7 @@ var bullets = [];
 var enemybullets = [];
 
 //debug
-var FPS, BulletCount, EnemyCount, ItemCount;
+var FPS, BulletCount, EnemyCount, ItemCount, currentplaceables;
 
 
 //for(let i = 0; i < 5; i++){

@@ -17,6 +17,7 @@ class Player {
     this.hp = 100;
     this.resistancemutliplier = 1;
     this.damagemutliplier = 1;
+    this.movementmultiplier = 1;
     this.distancemutliplier = 1;
     this.reloadmutliplier = 1;
     this.shoottimemutliplier = 1;

@@ -90,7 +90,9 @@ class Placable{
     }
     
     if(this.name == 'stone'){
-      image(rock, this.x, this.y,this.w,this.h)
+      //image(rock, this.x, this.y,this.w,this.h);
+      texture(rock);
+      rect(this.x, this.y,this.w,this.h);
     } 
     if(this.name == 'vent'){
       image(vent, this.x, this.y,this.w,this.h)
@@ -137,6 +139,9 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
     // 10 -> 19 enemies
     if(value == 10){
       enemies.push(new Enemy(dx+80 + tileOffsetX, dy+60 + tileOffsetY, 80, 80, 'walker', numberroom, enemies, 1))
+    }
+    if(value == 11){
+      enemies.push(new Enemy(dx+80 + tileOffsetX, dy+60 + tileOffsetY, 80, 80, 'dynamo', numberroom, enemies, 1))
     }
 
     // 20 -> 29 weapons

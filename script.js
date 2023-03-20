@@ -23,10 +23,11 @@ function draw() {
     
     //Check if the player is in contact with any placables
     checkCollision();
-  
+    currentplaceables = 0;
     //Shows eatch placeable if the placeable is in the room
     placables.forEach(p => {
       if (p.roomnumber == currentRoom){
+        currentplaceables ++;
         p.show();
         if (p.name == "vent"){
           p.vent();
@@ -53,6 +54,10 @@ function draw() {
       b.collision();
       b.move();
       b.show();
+    })
+    enemybullets.forEach(eb => {
+      eb.show();
+      eb.move();
     })
     //After the player movement has been done and the changes by the collision system update the players position 
     //(thats why the order is important)
