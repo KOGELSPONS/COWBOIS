@@ -62,16 +62,14 @@ function draw() {
     //After the player movement has been done and the changes by the collision system update the players position 
     //(thats why the order is important)
     player.show();
-    player.camera();  
     player.inventory();
+    updatecamera();
 
     //debug
     debug();
   } else if (gameState == 3){
     //deadscreen();
     
-  }else if(gameState == 1000000000){
-    console.log("GAMESTATE 1000000000 HEHEHEHA")
   }
 }
 
@@ -108,4 +106,15 @@ function keyPressed() {
 
 function mouseClicked(){
   
+}
+
+function updatecamera(){
+  if (cameraMode == "shake" && (new Date().getTime() - player.nowshot) > 20){
+    cameraMode = "still";
+  } 
+  if (cameraMode == "still") {
+    createcamera.setPosition(camX,camY,468);
+  } else if (cameraMode == "shake") {
+    createcamera.setPosition(camX+random(-5.0, 5.0), camY+random(-5.0, 5.0), 468);
+  }
 }

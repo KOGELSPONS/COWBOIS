@@ -34,6 +34,7 @@ var placables = [];
 var enemies = [];
 var bullets = [];
 var enemybullets = [];
+var dog;
 
 //debug
 var FPS, BulletCount, EnemyCount, ItemCount, currentplaceables;
@@ -43,6 +44,9 @@ var FPS, BulletCount, EnemyCount, ItemCount, currentplaceables;
 //  maps[i].rooms;
 //  maps[i].objects;
 //}
+
+var cameraMode = "still";
+var cameraFrameCount = 0;
 
 
 function updateDebug(){
@@ -65,13 +69,15 @@ function setup() {
   frameRate(60);
   //Creates the camera
   createcamera = createCamera();
+  updatecamera();
   textFont(pixel_font)
   // Makes the Tiles into a array (so it can be drawn)
   makeRoomTiles(theMaps[currentMap] , 3, TILEX, TILEY); //16:9 (x60)
   makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
   //Generates the player and spawns it
   player = new Player(TILEX*1.5,TILEY/2,40,35);
-  
+  dog = new Dog(TILEX*1.5,TILEY/2, 50,50,100)
+
   //Makes the screen resize canvis, without changing the actual game render size
   //So settings the style.height to 100% almost everybody has a screen that has less height that witdth
   //And than removing the width so the CSS aspect-ratio takes over the width
@@ -95,6 +101,8 @@ function preload() {
   DoorFinalTop = loadImage('data/doors/DoorFinalTop.png');
   chest_open = loadImage('data/stage1/chest-open.png');
   chest_closed = loadImage('data/stage1/chest-closed.png');
+  dualshot = loadImage('data/stage1/2_line.png');
+  collar = loadImage('data/stage1/collar.jpg');
   chest_animation = loadImage('data/stage1/chest-animation.gif');
   pixel_font = loadFont('data/fonts/font.otf')
   //Loading the sounds (later in json)

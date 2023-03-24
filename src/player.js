@@ -43,6 +43,7 @@ class Player {
     //Player Head 
     fill('aqua')
     rect(this.x - 5, this.y - 40, this.w + 10, 40);
+    //Debug colors
     if (showCollision){
       fill(debugColorPlayer);
       //Player bottom (collision)
@@ -105,22 +106,39 @@ class Player {
       this.vy += 1.5;
     }
   }
-  camera(){
-    createcamera.setPosition(camX,camY,468); //468 best camera zoom
-  }
+  // camera(){
+  //   createcamera.setPosition(camX,camY,468); //468 best camera zoom
+  // }
   attack(direction){
     this.nowshot = new Date().getTime();
     if (this.nowshot - this.lastshot >= this.shottime && this.ammo > 0 && this.able_to_shoot){
+      cameraMode = "shake";
+      console.log(cameraMode);
       this.ammo -= 1;
       this.lastshot = this.nowshot;
       if (this.currentWeapon == 'revolver' || this.currentWeapon == 'rifle'){
         bullets.push(new Bullet(this.mx, this.my, 8,player.vx,player.vy, this.currentWeapon, direction));
-      }  
+        if(inventory[1] == 'dualshot'){
+          if(direction == 'L'){ direction = 'R';}
+          else if(direction == 'R'){ direction = 'L';}
+          else if(direction == 'U'){ direction = 'D';}
+          else if(direction == 'D'){ direction = 'U';}
+          bullets.push(new Bullet(this.mx, this.my, 8,player.vx,player.vy, this.currentWeapon, direction));
+        }  
+      }
       else if (this.currentWeapon == 'shotgun'){
         for(let i = 0; i < 20; i +=1){
-          bullets.push(new Bullet(this.mx, this.my, 5,player.vx,player.vy, this.currentWeapon, direction));          
+          bullets.push(new Bullet(this.mx, this.my, 5,player.vx,player.vy, this.currentWeapon, direction));      
         }
-
+        if(inventory[1] == 'dualshot'){
+          if(direction == 'L'){ direction = 'R';}
+          else if(direction == 'R'){ direction = 'L';}
+          else if(direction == 'U'){ direction = 'D';}
+          else if(direction == 'D'){ direction = 'U';}
+          for(let i = 0; i < 20; i +=1){
+            bullets.push(new Bullet(this.mx, this.my, 5,player.vx,player.vy, this.currentWeapon, direction));      
+          }    
+        }
       }
     } else if (this.ammo == 0) {
       this.reload();
@@ -168,11 +186,21 @@ class Player {
       rect(ROOMX + 100 , ROOMY+480, 50,50);
       // this.able_to_shoot = false;
     }
+    
     //inventory slot 1
-    if(inventory[1] == "empty"){
+    if(inventory[1] == 'dualshot'){
+      image(dualshot, ROOMX + 155 , ROOMY+480, 50,50);
+    }else if(inventory[1] == 'collar'){
+      image(collar, ROOMX + 155 , ROOMY+480, 50,50);
+      dog.show();
+      dog.move();
+      dog.heal();
+    }
+    else{
       fill('red');
       rect(ROOMX + 155 , ROOMY+480, 50,50);
     }
+    
     //inveotory slot 2
     if(inventory[2] == "empty"){
       fill('red');
@@ -206,5 +234,44 @@ class Player {
     } else {
       this.able_to_shoot = false;
     }
+  }
+}
+
+class Dog{
+  constructor(x,y,w,h,r){
+    this.x = x
+    this.y = y
+    this.halfWidth = this.w/2;
+    this.halfHeight = this.h/2;
+    this.mx = this.x + this.halfWidth;
+    this.my = this.y + this.halfHeight;
+    this.w = w
+    this.h = h
+    this.r = r
+    this.walkDirectionX = 0;
+    this.walkDirectionY = 0;
+  }
+  show(){
+    rect(this.x, this.y, this.w, this.h)
+  }
+  move(){
+    let moveTimer = 5
+    
+    if (frameCount % 60 == 0 && moveTimer > 0) {
+      moveTimer --;
+    }
+    if (moveTimer == 4) {
+      this.walkDirectionX = round(random(-1,1))
+      this.walkDirectionY = round(random(-1,1))
+    }
+    if(moveTimer == 0){
+      moveTimer = 5;
+    }
+    this.x += this.walkDirectionX;
+    this.y += this.walkDirectionY;
+    console.log(this.walkDirectionX)
+  }
+  heal(){
+    circle(this.mx, this.my, this.d)
   }
 }

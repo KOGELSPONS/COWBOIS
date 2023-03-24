@@ -23,6 +23,10 @@ class Item {
         image(shotgun, this.x, this.y, 50, 50)
       } else if (this.name == 'rifle') {
         image(rifle, this.x, this.y, 50, 50)
+      }else if(this.name == 'dualshot'){
+        image(dualshot, this.x, this.y, 50, 50)
+      }else if(this.name == 'collar'){
+        image(collar, this.x, this.y, 50, 50)
       }
     } else {
       image(chest_closed, this.x, this.y, 50, 50)
@@ -55,6 +59,7 @@ class Item {
 
       player.update();
 
+      //give items new offset so you cant pick them up twice
       if (!this.itemOffset) {
         this.x += 100;
         this.itemOffset = true;
@@ -156,7 +161,10 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
     }
     // 30 -> 39 attactments
     if (value == 30) {
-      items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'attactment', '??', numberroom, 1))
+      items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'attactment', 'dualshot', numberroom, 1))
+    }
+    if (value == 31) {
+      items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'attactment', 'collar', numberroom, 1))
     }
     // 40 -> 49 boosters
     if (value == 40) {
