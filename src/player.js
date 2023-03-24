@@ -41,7 +41,7 @@ class Player {
     this.my = this.y + this.halfHeight;
     
     //Player Head 
-    fill('aqua')
+    fill('aqua');
     rect(this.x - 5, this.y - 40, this.w + 10, 40);
     //Debug colors
     if (showCollision){
@@ -49,8 +49,9 @@ class Player {
       //Player bottom (collision)
       rect(this.x, this.y, this.w, this.h);
     }
-
+    
     //HP bar
+    translate(0,0,0.01);
     fill('white');
     stroke("black");
     rect(ROOMX + TILEX - 300, ROOMY + 480, 200, 50);
@@ -72,6 +73,7 @@ class Player {
       textSize(20);
       text('(R)',ROOMX + TILEX-57, ROOMY+45 + 480);
     }
+    translate(0,0,-0.01);
   }
   move(){
     //Max speed system
@@ -171,12 +173,14 @@ class Player {
       }
     }
     
+    translate(0,0,0.01);
     stroke("black");
     fill('white');
     rect(ROOMX + 100, ROOMY+480, 50,50);
     rect(ROOMX + 155, ROOMY+480, 50,50);
     rect(ROOMX + 210, ROOMY+480, 50,50);
     noStroke();
+    
 
     if(inventory[0] == 'revolver'){
       image(revolver, ROOMX + 100, ROOMY+480, 50,50);
@@ -197,11 +201,8 @@ class Player {
     if(inventory[1] == 'dualshot'){
       image(dualshot, ROOMX + 155 , ROOMY+480, 50,50);
     }else if(inventory[1] == 'collar'){
-      image(collar, ROOMX + 155 , ROOMY+480, 50,50);     
-      dog.heal();
-      dog.show();
-      dog.move();
-      dog.collisionwalls();
+      image(collar, ROOMX + 155 , ROOMY+480, 50,50);
+      dogActive = true;
     }
     else{
       fill('red');
@@ -213,6 +214,7 @@ class Player {
       fill('red');
       rect(ROOMX + 210 , ROOMY+480, 50,50);
     }
+    translate(0,0,-0.01);
   }
   update(){
     if(inventory[0] == 'revolver'){
@@ -284,7 +286,6 @@ class Dog{
     }
     this.x += this.walkDirectionX;
     this.y += this.walkDirectionY;
-    console.log(this.moveTimer)
   }
   heal(){
     if (frameCount % 60 == 0 && this.healTimer > 0 && this.enemyKilled) {

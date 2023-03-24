@@ -49,6 +49,14 @@ function draw() {
         e.show();
       }
     })
+
+    //Check if doggo active
+    if (dogActive){
+      dog.heal();
+      dog.show();
+      dog.move();
+      dog.collisionwalls();
+    }
     
     bullets.forEach(b => {
       b.collision();
@@ -105,12 +113,23 @@ function keyPressed() {
 }
 
 function updatecamera(){
+  let RX = random(-5.1, 5.1);
+  let RY = random(-5.1, 5.1);
   if (cameraMode == "shake" && (new Date().getTime() - player.shaketime) > 20){
     cameraMode = "still";
   } 
   if (cameraMode == "still") {
     createcamera.setPosition(camX,camY,468);
+    blendMode(MULTIPLY);
+    texture(staticnoise);
+    rect(ROOMX,ROOMY,TILEX,TILEY);
+    blendMode(BLEND);
   } else if (cameraMode == "shake") {
-    createcamera.setPosition(camX+random(-5.1, 5.1), camY+random(-5.1, 5.1), 468);
+    createcamera.setPosition(camX+RX, camY+RY, 468);
+    blendMode(MULTIPLY);
+    texture(staticnoise);
+    rect(ROOMX+RX,ROOMY+RY,TILEX,TILEY);
+    blendMode(BLEND);
   }
+
 }

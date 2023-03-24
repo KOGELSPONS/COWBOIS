@@ -11,10 +11,11 @@ var gameState = 0;
 var inventory = ["empty","empty","empty"];
 var reload_show_timer = false;
 var explored = [1];
+var dogActive = false;
 
 // Debug boolean
 var showData = true;
-var showCollision = true;
+var showCollision = false;
 var debugColorInteract = 'pink';
 var debugColorStatic = 'blue';
 var debugColorEnemy = 'red';
@@ -106,7 +107,8 @@ function preload() {
   dualshot = loadImage('data/stage1/2_line.png');
   collar = loadImage('data/stage1/collar.jpg');
   chest_animation = loadImage('data/stage1/chest-animation.gif');
-  pixel_font = loadFont('data/fonts/font.otf')
+  pixel_font = loadFont('data/fonts/font.otf');
+  staticnoise = loadImage('data/general/static.gif');
   //Loading the sounds (later in json)
   
 }
