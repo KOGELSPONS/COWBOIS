@@ -51,14 +51,20 @@ class Player {
     }
 
     //HP bar
-    translate(0,0,0.01);
     fill('white');
     stroke("black");
     rect(ROOMX + TILEX - 300, ROOMY + 480, 200, 50);
     noStroke();
-    fill('red')
+    fill('red');
     rect(ROOMX + TILEX - 300, ROOMY + 480, this.hp*2, 50);
-    translate(0,0,-0.01);
+    fill("black");
+    textSize(30);
+    textAlign(CENTER, CENTER);
+    text(this.hp, ROOMX + TILEX - 200, ROOMY + 501);
+    textAlign(LEFT, BASELINE);
+    
+    //Ammo text
+    fill('red');
     textSize(50);
     text(this.ammo,ROOMX + TILEX-90, ROOMY+45 + 480);
 
@@ -112,8 +118,6 @@ class Player {
   attack(direction){
     this.nowshot = new Date().getTime();
     if (this.nowshot - this.lastshot >= this.shottime && this.ammo > 0 && this.able_to_shoot){
-      cameraMode = "shake";
-      console.log(cameraMode);
       this.ammo -= 1;
       this.lastshot = this.nowshot;
       if (this.currentWeapon == 'revolver' || this.currentWeapon == 'rifle'){
@@ -150,6 +154,8 @@ class Player {
     this.lastshot = new Date().getTime() + this.reloadtime;
   }
   hit(damage){
+    cameraMode = "shake";
+    this.shaketime = new Date().getTime();
     this.hp -= damage * this.resistancemutliplier;
     if (this.hp < 0){
       this.hp = 0;
@@ -191,10 +197,11 @@ class Player {
     if(inventory[1] == 'dualshot'){
       image(dualshot, ROOMX + 155 , ROOMY+480, 50,50);
     }else if(inventory[1] == 'collar'){
-      image(collar, ROOMX + 155 , ROOMY+480, 50,50);
+      image(collar, ROOMX + 155 , ROOMY+480, 50,50);     
+      dog.heal();
       dog.show();
       dog.move();
-      dog.heal();
+      dog.collisionwalls();
     }
     else{
       fill('red');
@@ -249,29 +256,83 @@ class Dog{
     this.h = h
     this.r = r
     this.walkDirectionX = 0;
-    this.walkDirectionY = 0;
+    this.walkDirectionY = 0;    
+    this.moveTimer = 4;
+    this.enemyKilled = false;
+    this.healTimer = 3;
   }
   show(){
-    rect(this.x, this.y, this.w, this.h)
+    //rect(this.x, this.y, this.w, this.h)
+    if(dog.walkDirectionX >= 0){
+      image(dog_r,this.x,this.y,this.w,this.h);
+    }else if(dog.walkDirectionX < 0){
+      image(dog_l,this.x,this.y,this.w,this.h);
+    }
   }
   move(){
-    let moveTimer = 5
     
-    if (frameCount % 60 == 0 && moveTimer > 0) {
-      moveTimer --;
+    if (frameCount % 60 == 0 && this.moveTimer > 0) {
+      this.moveTimer --;
     }
-    if (moveTimer == 4) {
+    if (this.moveTimer == 4) {
       this.walkDirectionX = round(random(-1,1))
       this.walkDirectionY = round(random(-1,1))
+      this.moveTimer --;
     }
-    if(moveTimer == 0){
-      moveTimer = 5;
+    if(this.moveTimer <= 0){
+      this.moveTimer = 4;
     }
     this.x += this.walkDirectionX;
     this.y += this.walkDirectionY;
-    console.log(this.walkDirectionX)
+    console.log(this.moveTimer)
   }
   heal(){
-    circle(this.mx, this.my, this.d)
+    if (frameCount % 60 == 0 && this.healTimer > 0 && this.enemyKilled) {
+      this.healTimer --;
+    }
+    if(this.healTimer <= 0){
+      this.healTimer = 3
+      this.enemyKilled = false;
+    }else if(this.healTimer > 0 && this.enemyKilled){
+      circle(this.x+this.w/2, this.y+this.h/2, this.r)
+      if(dist(player.mx, player.my, this.x+this.w/2, this.y+this.h/2) < this.r/1.5 && player.hp < 100){
+        player.hp += 10
+        this.enemyKilled = false;
+      }  
+    }
+    
+  }
+  collisionwalls(){
+    rooms.forEach(r => {
+      if (r.roomnumber == currentRoom){
+        borderleftx = r.x + DOORH
+        borderrightx = r.x + r.w - DOORH
+        bordertopy = r.y + DOORH
+        borderbottomy = r.y + r.h - DOORH
+        if (showCollision){
+          noFill();
+          stroke(debugColorStatic);
+          strokeWeight(2);
+          rect(borderleftx, bordertopy, r.w-DOORH*2, r.h-DOORH*2);
+          noStroke();
+        }
+      }
+      if (dog.x < borderleftx){
+        dog.x = borderleftx;
+      } else if (dog.x + dog.w > borderrightx){
+        dog.x = borderrightx - dog.w;
+      } if (dog.y < bordertopy){
+        dog.y = bordertopy;
+      } else if (dog.y + dog.h > borderbottomy){
+        dog.y = borderbottomy - dog.h;
+      }
+    })
+    placables.forEach(p => {
+      if(collision(dog.x,dog.y,dog.w,dog.h, p.x,p.y,p.w,p.h)){
+        dog.walkDirectionY *= -1
+        dog.walkDirectionX *= -1
+
+      }
+    })
   }
 }

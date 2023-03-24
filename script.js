@@ -104,17 +104,13 @@ function keyPressed() {
   } 
 }
 
-function mouseClicked(){
-  
-}
-
 function updatecamera(){
-  if (cameraMode == "shake" && (new Date().getTime() - player.nowshot) > 20){
+  if (cameraMode == "shake" && (new Date().getTime() - player.shaketime) > 20){
     cameraMode = "still";
   } 
   if (cameraMode == "still") {
     createcamera.setPosition(camX,camY,468);
   } else if (cameraMode == "shake") {
-    createcamera.setPosition(camX+random(-5.0, 5.0), camY+random(-5.0, 5.0), 468);
+    createcamera.setPosition(camX+random(-5.1, 5.1), camY+random(-5.1, 5.1), 468);
   }
 }

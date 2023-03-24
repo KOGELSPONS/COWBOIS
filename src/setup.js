@@ -76,7 +76,7 @@ function setup() {
   makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
   //Generates the player and spawns it
   player = new Player(TILEX*1.5,TILEY/2,40,35);
-  dog = new Dog(TILEX*1.5,TILEY/2, 50,50,100)
+  dog = new Dog(TILEX*1.5,TILEY/2, 50,50,200)
 
   //Makes the screen resize canvis, without changing the actual game render size
   //So settings the style.height to 100% almost everybody has a screen that has less height that witdth
@@ -95,6 +95,8 @@ function preload() {
   wall_img = loadImage('data/stage1/wall.png');
   ghostenemy1_r = loadImage('data/enemy/ghost1_right.gif');
   ghostenemy1_l = loadImage('data/enemy/ghost1_left.gif');
+  dog_r = loadImage('data/enemy/dawg_r.gif');
+  dog_l = loadImage('data/enemy/dawg_l.gif');
   DoorFinalBottom = loadImage('data/doors/DoorFinalBottom.png');
   DoorFinalLeft = loadImage('data/doors/DoorFinalLeft.png');
   DoorFinalRight = loadImage('data/doors/DoorFinalRight.png');

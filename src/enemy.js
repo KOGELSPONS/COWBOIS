@@ -15,6 +15,15 @@ class Enemy{
     this.hp = 100;
     this.damagemultiplier = mutlix;
     this.direction = "R";
+    this.lastshot = new Date().getTime();
+
+    if (this.type == "walker"){
+      this.damage = 10;
+      this.hitdelay = 200;
+    } else if (this.type == "dynamo"){
+      this.damage = 30;
+      this.hitdelay = 300;
+    }
 
     
   }
@@ -64,11 +73,13 @@ class Enemy{
         console.log(this);
         let idx = enemies.indexOf(this); 
         enemies.splice(idx,1);
+        dog.enemyKilled = true;
       }
       
       if(this.type == 'walker'){
-        if (collision(this.x,this.y,this.w,this.h, player.x,player.y,player.w,player.h)){
-          
+        if (new Date().getTime() >= this.lastshot && collision(this.x,this.y,this.w,this.h, player.x,player.y,player.w,player.h)){
+          this.lastshot = new Date().getTime() + this.hitdelay;
+          player.hit(this.damage);
         }
         
         //Walking to player system
@@ -143,7 +154,7 @@ class Enemy{
           let velX = cos(angle) * 5;
           let velY = sin(angle) * 5;
           let playerEnemyDist = dist(this.x, this.y, player.x, player.y)
-          enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'molotov', velX, velY,playerEnemyDist))
+          enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'molotov', velX, velY,playerEnemyDist,this.damage))
           console.log(velX)
           dynamoTimer = 1;
         }

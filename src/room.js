@@ -36,6 +36,10 @@ class Room{
         if (collision(player.x, player.y, player.w, player.h  ,  this.x, this.y+this.h/2-DOORW/2, DOORH + 5, DOORW) && enemies.length == 0) { 
           currentRoom -= 1
           player.x -= 10 + DOORH*2 + player.w
+          if(inventory[1] == 'collar'){
+            dog.x = player.x;
+            dog.y = player.y;
+          }
           camX -= TILEX;
           if(!explored.includes(currentRoom)){
             makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
@@ -49,6 +53,10 @@ class Room{
         if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w - DOORH - 5, this.y+this.h/2-DOORW/2, DOORH + 5, DOORW) && enemies.length == 0) { 
           currentRoom += 1
           player.x += 10 + DOORH*2 + player.w
+          if(inventory[1] == 'collar'){
+            dog.x = player.x;
+            dog.y = player.y;
+          }
           camX += TILEX;
           if(!explored.includes(currentRoom)){
             makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
@@ -62,6 +70,10 @@ class Room{
         if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w/2 - DOORW/2, this.y , DOORW, DOORH + 5) && enemies.length == 0) { 
           currentRoom -= 3
           player.y -= 10 + DOORH*2 + player.h
+          if(inventory[1] == 'collar'){
+            dog.x = player.x;
+            dog.y = player.y;
+          }
           camY -= TILEY;
           if(!explored.includes(currentRoom)){
             makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
@@ -75,6 +87,10 @@ class Room{
         if (collision(player.x, player.y, player.w, player.h  ,  this.x + this.w/2 - DOORW/2, this.y + this.h-DOORH - 5, DOORW, DOORH + 5) && enemies.length == 0) { 
           currentRoom += 3
           player.y += 10 + DOORH*2 + player.h
+          if(inventory[1] == 'collar'){
+            dog.x = player.x;
+            dog.y = player.y;
+          }
           camY += TILEY;
           if(!explored.includes(currentRoom)){
             makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
