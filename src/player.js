@@ -32,6 +32,7 @@ class Player {
     this.able_to_shoot = false;
     this.reloadtime = 0;
     this.currentWeapon = 'null';
+    this.look = "Right";
   }
   show(){    
     //Apply the velocity to the seen player
@@ -42,7 +43,11 @@ class Player {
     
     //Player Head 
     fill('aqua');
-    rect(this.x - 5, this.y - 40, this.w + 10, 40);
+    if (this.look == "Right"){
+      image(RockRight,this.x - 5, this.y - ((this.w + 10)*1.5) + 10,this.w + 10,(this.w + 10)*1.5);
+    } else if (this.look == "Left"){
+      image(RockLeft,this.x - 5, this.y - ((this.w + 10)*1.5) + 10,this.w + 10,(this.w + 10)*1.5)
+    }
     //Debug colors
     if (showCollision){
       fill(debugColorPlayer);
@@ -112,6 +117,11 @@ class Player {
     }
     if (keyIsDown(83)) {
       this.vy += 1.5;
+    }
+    if (this.vx > 0){
+      this.look = "Right"
+    } else if (this.vx < 0){
+      this.look = "Left"
     }
   }
   // camera(){
@@ -200,6 +210,7 @@ class Player {
     //inventory slot 1
     if(inventory[1] == 'dualshot'){
       image(dualshot, ROOMX + 155 , ROOMY+480, 50,50);
+      dogActive = false;
     }else if(inventory[1] == 'collar'){
       image(collar, ROOMX + 155 , ROOMY+480, 50,50);
       dogActive = true;
@@ -207,6 +218,7 @@ class Player {
     else{
       fill('red');
       rect(ROOMX + 155 , ROOMY+480, 50,50);
+      dogActive = false;
     }
     
     //inveotory slot 2

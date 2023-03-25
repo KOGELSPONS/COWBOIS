@@ -109,6 +109,8 @@ function preload() {
   chest_animation = loadImage('data/stage1/chest-animation.gif');
   pixel_font = loadFont('data/fonts/font.otf');
   staticnoise = loadImage('data/general/static.gif');
+  RockRight = loadImage('data/player/RockRight.png');
+  RockLeft = loadImage('data/player/RockLeft.png');
   //Loading the sounds (later in json)
   
 }
