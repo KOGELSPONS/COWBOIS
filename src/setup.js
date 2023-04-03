@@ -67,7 +67,7 @@ function setup() {
   //Makes the canvas and adds it to the canvis-wrapper as its child
   myCanvas = createCanvas(W, H, WEBGL);
   myCanvas.parent("canvas-wrapper");
-  frameRate(60);
+  frameRate(144);
   //Creates the camera
   createcamera = createCamera();
   updatecamera();
@@ -111,6 +111,8 @@ function preload() {
   staticnoise = loadImage('data/general/static.gif');
   RockRight = loadImage('data/player/RockRight.png');
   RockLeft = loadImage('data/player/RockLeft.png');
+  body = loadImage('data/player/body.png');
+  coppertexture = loadImage('data/general/coppercasing.png');
+  mainmenu = loadImage('data/menu-assets/background.png');
   //Loading the sounds (later in json)
-  
 }

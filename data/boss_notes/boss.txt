@@ -1,0 +1,36 @@
+1. The fat man (monstro)
+basic: Lunges towards player. Player takes damage if contact.
+Special:
+- Jumps high in the air, lands on the player. Player has to dodge.
+- Runs horizontally through the screen. Player has to dodge this.
+- Summons henchmen, cannot be hurt if they are alive.
+
+2. Pistol freak.
+basic: Shoots 2 bullets at player.
+Special:
+- Spins fast, shoots everywhere. Cannot be hurt during this. After few seconds he gets dizzy. Player can now hurt him.
+- Shoots many bullets in the air and starts shooting at the player, player has to dodge them.
+- Shoots tracking bullets that track the player for 10 sec.
+
+3. El Diablo (sipderboss isaac)
+Trait: Has a hand that follows the player for the whole fight. Player has to keep moving otherwise player takes damage.
+Basic: Walks towards player and breathes fire.
+special:
+- Puts fire around the screen, making the battlefield smaller when he drops at 50%
+- Drops fire on tiles, player takes dmg when walking on them.
+- Walking speed decreased, basic attack area increased.
+
+4. Twins
+Trait: There 2 bosses. When one of them dies, the other one doubles his stats.
+Attack: Both shoot random projectiles at player.
+Special:
+- Forms lightning between the twins for 10 sec, player takes damage if caught.
+- Creates a large explosion at the posistion of twins.
+
+5. Al Cabone
+trait: Has to be killed twice.
+Basic attack: Sprays his tommy gun at the player.
+Special:
+- 
+
+

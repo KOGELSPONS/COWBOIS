@@ -13,7 +13,7 @@ class Player {
     this.vy = 0;
     
     this.friction = 0.90;
-    
+
     this.hp = 100;
     this.resistancemutliplier = 1;
     this.damagemutliplier = 1;
@@ -44,8 +44,12 @@ class Player {
     //Player Head 
     fill('aqua');
     if (this.look == "Right"){
+      fill('purple');
+      image(body, this.x, this.y, this.w, this.h);
       image(RockRight,this.x - 5, this.y - ((this.w + 10)*1.5) + 10,this.w + 10,(this.w + 10)*1.5);
     } else if (this.look == "Left"){
+      fill('purple');
+      image(body, this.x, this.y, this.w, this.h);
       image(RockLeft,this.x - 5, this.y - ((this.w + 10)*1.5) + 10,this.w + 10,(this.w + 10)*1.5)
     }
     //Debug colors
@@ -307,6 +311,7 @@ class Dog{
       this.healTimer = 3
       this.enemyKilled = false;
     }else if(this.healTimer > 0 && this.enemyKilled){
+      fill("white");
       circle(this.x+this.w/2, this.y+this.h/2, this.r)
       if(dist(player.mx, player.my, this.x+this.w/2, this.y+this.h/2) < this.r/1.5 && player.hp < 100){
         player.hp += 10

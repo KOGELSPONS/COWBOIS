@@ -2,7 +2,6 @@
 //items.push(new Item(1000, 750,'revolver'))
 function draw() {
   background(0);
-
   if (gameState == 0){
     //play music
     gameState = 1;
@@ -67,11 +66,13 @@ function draw() {
       eb.show();
       eb.move();
     })
+
+    updatecamera();
+    
     //After the player movement has been done and the changes by the collision system update the players position 
     //(thats why the order is important)
     player.show();
     player.inventory();
-    updatecamera();
 
     //debug
     debug();
@@ -131,5 +132,4 @@ function updatecamera(){
     rect(ROOMX+RX,ROOMY+RY,TILEX,TILEY);
     blendMode(BLEND);
   }
-
 }

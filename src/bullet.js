@@ -70,6 +70,8 @@ class Bullet {
 
   show(){
     fill('#db883b');
+    //blendMode(REPLACE);
+    //texture(coppertexture);
     if (this.bullettype != "shotgun"){
       rect(this.x, this.y, this.w, this.h);
       if (this.direction == "L"){
