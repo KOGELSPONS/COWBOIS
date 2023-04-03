@@ -70,8 +70,6 @@ class Bullet {
 
   show(){
     fill('#db883b');
-    //blendMode(REPLACE);
-    //texture(coppertexture);
     if (this.bullettype != "shotgun"){
       rect(this.x, this.y, this.w, this.h);
       if (this.direction == "L"){
@@ -121,6 +119,13 @@ class Bullet {
       if (collision(this.x,this.y,this.w,this.h , TheEnenemy.x,TheEnenemy.y,TheEnenemy.w,TheEnenemy.h)) {
         this.remove();
         TheEnenemy.hit(this.damage * player.damagemutliplier,Math.abs(this.vx) + Math.abs(this.vy));
+      }
+    }
+    for (let i = 0; i < boss.length; i++) {
+      let Boss = boss[i];
+      if (collision(this.x,this.y,this.w,this.h , Boss.x,Boss.y,Boss.w,Boss.h)) {
+        this.remove();
+        Boss.hit(this.damage * player.damagemutliplier,Math.abs(this.vx) + Math.abs(this.vy));
       }
     }
   }

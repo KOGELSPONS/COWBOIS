@@ -1,11 +1,16 @@
 function menu(){
   createcamera.setPosition(W/2,H/2,780);
   image(mainmenu,0,0,WIDTH,HEIGHT);
+  buttons.forEach(t => {
+    t.show();
+    t.clicked();
+  })
   if (mouseIsPressed === true) {
     fill(255, 255, 255, 128);
     strokeWeight(1);
     ellipse(mouseX, mouseY, 25, 25);
   }
+  gameState = 2;
 }
 
 function deadscreen(){
@@ -17,7 +22,6 @@ function debug(){
     debugColorInteract = color(255, 0, 240);
     debugColorInteract.setAlpha(128 + 128 * sin(millis() / 1000));
 
-    
     debugColorStatic = color(0, 100, 255);
     debugColorStatic.setAlpha(128 + 128 * sin(millis() / 1000));
     
@@ -50,7 +54,7 @@ class Button {
     this.img = img;
     this.action = action;
   }
-  drawButton() {
+  show() {
     fill(255, 0, 0,255)
     rect(this.x, this.y, this.w, this.h);
     fill(255,255,255,255)
@@ -59,7 +63,7 @@ class Button {
     text(this.text, this.x + this.w * 0.5, this.y + this.h * 0.5);
   }
   clicked() {
-    if (mouseX > this.x && mouseX < (this.x + this.w) && mouseY > this.y && mouseY < (this.y + this.h)) {
+    if (mouseX > this.x && mouseX < (this.x + this.w) && mouseY > this.y && mouseY < (this.y + this.h) && mouseIsPressed === true) {
       this.action();
     }
   }

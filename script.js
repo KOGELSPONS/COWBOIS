@@ -48,7 +48,13 @@ function draw() {
         e.show();
       }
     })
-
+    
+    boss.forEach(b => {
+      if (b.roomnumber == currentRoom){
+        b.show();
+        b.move();
+      }
+    })
     //Check if doggo active
     if (dogActive){
       dog.heal();

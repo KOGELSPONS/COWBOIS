@@ -36,6 +36,9 @@ var enemies = [];
 var bullets = [];
 var enemybullets = [];
 var dog;
+var boss = [];
+var buttons = [];
+
 
 //debug
 var FPS, BulletCount, EnemyCount, ItemCount, currentplaceables;
@@ -67,7 +70,7 @@ function setup() {
   //Makes the canvas and adds it to the canvis-wrapper as its child
   myCanvas = createCanvas(W, H, WEBGL);
   myCanvas.parent("canvas-wrapper");
-  frameRate(144);
+  frameRate(60);
   //Creates the camera
   createcamera = createCamera();
   updatecamera();
@@ -114,5 +117,6 @@ function preload() {
   body = loadImage('data/player/body.png');
   coppertexture = loadImage('data/general/coppercasing.png');
   mainmenu = loadImage('data/menu-assets/background.png');
+  monstro = loadImage('data/enemy/monstro.png')
   //Loading the sounds (later in json)
 }

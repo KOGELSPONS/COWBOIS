@@ -148,6 +148,9 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
     if (value == 11) {
       enemies.push(new Enemy(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 80, 80, 'dynamo', numberroom, enemies, 1))
     }
+    if(value == 15){
+      boss.push(new Boss(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 110, 80, 10, 8, 'monstro', numberroom,1000))
+    }
 
     // 20 -> 29 weapons
     if (value == 20) {
