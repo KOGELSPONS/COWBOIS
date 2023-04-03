@@ -16,7 +16,9 @@ class Room{
       ROOMY = this.y;
       
       image(wall_img,this.x, this.y);
-
+      if(theMaps[0].maprooms[1] === currentRoom){
+        image(explain_bg, this.x+this.w/2.5, this.y+this.h/2.5)
+      }
       //Debug Rect
       if (showCollision){
         fill(debugColorInteract);

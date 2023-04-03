@@ -117,6 +117,11 @@ function preload() {
   body = loadImage('data/player/body.png');
   coppertexture = loadImage('data/general/coppercasing.png');
   mainmenu = loadImage('data/menu-assets/background.png');
-  monstro = loadImage('data/enemy/monstro.png')
+  explain_bg = loadImage('data/stage1/room1_background.png');
+  monstrodash_left = loadImage('data/enemy/boss/monstrodash-left.png')
+  monstrodash_right = loadImage('data/enemy/boss/monstrodash-right.png')
+  monstrodash_vert = loadImage('data/enemy/boss/monstrodash-vert.png')
+  monstrowalk_left = loadImage('data/enemy/boss/monstrowalk-left.png')
+  monstrowalk_right = loadImage('data/enemy/boss/monstrowalk-right.png')
   //Loading the sounds (later in json)
 }

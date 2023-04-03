@@ -29,9 +29,9 @@ class Boss {
   }
   show() {
     fill('red')
-    rect(this.x, this.y, this.w, this.h)
+    //rect(this.x, this.y, this.w, this.h)
     if (this.type == 'monstro') {
-      image(monstro, this.x, this.y, this.w, this.h)
+      //image(monstro, this.x, this.y, this.w, this.h)
     }
     //HP bar
       translate(0,0,0.01);
@@ -53,10 +53,10 @@ class Boss {
         
       if (attackType == 0) { //DASH ATTACK
         this.damage = 10;
-        if(currentDirection == 'L'){this.vx = this.maxvx,this.vy = 0;}
-        if(currentDirection == 'R'){this.vx = -this.maxvx,this.vy = 0;}
-        if(currentDirection == 'T'){this.vy = this.maxvy,this.vx = 0;}
-        if(currentDirection == 'B'){this.vy = -this.maxvy,this.vx = 0;}
+        if(currentDirection == 'L'){this.vx = this.maxvx,this.vy = 0, image(monstrodash_right, this.x, this.y, this.w, this.h);}
+        if(currentDirection == 'R'){this.vx = -this.maxvx,this.vy = 0, image(monstrodash_left, this.x, this.y, this.w, this.h);}
+        if(currentDirection == 'T'){this.vy = this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
+        if(currentDirection == 'B'){this.vy = -this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
         console.log(currentDirection)
         rooms.forEach(r => {
           if (r.roomnumber == currentRoom) {
@@ -106,9 +106,15 @@ class Boss {
         if (diff(this.y + this.h / 2, player.my) >= 30){
           let speed = sin(angle) * 5 ;
           this.vy = speed;
-        }else{this.vy = 0} if (diff(this.x + this.w / 2, player.mx) >= 10){
+        }else{this.vy = 0} 
+        if (diff(this.x + this.w / 2, player.mx) >= 10){
           let speed = cos(angle) * 5 ;
           this.vx = speed;
+          if(this.vx >= 0){
+            image(monstrowalk_right, this.x, this.y, this.w, this.h)
+          }else{
+            image(monstrowalk_left, this.x, this.y, this.w, this.h)
+          }
         }else{this.vx = 0}
       }
       this.x += this.vx
