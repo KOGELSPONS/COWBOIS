@@ -4,7 +4,7 @@ function draw() {
   background(0);
   if (gameState == 0){
     //play music
-    gameState = 1;
+    gameState = 2;
   } else if (gameState == 1){
     menu();
   } else if (gameState == 2){
@@ -82,6 +82,13 @@ function draw() {
 
     //debug
     debug();
+
+    textAlign(CENTER,CENTER);
+    textSize(30);
+    text(gameTimer,ROOMX + TILEX-57, ROOMY+45);
+    if (frameCount % 60 == 0 && gameTimer > 0) { 
+      gameTimer = gameTimer - 1;
+    }
   } else if (gameState == 3){
     //deadscreen();
     

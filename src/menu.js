@@ -9,8 +9,8 @@ function menu(){
     fill(255, 255, 255, 128);
     strokeWeight(1);
     ellipse(mouseX, mouseY, 25, 25);
+    //gameState = 2;
   }
-  gameState = 2;
 }
 
 function deadscreen(){
@@ -67,4 +67,8 @@ class Button {
       this.action();
     }
   }
+}
+
+function makeButton() {
+  buttons.push( new Button(1 , 1 , 100, 100, "Play", 10, function(){gameState = 2}));
 }

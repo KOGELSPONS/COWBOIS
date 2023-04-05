@@ -21,8 +21,6 @@ var debugColorStatic = 'blue';
 var debugColorEnemy = 'red';
 var debugColorPlayer = 'green';
 
-
-
 // Clear Variables
 var ROOMX, ROOMY;
 let myCanvas;
@@ -39,18 +37,13 @@ var dog;
 var boss = [];
 var buttons = [];
 
-
 //debug
 var FPS, BulletCount, EnemyCount, ItemCount, currentplaceables;
 
-
-//for(let i = 0; i < 5; i++){
-//  maps[i].rooms;
-//  maps[i].objects;
-//}
-
 var cameraMode = "still";
 var cameraFrameCount = 0;
+
+var gameTimer = 100;
 
 
 function updateDebug(){
@@ -81,6 +74,8 @@ function setup() {
   //Generates the player and spawns it
   player = new Player(TILEX*1.5,TILEY/2,40,35);
   dog = new Dog(TILEX*1.5,TILEY/2, 50,50,200)
+
+  makeButton();
 
   //Makes the screen resize canvis, without changing the actual game render size
   //So settings the style.height to 100% almost everybody has a screen that has less height that witdth
@@ -116,7 +111,7 @@ function preload() {
   RockLeft = loadImage('data/player/RockLeft.png');
   body = loadImage('data/player/body.png');
   coppertexture = loadImage('data/general/coppercasing.png');
-  mainmenu = loadImage('data/menu-assets/background.png');
+  mainmenu = loadImage('data/menu-assets/menu.png');
   explain_bg = loadImage('data/stage1/room1_background.png');
   monstrodash_left = loadImage('data/enemy/boss/monstrodash-left.png')
   monstrodash_right = loadImage('data/enemy/boss/monstrodash-right.png')
