@@ -70,5 +70,5 @@ class Button {
 }
 
 function makeButton() {
-  buttons.push( new Button(1 , 1 , 100, 100, "Play", 10, function(){gameState = 2}));
+  buttons.push( new Button(1 , 1 , 100, 100, "Play", 10, "twerk", function(){gameState = 2;} ));
 }

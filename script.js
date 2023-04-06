@@ -4,7 +4,7 @@ function draw() {
   background(0);
   if (gameState == 0){
     //play music
-    gameState = 2;
+    gameState = 1;
   } else if (gameState == 1){
     menu();
   } else if (gameState == 2){
