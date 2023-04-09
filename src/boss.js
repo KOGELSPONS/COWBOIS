@@ -1,9 +1,13 @@
-var attackType = 1;
+var attackType = 0;
 var attackAmount = 0;
 var walkTimer = 10;
 var direction = ['L', 'R','T','B'];
 var currentDirection = 'L';
 var enemyChance;
+var slimeAngle = 0
+var slimeBulletSpawn = 0;
+var slimeShootPhase = 1;
+var slimePhase = 0;
 
 class Boss {
   constructor(x, y, w, h, maxvx, maxvy, type, numberroom, hp) {
@@ -30,6 +34,7 @@ class Boss {
   }
   show() {
     //HP bar
+    rect(this.x, this.y, this.w, this.h)
     translate(0,0,0.01);
     fill('white');
     stroke("black");
@@ -163,17 +168,28 @@ class Boss {
         player.hit(this.damage);
       }
       
-      //Dash phase
+      //Shoot phase
       if (attackType == 0) { 
-        this.damage = 10; //When the boss is in his dashing phase he will have 10 damage points
+        this.damage = 5; //When the boss is in his dashing phase he will have 10 damage points
         
-        //Different images and movement variables in certain dash-directions
-        if(currentDirection == 'L'){this.vx = this.maxvx,this.vy = 0, image(monstrodash_right, this.x, this.y, this.w, this.h);}
-        if(currentDirection == 'R'){this.vx = -this.maxvx,this.vy = 0, image(monstrodash_left, this.x, this.y, this.w, this.h);}
-        if(currentDirection == 'T'){this.vy = this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
-        if(currentDirection == 'B'){this.vy = -this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
+        let velocity = p5.Vector.fromAngle(slimeAngle);
+        velocity.mult(3); // set the speed of the bullet
+        if(slimeBulletSpawn == 5){
+          enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'molotov', velocity.x, velocity.y,'',this.damage))
+          slimeBulletSpawn = 0
+          slimePhase ++;
+        }
+        if(slimePhase >= 50){
+          slimeShootPhase++
+          slimePhase = 0;
+        }
+        slimeBulletSpawn++
+        slimeAngle += TWO_PI / slimeShootPhase; // change the angle for the next bullet
+        slimeAngle+=0.02 
+        if(slimeShootPhase > 6){
+          attackType = 1;
+        }
       }
-
       //Walk phase
       if (attackType == 1) {
         this.damage = 5; //When the boss is in his walking phase he will have 5 damage points
