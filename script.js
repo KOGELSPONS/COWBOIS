@@ -86,12 +86,19 @@ function draw() {
     textAlign(CENTER,CENTER);
     textSize(30);
     text(gameTimer,ROOMX + TILEX-57, ROOMY+45);
-    if (frameCount % 60 == 0 && gameTimer > 0) { 
-      gameTimer = gameTimer - 1;
+    if (frameCount % 60 == 0) { 
+      gameTimer++;
+    }
+    if(keyIsDown(32)){
+      let score = gameTimer;
+      storeItem('score', score);
     }
   } else if (gameState == 3){
     //deadscreen();
     
+  }
+  if (MouseClicked){
+    MouseClicked = false;
   }
 }
 
@@ -145,4 +152,8 @@ function updatecamera(){
     rect(ROOMX+RX,ROOMY+RY,TILEX,TILEY);
     blendMode(BLEND);
   }
+}
+
+function mouseClicked() {
+  MouseClicked = true;
 }

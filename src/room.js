@@ -17,7 +17,7 @@ class Room{
       
       image(wall_img,this.x, this.y);
       if(theMaps[0].maprooms[1] === currentRoom){
-        image(explain_bg, this.x+this.w/2.5, this.y+this.h/2.5)
+        image(explain_bg, this.x+230, this.y+200,this.w-460, this.h-400)
       }
       //Debug Rect
       if (showCollision){

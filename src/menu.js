@@ -1,15 +1,27 @@
 function menu(){
   createcamera.setPosition(W/2,H/2,780);
-  image(mainmenu,0,0,WIDTH,HEIGHT);
-  buttons.forEach(t => {
-    t.show();
-    t.clicked();
-  })
+  if (currentMenu == "start"){
+    image(mainmenu,0,0,WIDTH,HEIGHT);
+    MainMenuButtons.forEach(t => {
+      t.show();
+      t.clicked();
+    })
+  } else if (currentMenu == "settings"){
+    image(mainmenu,0,0,WIDTH,HEIGHT);
+    SettingsMenuButtons.forEach(t => {
+      t.show();
+      t.clicked();
+    })
+  } else if (currentMenu == "quit"){
+    image(exitscreen,0,0,WIDTH,HEIGHT);
+    hey.loop();
+    fail;
+  }
+  
   if (mouseIsPressed === true) {
     fill(255, 255, 255, 128);
     strokeWeight(1);
-    ellipse(mouseX, mouseY, 25, 25);
-    //gameState = 2;
+    ellipse(mouseX, mouseY, 15, 15);
   }
 }
 
@@ -44,31 +56,69 @@ function debug(){
 }
 
 class Button {
-  constructor(x, y, w, h, text, size, img,action) {
-    this.x = x;
-    this.y = y;
+  constructor(x, y, w, h, text, size, img, action, menu) {
+    this.x = x - w/2;
+    this.y = y - h/2;
     this.w = w;
     this.h = h;
     this.text = text;
     this.size = size;
     this.img = img;
     this.action = action;
+    this.menu = menu;
   }
   show() {
-    fill(255, 0, 0,255)
+    fill(255, 0, 0,255);
+    stroke("floralwhite");
+    strokeWeight(4);
+    texture(this.img);
     rect(this.x, this.y, this.w, this.h);
-    fill(255,255,255,255)
+    fill("floralwhite")
     textAlign(CENTER, CENTER);
     textSize(this.size);
-    text(this.text, this.x + this.w * 0.5, this.y + this.h * 0.5);
+    text(this.text, this.x + this.w * 0.5, this.y + this.h * 0.45);
   }
   clicked() {
-    if (mouseX > this.x && mouseX < (this.x + this.w) && mouseY > this.y && mouseY < (this.y + this.h) && mouseIsPressed === true) {
+    if (mouseX > this.x && mouseX < (this.x + this.w) && mouseY > this.y && mouseY < (this.y + this.h) && MouseClicked) {
       this.action();
     }
   }
 }
 
+class Slider {
+  constructor(x, y, w, h, text, size, img, menu) {
+    this.x = x - w/2;
+    this.y = y - h/2;
+    this.w = w;
+    this.h = h;
+    this.text = text;
+    this.size = size;
+    this.img = img;
+    this.action = action;
+    this.menu = menu;
+  }
+  show() {
+    fill(255, 0, 0,255);
+    stroke("floralwhite");
+    strokeWeight(4);
+    texture(this.img);
+    rect(this.x, this.y, this.w, this.h);
+    fill("floralwhite")
+    textAlign(CENTER, CENTER);
+    textSize(this.size);
+    text(this.text, this.x + this.w * 0.5, this.y + this.h * 0.45);
+  }
+}
+
 function makeButton() {
-  buttons.push( new Button(1 , 1 , 100, 100, "Play", 10, "twerk", function(){gameState = 2;} ));
+  //Start menu
+  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 400, 100, "Play", 50, blackpaint, function(){gameState = 2;} ,"start"));
+  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 400, 100, "Settings", 50, blackpaint, function(){currentMenu = "settings";} ,"start"));
+  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 400, 100, "Quit", 50, blackpaint, function(){currentMenu = "quit";} ,"start"));
+  //Settings
+  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 - 120 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
+  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 0 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
+  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 120 , 800, 100, "Clear LocalStorage", 50, blackpaint, function(){localStorage.clear();} ,"settings"));
+  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 240 , 800, 100, "Back", 50, blackpaint, function(){currentMenu = "start";} ,"settings"));
+  //localStorage.clear();
 }

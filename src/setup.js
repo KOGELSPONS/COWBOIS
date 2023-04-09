@@ -12,6 +12,8 @@ var inventory = ["empty","empty","empty"];
 var reload_show_timer = false;
 var explored = [1];
 var dogActive = false;
+var currentMenu = "start";
+var MouseClicked = false;
 
 // Debug boolean
 var showData = true;
@@ -35,7 +37,8 @@ var bullets = [];
 var enemybullets = [];
 var dog;
 var boss = [];
-var buttons = [];
+var MainMenuButtons = [];
+var SettingsMenuButtons = [];
 
 //debug
 var FPS, BulletCount, EnemyCount, ItemCount, currentplaceables;
@@ -43,11 +46,10 @@ var FPS, BulletCount, EnemyCount, ItemCount, currentplaceables;
 var cameraMode = "still";
 var cameraFrameCount = 0;
 
-var gameTimer = 100;
-
+var gameTimer = 0;
 
 function updateDebug(){
-  FPS = round(frameRate());
+  FPS = round(getFrameRate());
   BulletCount = bullets.length;
   EnemyCount = enemies.length;
   ItemCount = items.length;
@@ -82,7 +84,6 @@ function setup() {
   //And than removing the width so the CSS aspect-ratio takes over the width
   document.getElementById("defaultCanvas0").style.height = "100%";
   document.getElementById("defaultCanvas0").style.removeProperty("width");
-
 }
 function preload() {
   //Loading in the images/gifs (later in json)
@@ -111,12 +112,18 @@ function preload() {
   RockLeft = loadImage('data/player/RockLeft.png');
   body = loadImage('data/player/body.png');
   coppertexture = loadImage('data/general/coppercasing.png');
+  blackpaint = loadImage('data/general/blackpaint.png');
   mainmenu = loadImage('data/menu-assets/menu.png');
+  exitscreen = loadImage('data/menu-assets/exitscreen.png');
   explain_bg = loadImage('data/stage1/room1_background.png');
-  monstrodash_left = loadImage('data/enemy/boss/monstrodash-left.png')
-  monstrodash_right = loadImage('data/enemy/boss/monstrodash-right.png')
-  monstrodash_vert = loadImage('data/enemy/boss/monstrodash-vert.png')
-  monstrowalk_left = loadImage('data/enemy/boss/monstrowalk-left.png')
-  monstrowalk_right = loadImage('data/enemy/boss/monstrowalk-right.png')
-  //Loading the sounds (later in json)
+  monstrodash_left = loadImage('data/enemy/boss/monstrodash-left.png');
+  monstrodash_right = loadImage('data/enemy/boss/monstrodash-right.png');
+  monstrodash_vert = loadImage('data/enemy/boss/monstrodash-vert.png');
+  monstrowalk_left = loadImage('data/enemy/boss/monstrowalk-left.png');
+  monstrowalk_right = loadImage('data/enemy/boss/monstrowalk-right.png');
+  //Loading the sounds (later in json)\
+
+  shotgun_shot = loadSound('data/sounds/shotgunFire.mp3')
+  shotgun_reload = loadSound('data/sounds/shotgunReload.mp3')
+  hey = loadSound('data/sounds/hey.mp3');
 }

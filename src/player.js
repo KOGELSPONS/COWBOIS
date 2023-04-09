@@ -61,8 +61,9 @@ class Player {
     
     //HP bar
     translate(0,0,0.01);
-    fill('white');
+    fill('floralwhite');
     stroke("black");
+    strokeWeight(2);
     rect(ROOMX + TILEX - 300, ROOMY + 480, 200, 50);
     noStroke();
     fill('red');
@@ -86,24 +87,24 @@ class Player {
   }
   move(){
     //Max speed system
-    if (this.vx >= 6){
-      this.vx = 6
-    } if (this.vx <= - 6){
-      this.vx = -6
-    } if (this.vy >= 6){
-      this.vy = 6
-    } if (this.vy <= - 6){
-      this.vy = - 6
+    if (this.vx >= 5){
+      this.vx = 5
+    } if (this.vx <= - 5){
+      this.vx = - 5
+    } if (this.vy >= 5){
+      this.vy = 5
+    } if (this.vy <= - 5){
+      this.vy = - 5
     }
 
     //Drag system
-    if (0.2 > this.vx < -0.2){
+    if (1.0 > this.vx < -1.0){
       this.vx = 0;
     } else {
       this.vx *= this.friction;
     }
     
-    if (0.2 > this.vy < -0.2){
+    if (1.0 > this.vy < -1.0){
       this.vy = 0;
     } else {
       this.vy *= this.friction;
@@ -111,16 +112,16 @@ class Player {
     
     // velocity adding system
     if (keyIsDown(68)) {
-      this.vx += 1.5;
+      this.vx += 0.8;
     }
     if (keyIsDown(65)) {
-      this.vx -= 1.5;
+      this.vx -= 0.8;
     }
     if (keyIsDown(87)) {
-      this.vy -= 1.5;
+      this.vy -= 0.8;
     }
     if (keyIsDown(83)) {
-      this.vy += 1.5;
+      this.vy += 0.8;
     }
     if (this.vx > 0){
       this.look = "Right"
@@ -148,6 +149,10 @@ class Player {
       }
       else if (this.currentWeapon == 'shotgun'){
         for(let i = 0; i < 20; i +=1){
+          if(shotgun_shot.isPlaying()){
+            shotgun_shot.stop();
+          }
+          shotgun_shot.play(); 
           bullets.push(new Bullet(this.mx, this.my, 5,player.vx,player.vy, this.currentWeapon, direction));      
         }
         if(inventory[1] == 'dualshot'){
@@ -162,6 +167,9 @@ class Player {
       }
     } else if (this.ammo == 0) {
       this.reload();
+      if (this.currentWeapon == 'shotgun'){
+        shotgun_reload.play();
+      }
     }
   }
   reload(){
@@ -189,7 +197,7 @@ class Player {
     
     translate(0,0,0.01);
     stroke("black");
-    fill('white');
+    fill('floralwhite');
     rect(ROOMX + 100, ROOMY+480, 50,50);
     rect(ROOMX + 155, ROOMY+480, 50,50);
     rect(ROOMX + 210, ROOMY+480, 50,50);
