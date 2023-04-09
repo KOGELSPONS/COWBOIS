@@ -154,6 +154,78 @@ class Boss {
         boss.splice(idx,1);
       }
     }
+
+    
+    if (this.type == 'slime') {
+      //When the player's bullets hit the boss. 
+      if (new Date().getTime() >= this.lastshot && collision(this.x,this.y,this.w,this.h, player.x,player.y,player.w,player.h)){
+        this.lastshot = new Date().getTime() + this.hitdelay;
+        player.hit(this.damage);
+      }
+      
+      //Dash phase
+      if (attackType == 0) { 
+        this.damage = 10; //When the boss is in his dashing phase he will have 10 damage points
+        
+        //Different images and movement variables in certain dash-directions
+        if(currentDirection == 'L'){this.vx = this.maxvx,this.vy = 0, image(monstrodash_right, this.x, this.y, this.w, this.h);}
+        if(currentDirection == 'R'){this.vx = -this.maxvx,this.vy = 0, image(monstrodash_left, this.x, this.y, this.w, this.h);}
+        if(currentDirection == 'T'){this.vy = this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
+        if(currentDirection == 'B'){this.vy = -this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
+      }
+
+      //Walk phase
+      if (attackType == 1) {
+        this.damage = 5; //When the boss is in his walking phase he will have 5 damage points
+        
+        //Timer for how long the boss will walk around
+        if (frameCount % 60 == 0 && walkTimer > 0) { 
+          walkTimer --;
+        }
+        if (walkTimer == 0) {
+          attackAmount = 8; //When the timer runs out, reset it
+        }
+        
+        //Get the angle the boss will have to walk to get to the player
+        let angle = atan2(player.my - this.my, player.mx - this.mx);
+        if (diff(this.my, player.my) >= 50){ //only move when further than 50 away from the player
+          let speed = sin(angle) * this.walkSpeed; //Make a velocity from the angle
+          this.vy = speed;
+        }else{this.vy = 0} 
+        if (diff(this.mx, player.mx) >= 50){ //only move when further than 50 away from the player
+          let speed = cos(angle) * this.walkSpeed; //Make a velocity from the angle
+          this.vx = speed;
+          //Different images for different velocities
+          if(this.vx >= 0){
+            image(monstrowalk_right, this.x, this.y, this.w, this.h)
+          }else{
+            image(monstrowalk_left, this.x, this.y, this.w, this.h)
+          }
+        }else{
+          this.vx = 0; 
+          image(monstrowalk_right, this.x, this.y, this.w, this.h);
+        }
+      }
+      
+      //Apply the velocities onto the positional values
+      this.x += this.vx
+      this.y += this.vy
+
+      //Whenever the amount the boss has attacked, make the boss do a new attack and reset the attackAmount value
+      if (attackAmount == 8) {
+        newAttack();
+        attackAmount = 0;
+      }
+
+      //When getting the boss's hp to 0 or below, delete the boss from the 'boss' array
+      if (this.hp <= 0) {
+        this.hp = 0;
+        console.log("killed Enemy: ");
+        console.log(this);
+        let idx = boss.indexOf(this); 
+        boss.splice(idx,1);
+      }
+    }
   }
 
   //subtract the according damage the player does from the boss's health

@@ -121,6 +121,7 @@ function preload() {
   monstrodash_vert = loadImage('data/enemy/boss/monstrodash-vert.png');
   monstrowalk_left = loadImage('data/enemy/boss/monstrowalk-left.png');
   monstrowalk_right = loadImage('data/enemy/boss/monstrowalk-right.png');
+  slime = loadImage('data/enemy/slime.gif');
   //Loading the sounds (later in json)\
 
   shotgun_shot = loadSound('data/sounds/shotgunFire.mp3')

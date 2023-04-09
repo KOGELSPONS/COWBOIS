@@ -30,15 +30,11 @@ class Enemybullet {
     this.playerdist += this.velx + this.vely
     
   }
-  remove(){
-    if(this.playerdist < 0){
-      let idx = enemybullets.indexOf(this); 
-      enemybullets.splice(idx,1);
-    }
-  }
   collision(){
     if (collision(this.x,this.y,this.w,this.h,player.x,player.y,player.w,player.h)){
-      player.hit();
+      player.hit(this.damage);
+      let idx = enemybullets.indexOf(this); 
+      enemybullets.splice(idx,1);
     }
   }
 }

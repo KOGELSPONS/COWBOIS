@@ -1,3 +1,4 @@
+var dynamoTimer = 3;
 class Enemy{
   constructor(x, y, w, h, type, numberroom, others, mutlix){
     this.x = x;
@@ -144,7 +145,6 @@ class Enemy{
           }
         }
 
-        let dynamoTimer = 1;
         if (frameCount % 60 == 0 && dynamoTimer > 0) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
           dynamoTimer --;
         }
@@ -156,7 +156,7 @@ class Enemy{
           let playerEnemyDist = dist(this.x, this.y, player.x, player.y)
           enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'molotov', velX, velY,playerEnemyDist,this.damage))
           console.log(velX)
-          dynamoTimer = 1;
+          dynamoTimer = 3;
         }
       }
   }

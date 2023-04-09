@@ -71,6 +71,7 @@ function draw() {
     enemybullets.forEach(eb => {
       eb.show();
       eb.move();
+      eb.collision();
     })
 
     updatecamera();
