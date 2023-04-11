@@ -46,11 +46,11 @@ class Player {
     if (this.look == "Right"){
       fill('purple');
       image(body, this.x, this.y, this.w, this.h);
-      image(RockRight,this.x - 5, this.y - ((this.w + 10)*1.5) + 10,this.w + 10,(this.w + 10)*1.5);
+      image(headRight,this.x - 5, this.y - 41 ,this.w + 10,this.h+10);
     } else if (this.look == "Left"){
       fill('purple');
       image(body, this.x, this.y, this.w, this.h);
-      image(RockLeft,this.x - 5, this.y - ((this.w + 10)*1.5) + 10,this.w + 10,(this.w + 10)*1.5)
+      image(headLeft,this.x - 5, this.y - 41 ,this.w + 10,this.h+10);
     }
     //Debug colors
     if (showCollision){

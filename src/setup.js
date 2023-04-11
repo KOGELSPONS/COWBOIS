@@ -46,8 +46,10 @@ var boss = [];
 var MainMenuButtons = [];
 var SettingsMenuButtons = [];
 var DeadscreenButtons = [];
+var SettingSliders = [];
 var lastdead;
 var song = [];
+var sfx = [];
 var pickone;
 
 //debug
@@ -88,6 +90,8 @@ function setup() {
   dog = new Dog(TILEX*1.5,TILEY/2, 50,50,200)
 
   makeButton();
+  makeSliders();
+  updateSound();
   
   //Makes the screen resize canvis, without changing the actual game render size
   //So settings the style.height to 100% almost everybody has a screen that has less height that witdth
@@ -107,10 +111,15 @@ function preload() {
   ghostenemy1_l = loadImage('data/enemy/ghost1_left.gif');
   dog_r = loadImage('data/enemy/dawg_r.gif');
   dog_l = loadImage('data/enemy/dawg_l.gif');
-  DoorFinalBottom = loadImage('data/doors/DoorFinalBottom.png');
-  DoorFinalLeft = loadImage('data/doors/DoorFinalLeft.png');
-  DoorFinalRight = loadImage('data/doors/DoorFinalRight.png');
-  DoorFinalTop = loadImage('data/doors/DoorFinalTop.png');
+  doorBottom = loadImage('data/doors/door_bottom.png');
+  doorLeft = loadImage('data/doors/door_left.png');
+  doorRight = loadImage('data/doors/door_right.png');
+  doorTop = loadImage('data/doors/door_top.png');
+  doorBottomOpen = loadImage('data/doors/door_bottom_open.png');
+  doorLeftOpen = loadImage('data/doors/door_left_open.png');
+  doorRightOpen = loadImage('data/doors/door_right_open.png');
+  doorTopOpen = loadImage('data/doors/door_top_open.png');
+  
   chest_open = loadImage('data/stage1/chest-open.png');
   chest_closed = loadImage('data/stage1/chest-closed.png');
   dualshot = loadImage('data/stage1/2_line.png');
@@ -118,8 +127,8 @@ function preload() {
   chest_animation = loadImage('data/stage1/chest-animation.gif');
   pixel_font = loadFont('data/fonts/font.otf');
   staticnoise = loadImage('data/general/static.gif');
-  RockRight = loadImage('data/player/RockRight.png');
-  RockLeft = loadImage('data/player/RockLeft.png');
+  headLeft = loadImage('data/player/head_left.png');
+  headRight = loadImage('data/player/head_right.png');
   body = loadImage('data/player/body.png');
   coppertexture = loadImage('data/general/coppercasing.png');
   blackpaint = loadImage('data/general/blackpaint.png');
@@ -133,17 +142,20 @@ function preload() {
   monstrowalk_left = loadImage('data/enemy/boss/monstrowalk-left.png');
   monstrowalk_right = loadImage('data/enemy/boss/monstrowalk-right.png');
   slime = loadImage('data/enemy/slime.gif');
-  //Loading the sounds (later in json)\
 
-  shotgun_shot = loadSound('data/sounds/shotgunFire.mp3')
-  shotgun_reload = loadSound('data/sounds/shotgunReload.mp3')
-  hey = loadSound('data/sounds/hey.mp3');
-  song[0] = loadSound("data/sounds/songs/big-iron.mp3");
+  //SFX
+  sfx[0] = createAudio('data/sounds/shotgunFire.mp3'); //shotgun_shot
+  sfx[0] = createAudio('data/sounds/shotgunReload.mp3'); //shotgun_reload
+  
+  //Songs
+  song[0] = createAudio("data/sounds/songs/big-iron.mp3");
   song[0].onended(randomMusic);
-  song[1] = loadSound("data/sounds/songs/help-me.mp3");
+  song[1] = createAudio("data/sounds/songs/help-me.mp3");
   song[1].onended(randomMusic);
-  song[2] = loadSound("data/sounds/songs/its-a-sin.mp3");
+  song[2] = createAudio("data/sounds/songs/its-a-sin.mp3");
   song[2].onended(randomMusic);
-  song[3] = loadSound("data/sounds/songs/lone-star.mp3");
+  song[3] = createAudio("data/sounds/songs/lone-star.mp3");
   song[3].onended(randomMusic);
+
+  song[4] = createAudio('data/sounds/hey.mp3'); //hey
 }

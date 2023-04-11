@@ -12,9 +12,17 @@ function menu(){
       t.show();
       t.clicked();
     })
+    SettingSliders.forEach(t => {
+      t.show();
+      t.clicked();
+    })
   } else if (currentMenu == "quit"){
     image(exitscreen,0,0,WIDTH,HEIGHT);
-    hey.loop();
+    song[0].stop();
+    song[1].stop();
+    song[2].stop();
+    song[3].stop();
+    song[4].loop();
     fail;
   }
 
@@ -101,7 +109,7 @@ class Button {
 }
 
 class Slider {
-  constructor(x, y, w, h, text, size, img, menu) {
+  constructor(x, y, w, h, text, size, img) {
     this.x = x - w/2;
     this.y = y - h/2;
     this.w = w;
@@ -109,8 +117,7 @@ class Slider {
     this.text = text;
     this.size = size;
     this.img = img;
-    this.action = action;
-    this.menu = menu;
+    this.value = w/2;
   }
   show() {
     fill(255, 0, 0,255);
@@ -118,10 +125,18 @@ class Slider {
     strokeWeight(4);
     texture(this.img);
     rect(this.x, this.y, this.w, this.h);
+    fill("red");
+    rect(this.x, this.y, this.value, this.h);
     fill("floralwhite")
     textAlign(CENTER, CENTER);
     textSize(this.size);
-    text(this.text, this.x + this.w * 0.5, this.y + this.h * 0.45);
+    text(this.text + ": " + round(this.value/8) , this.x + this.w * 0.5, this.y + this.h * 0.45);
+  }  
+  clicked() {
+    if (mouseX > this.x && mouseX < (this.x + this.w) && mouseY > this.y && mouseY < (this.y + this.h) && mouseIsPressed === true) {
+      this.value = mouseX - this.x;
+      updateSound();
+    }
   }
 }
 
@@ -130,21 +145,26 @@ function makeButton() {
   SettingsMenuButtons = [];
   DeadscreenButtons = [];
   //Start menu
-  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 400, 100, "Play", 50, blackpaint, function(){gameState = 2;} ,"start"));
-  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 400, 100, "Settings", 50, blackpaint, function(){currentMenu = "settings";} ,"start"));
-  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 400, 100, "Quit", 50, blackpaint, function(){currentMenu = "quit";} ,"start"));
+  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Play", 50, blackpaint, function(){gameState = 2;} ,"start"));
+  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "Settings", 50, blackpaint, function(){currentMenu = "settings";} ,"start"));
+  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){currentMenu = "quit";} ,"start"));
   //Settings
-  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 - 120 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
-  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 0 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
+  //SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 - 120 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
+  //SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 0 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 120 , 800, 100, "Clear LocalStorage", 50, blackpaint, function(){localStorage.clear();} ,"settings"));
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 240 , 800, 100, "Back", 50, blackpaint, function(){currentMenu = "start";} ,"settings"));
   //Deadscreen
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 - 20 , 1000, 100, "Time to Death: " + DeathTime + "s", 50, blackpaint, function(){} ,""));
-  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 400, 100, "Restart", 50, blackpaint, function(){Reset();} ,""));
-  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 400, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1;} ,""));
-  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 400, 100, "Quit", 50, blackpaint, function(){gameState = 1; currentMenu = "quit";} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Restart", 50, blackpaint, function(){Reset();} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1;} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){gameState = 1; currentMenu = "quit";} ,""));
 }
-"Time to Death: " + DeathTime + "s"
+
+function makeSliders() {
+  SettingSliders = [];
+  SettingSliders.push( new Slider(WIDTH/2, HEIGHT/2 - 120 , 800, 100, "SFX", 50, blackpaint));
+  SettingSliders.push( new Slider(WIDTH/2, HEIGHT/2 + 0 , 800, 100, "Music", 50, blackpaint));
+}
 
 function Reset() {
   camX = TILEX*1.5, camY = TILEY/2;
@@ -193,5 +213,20 @@ function randomMusic() {
   } else{
     song[pickone].play();
     prevpick = pickone;
+  }
+}
+
+function updateSound() {
+  let ValueSFX = round(SettingSliders[0].value)/800
+  let ValueMusic = round(SettingSliders[1].value)/800
+  
+  //SFX
+  for (let i = 0; i < sfx.length; i++) {
+    sfx[i].volume(ValueSFX);
+  }
+
+  //Music
+  for (let i = 0; i < song.length; i++) {
+    song[i].volume(ValueMusic);
   }
 }
