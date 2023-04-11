@@ -49,4 +49,7 @@ class Enemybullet {
       enemybullets.splice(idx,1);
     }
   }
+  hit(){
+    this.remove(); 
+  }
 }

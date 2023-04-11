@@ -128,5 +128,12 @@ class Bullet {
         Boss.hit(this.damage * player.damagemutliplier,Math.abs(this.vx) + Math.abs(this.vy));
       }
     }
+    for (let i = 0; i < enemybullets.length; i++) {
+      let EnemyBullet = enemybullets[i];
+      if (collision(this.x,this.y,this.w,this.h , EnemyBullet.x,EnemyBullet.y,EnemyBullet.w,EnemyBullet.h)) {
+        this.remove();
+        EnemyBullet.hit();
+      }
+    }
   }
 }
