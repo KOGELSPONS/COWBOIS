@@ -15,6 +15,10 @@ var dogActive = false;
 var currentMenu = "start";
 var currentDeathMenu = "begin";
 var MouseClicked = false;
+var NewscoreTime = -1;
+var DeathTime = -1;
+var HighscoreTime = -1;
+
 
 // Debug boolean
 var showData = true;
@@ -40,6 +44,7 @@ var dog;
 var boss = [];
 var MainMenuButtons = [];
 var SettingsMenuButtons = [];
+var DeadscreenButtons = [];
 var lastdead;
 
 //debug

@@ -92,12 +92,11 @@ function draw() {
     if (frameCount % 60 == 0) { 
       gameTimer++;
     }
-    if(keyIsDown(32)){
-      let score = gameTimer;
-      storeItem('score', score);
-    }
-    
+    //Death screen
     if (player.hp <= 0){
+      DeathTime = gameTimer;
+      //storeItem('DeathTime', DeathTime);
+      makeButton();
       translate(0,0,0.02);
       texture(deathscreen);
       textureMode(NORMAL);
@@ -108,6 +107,8 @@ function draw() {
     }
   } else if (gameState == 3){
     deadscreen();
+  } else if (gameState == 4){
+    winscreen();
   }
   if (MouseClicked){
     MouseClicked = false;

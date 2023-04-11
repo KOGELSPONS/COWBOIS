@@ -16,7 +16,7 @@ class Room{
       ROOMY = this.y;
       
       image(wall_img,this.x, this.y);
-      if(theMaps[0].maprooms[1] === currentRoom){
+      if(theMaps[0].maprooms[1] === currentRoom && currentMap == 0){
         image(explain_bg, this.x+230, this.y+200,this.w-460, this.h-400)
       }
       //Debug Rect

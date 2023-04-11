@@ -17,6 +17,7 @@ class Boss {
     this.mx = this.x + this.halfWidth;
     this.my = this.y + this.halfHeight;
     this.hp = hp;
+    this.maxhp = hp;
     this.walkSpeed = 2; //How fast the boss will walk.
 
     this.lastshot = new Date().getTime(); //Make sure the boss cannot spam attack 
@@ -43,7 +44,7 @@ class Boss {
     rect(this.x + this.halfWidth - 50, this.y - 15, 100, 10);
     noStroke();
     fill('red')
-    rect(this.x + this.halfWidth - 50, this.y - 15, this.hp/10, 10);
+    rect(this.x + this.halfWidth - 50, this.y - 15, this.hp/(this.maxhp/100), 10);
     translate(0,0,-0.01);
   }
   move() {

@@ -152,7 +152,7 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
       boss.push(new Boss(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 110, 80, 10, 8, 'monstro', numberroom, 1000))
     }
     if(value == 16){
-      boss.push(new Boss(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 110, 80, 10, 8, 'slime', numberroom, 1000))
+      boss.push(new Boss(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 110, 80, 10, 8, 'slime', numberroom, 3000))
     }
 
     // 20 -> 29 weapons

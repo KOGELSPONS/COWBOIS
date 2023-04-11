@@ -33,7 +33,15 @@ function deadscreen(){
   } else if (currentDeathMenu == "second"){
     createcamera.setPosition(W/2,H/2,780);
     image(mainmenu,0,0,WIDTH,HEIGHT);
+    DeadscreenButtons.forEach(t => {
+      t.show();
+      t.clicked();
+    })
   }
+}
+
+function winscreen() {
+  
 }
 
 function debug(){
@@ -118,6 +126,9 @@ class Slider {
 }
 
 function makeButton() {
+  MainMenuButtons = [];
+  SettingsMenuButtons = [];
+  DeadscreenButtons = [];
   //Start menu
   MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 400, 100, "Play", 50, blackpaint, function(){gameState = 2;} ,"start"));
   MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 400, 100, "Settings", 50, blackpaint, function(){currentMenu = "settings";} ,"start"));
@@ -127,5 +138,46 @@ function makeButton() {
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 0 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 120 , 800, 100, "Clear LocalStorage", 50, blackpaint, function(){localStorage.clear();} ,"settings"));
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 240 , 800, 100, "Back", 50, blackpaint, function(){currentMenu = "start";} ,"settings"));
-  //localStorage.clear();
+  //Deadscreen
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 400, 100, "Restart", 50, blackpaint, function(){Reset();} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 400, 100, "Restart", 50, blackpaint, function(){Reset();} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 400, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1;} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 400, 100, "Quit", 50, blackpaint, function(){gameState = 1; currentMenu = "quit";} ,""));
+}
+"Time to Death: " + DeathTime + "s"
+
+function Reset() {
+  camX = TILEX*1.5, camY = TILEY/2;
+  currentRoom = 1;
+  currentMap = 0;
+  inventory = ["empty","empty","empty"];
+  reload_show_timer = false;
+  explored = [1];
+  dogActive = false;
+  currentMenu = "start";
+  currentDeathMenu = "begin";
+  cameraMode = "still";
+  MouseClicked = false;
+
+  gameTimer = 0;
+
+  ROOMX, ROOMY;
+  borderleftx, borderrightx, bordertopy, borderbottomy;
+  room;
+  rooms = [];
+  upgrades = [];
+  items = [];
+  placables = [];
+  enemies = [];
+  bullets = [];
+  enemybullets = [];
+  boss = [];
+
+  makeRoomTiles(theMaps[currentMap] , 3, TILEX, TILEY); //16:9 (x60)
+  makeItemTiles(itemLocation[currentMap][currentRoom], 16, 50,50, currentRoom);
+
+  player = new Player(TILEX*1.5,TILEY/2,40,35);
+  dog = new Dog(TILEX*1.5,TILEY/2, 50,50,200);
+  
+  gameState = 2;
 }
