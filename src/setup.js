@@ -13,6 +13,7 @@ var reload_show_timer = false;
 var explored = [1];
 var dogActive = false;
 var currentMenu = "start";
+var currentDeathMenu = "begin";
 var MouseClicked = false;
 
 // Debug boolean
@@ -39,6 +40,7 @@ var dog;
 var boss = [];
 var MainMenuButtons = [];
 var SettingsMenuButtons = [];
+var lastdead;
 
 //debug
 var FPS, BulletCount, EnemyCount, ItemCount, currentplaceables;

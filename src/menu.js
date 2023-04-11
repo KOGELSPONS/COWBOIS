@@ -26,10 +26,12 @@ function menu(){
 }
 
 function deadscreen(){
-  createcamera.setPosition(W/2,H/2,780);
   if (currentDeathMenu == "begin"){
-    console.log("twerk");
+    if (mouseIsPressed === true || new Date().getTime() - lastdead >= 5000){
+      currentDeathMenu = "second";
+    }
   } else if (currentDeathMenu == "second"){
+    createcamera.setPosition(W/2,H/2,780);
     image(mainmenu,0,0,WIDTH,HEIGHT);
   }
 }

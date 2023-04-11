@@ -96,6 +96,16 @@ function draw() {
       let score = gameTimer;
       storeItem('score', score);
     }
+    
+    if (player.hp <= 0){
+      translate(0,0,0.02);
+      texture(deathscreen);
+      textureMode(NORMAL);
+      rect(ROOMX,ROOMY,TILEX,TILEY);
+      translate(0,0,-0.02);
+      lastdead = new Date().getTime();
+      gameState = 3;
+    }
   } else if (gameState == 3){
     deadscreen();
   }

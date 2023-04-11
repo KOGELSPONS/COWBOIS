@@ -130,7 +130,6 @@ class Room{
         player.vy = 0;
         player.y = borderbottomy - player.h;
       }
-      
     }
   }
 }
