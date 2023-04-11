@@ -153,6 +153,9 @@ class Boss {
       }
     }
 
+    //----------------------------------------------
+    //-----------------SLIME_BOSS-------------------
+    //----------------------------------------------
     
     if (this.type == 'slime') {
       //When the player's bullets hit the boss. 
@@ -165,35 +168,47 @@ class Boss {
       if (this.attackPhase == 0) { 
         this.damage = 5; //When the boss is in his dashing phase he will have 10 damage points
         
-        //Timer for how long the boss will shoot around
-        if (frameCount % 60 == 0 && this.shootTimer > 0) { 
-          this.shootTimer --;
-        }
-        if (this.shootTimer == 0) {//Reset the boss's values and make it do a new attack
-          newAttack()
-        }
+        let angle = atan2((ROOMY + TILEY/2) - this.my, (ROOMX + TILEX/2) - this.mx);
+        if (diff(this.my, (ROOMY + TILEY/2)) >= 10){ //only move when further than 10 away from the middle of the map
+          let speed = sin(angle) * this.walkSpeed; //Make a velocity from the angle
+          this.vy = speed;
+        }else{this.vy = 0} 
+        if (diff(this.mx, (ROOMX + TILEX/2)) >= 10){ //only move when further than 10 away from the middle of the map
+          let speed = cos(angle) * this.walkSpeed; //Make a velocity from the angle
+          this.vx = speed;
+        }else{this.vx = 0}
         
-        let velocity = p5.Vector.fromAngle(this.slimeAngle); //Creates a vector for the velocity so it can more easily move in a certain angle
-        velocity.mult(3); // set the speed of the bullet, using mult() because we're working with vectors
-        
-        if(this.slimeBulletLimit == 1){ //spawn a bullet every 2 frames
-          enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'molotov', velocity.x, velocity.y,'',this.damage))
-          this.slimeBulletLimit = 0 //reset the limiter 
-          this.slimeBulletCounter ++; //Count the amount of bullets shot
-        }
-        this.slimeBulletLimit++ //Add 1 to this counter so a bullet gets shot every 2 frames. 
-        
-        if(this.slimeBulletCounter >= 500){ //If the amount of bullets shot is more or equal to 500 
-          if(this.slimeShootPhase == 3){ //When on shooting-phase 3 reset the shooting phase to 0
-            this.slimeShootPhase = 0
+        if(this.vy == 0 && this.vx == 0){ //When the boss stands still in the middle
+          //Timer for how long the boss will shoot around
+          if (frameCount % 60 == 0 && this.shootTimer > 0) { 
+            this.shootTimer --;
           }
-          this.slimeShootPhase ++; //Change the shooting-phase by adding 1 to it
-          this.slimeBulletCounter = 0; //Reset the amount of bullets shot
+          if (this.shootTimer == 0) {//Reset the boss's values and make it do a new attack
+            newAttack()
+          }
+          
+          let velocity = p5.Vector.fromAngle(this.slimeAngle); //Creates a vector for the velocity so it can more easily move in a certain angle
+          velocity.mult(3); // set the speed of the bullet, using mult() because we're working with vectors
+          
+          if(this.slimeBulletLimit == 1){ //spawn a bullet every 2 frames
+            enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'molotov', velocity.x, velocity.y,'',this.damage))
+            this.slimeBulletLimit = 0 //reset the limiter 
+            this.slimeBulletCounter ++; //Count the amount of bullets shot
+          }
+          this.slimeBulletLimit++ //Add 1 to this counter so a bullet gets shot every 2 frames. 
+          
+          if(this.slimeBulletCounter >= 500){ //If the amount of bullets shot is more or equal to 500 
+            if(this.slimeShootPhase == 3){ //When on shooting-phase 3 reset the shooting phase to 0
+              this.slimeShootPhase = 0
+            }
+            this.slimeShootPhase ++; //Change the shooting-phase by adding 1 to it
+            this.slimeBulletCounter = 0; //Reset the amount of bullets shot
+          }
+          
+          // Change the angle for the next bullet
+          this.slimeAngle += TWO_PI / this.slimeShootPhase; 
+          this.slimeAngle+=0.02 
         }
-        
-        // Change the angle for the next bullet
-        this.slimeAngle += TWO_PI / this.slimeShootPhase; 
-        this.slimeAngle+=0.02 
       }
       
       //Walk phase
@@ -227,9 +242,6 @@ class Boss {
           this.vx = 0; 
           image(monstrowalk_right, this.x, this.y, this.w, this.h);
         }
-      }else{ //When the boss is not walking, make him stand still
-        this.vx = 0;
-        this.vy = 0;
       }
       
       //Apply the velocities onto the positional values

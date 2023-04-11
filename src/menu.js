@@ -26,7 +26,12 @@ function menu(){
 }
 
 function deadscreen(){
-  gameState = 2;
+  createcamera.setPosition(W/2,H/2,780);
+  if (currentDeathMenu == "begin"){
+    console.log("twerk");
+  } else if (currentDeathMenu == "second"){
+    image(mainmenu,0,0,WIDTH,HEIGHT);
+  }
 }
 
 function debug(){

@@ -86,6 +86,10 @@ class Player {
     translate(0,0,-0.01);
   }
   move(){
+    if (this.hp <= 0){
+      gameState = 3;
+      image(deathscreen,0,0,WIDTH,HEIGHT);
+    }
     //Max speed system
     if (this.vx >= 5){
       this.vx = 5

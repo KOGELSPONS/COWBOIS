@@ -1,13 +1,15 @@
 //test item
 //items.push(new Item(1000, 750,'revolver'))
 function draw() {
-  background(0);
   if (gameState == 0){
+    background(0);
     //play music
     gameState = 1;
   } else if (gameState == 1){
+    background(0);
     menu();
   } else if (gameState == 2){
+    background(0);
     //First let the player move the chracter
     //variable player.(class)move
     player.move();
@@ -95,8 +97,7 @@ function draw() {
       storeItem('score', score);
     }
   } else if (gameState == 3){
-    //deadscreen();
-    
+    deadscreen();
   }
   if (MouseClicked){
     MouseClicked = false;

@@ -115,6 +115,7 @@ function preload() {
   blackpaint = loadImage('data/general/blackpaint.png');
   mainmenu = loadImage('data/menu-assets/menu.png');
   exitscreen = loadImage('data/menu-assets/exitscreen.png');
+  deathscreen = loadImage('data/menu-assets/death.png');
   explain_bg = loadImage('data/stage1/room1_background.png');
   monstrodash_left = loadImage('data/enemy/boss/monstrodash-left.png');
   monstrodash_right = loadImage('data/enemy/boss/monstrodash-right.png');
