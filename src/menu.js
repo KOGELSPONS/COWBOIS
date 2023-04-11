@@ -17,7 +17,7 @@ function menu(){
     hey.loop();
     fail;
   }
-  
+
   if (mouseIsPressed === true) {
     fill(255, 255, 255, 128);
     strokeWeight(1);

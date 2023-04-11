@@ -1,4 +1,4 @@
-var direction = ['L', 'R','T','B'];
+var direction = ['L', 'R','T','B']; //Different directions the boss can move/dash towards
 
 class Boss {
   constructor(x, y, w, h, maxvx, maxvy, type, numberroom, hp) {
@@ -8,8 +8,8 @@ class Boss {
     this.h = h;
     this.vx = 0;
     this.vy = 0;
-    this.maxvx = maxvx;
-    this.maxvy = maxvy;
+    this.maxvx = maxvx; //Max boss movementspeed on x-axis
+    this.maxvy = maxvy; //Max boss movementspeed on y-axis
     this.type = type;
     this.roomnumber = numberroom;
     this.halfWidth = this.w / 2;
@@ -17,21 +17,22 @@ class Boss {
     this.mx = this.x + this.halfWidth;
     this.my = this.y + this.halfHeight;
     this.hp = hp;
-    this.walkSpeed = 2;
+    this.walkSpeed = 2; //How fast the boss will walk.
 
-    this.lastshot = new Date().getTime();
-    this.damage = 10;
-    this.hitdelay = 200;
-    this.attackType = 0;
-    this.attackAmount = 0;
-    this.walkTimer = 10;
-    this.shootTimer = 30
-    this.currentDirection = 'L';
-    this.enemyChance;
-    this.slimeAngle = 0
-    this.slimeBulletSpawn = 0;
-    this.slimeShootPhase = 1;
-    this.slimePhase = 0;
+    this.lastshot = new Date().getTime(); //Make sure the boss cannot spam attack 
+    this.hitdelay = 200; //The delay before the boss will attack again
+    this.damage = 10; //The damage the boss does
+    this.attackPhase = 1; //The attack phase of the boss
+    this.attackCounter = 0; //Keeps track of the amount of times a boss does an attack
+    this.walkTimer = 10; //How long bosses will walk around
+    this.shootTimer = 30 //How long the (slime) boss will be in it's shoot phase
+    this.currentDirection = 'L'; //The direction the attack will start at
+    this.enemyChance; //The chance an enemy will spawn during a bossfight
+    
+    this.slimeAngle = 0; //The angle the slime boss will shoot at
+    this.slimeBulletLimit = 0; //A counter which makes sure the boss shoots once every frame
+    this.slimeShootPhase = 1; //This is the different shooting phases the boss has
+    this.slimeBulletCounter = 0; //How many bullets the boss shoots
   }
   show() {
     //HP bar
@@ -58,7 +59,7 @@ class Boss {
       }
       
       //Dash phase
-      if (this.attackType == 0) { 
+      if (this.attackPhase == 0) { 
         this.damage = 10; //When the boss is in his dashing phase he will have 10 damage points
         
         //Different images and movement variables in certain dash-directions
@@ -80,7 +81,7 @@ class Boss {
               this.currentDirection == 'R' && this.x < borderleftx -200 ||
               this.currentDirection == 'T' && this.y > borderbottomy + 200 ||
               this.currentDirection == 'B' && this.y < bordertopy - 200){
-              this.attackAmount++;
+              this.attackCounter++;
               this.currentDirection = direction[Math.floor(Math.random()*direction.length)]; //Chooses a random direction from the 'direction' array
               
               //Position reset when the a new direction is chosen
@@ -109,7 +110,7 @@ class Boss {
       }
 
       //Walk phase
-      if (this.attackType == 1) {
+      if (this.attackPhase == 1) {
         this.damage = 5; //When the boss is in his walking phase he will have 5 damage points
         
         //Timer for how long the boss will walk around
@@ -117,7 +118,7 @@ class Boss {
           this.walkTimer --;
         }
         if (this.walkTimer == 0) {
-          this.attackAmount = 8; //When the timer runs out, reset it
+          this.attackCounter = 8; //When the timer runs out, reset it
         }
         
         //Get the angle the boss will have to walk to get to the player
@@ -145,19 +146,10 @@ class Boss {
       this.x += this.vx
       this.y += this.vy
 
-      //Whenever the amount the boss has attacked, make the boss do a new attack and reset the this.attackAmount value
-      if (this.attackAmount == 8) {
+      //Whenever the amount the boss has attacked, make the boss do a new attack and reset the this.attackCounter value
+      if (this.attackCounter == 8) {
         newAttack();
-        this.attackAmount = 0;
-      }
-
-      //When getting the boss's hp to 0 or below, delete the boss from the 'boss' array
-      if (this.hp <= 0) {
-        this.hp = 0;
-        console.log("killed Enemy: ");
-        console.log(this);
-        let idx = boss.indexOf(this); 
-        boss.splice(idx,1);
+        this.attackCounter = 0;
       }
     }
 
@@ -170,37 +162,42 @@ class Boss {
       }
       
       //Shoot phase
-      if (this.attackType == 0) { 
+      if (this.attackPhase == 0) { 
         this.damage = 5; //When the boss is in his dashing phase he will have 10 damage points
         
         //Timer for how long the boss will shoot around
         if (frameCount % 60 == 0 && this.shootTimer > 0) { 
           this.shootTimer --;
         }
-        if (this.shootTimer == 0) {//Reset the boss's values
+        if (this.shootTimer == 0) {//Reset the boss's values and make it do a new attack
           newAttack()
         }
-        let velocity = p5.Vector.fromAngle(this.slimeAngle);
-        velocity.mult(3); // set the speed of the bullet
-        if(this.slimeBulletSpawn == 1){
+        
+        let velocity = p5.Vector.fromAngle(this.slimeAngle); //Creates a vector for the velocity so it can more easily move in a certain angle
+        velocity.mult(3); // set the speed of the bullet, using mult() because we're working with vectors
+        
+        if(this.slimeBulletLimit == 1){ //spawn a bullet every 2 frames
           enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'molotov', velocity.x, velocity.y,'',this.damage))
-          this.slimeBulletSpawn = 0
-          this.slimePhase ++;
+          this.slimeBulletLimit = 0 //reset the limiter 
+          this.slimeBulletCounter ++; //Count the amount of bullets shot
         }
-        if(this.slimePhase >= 500){
-          if(this.slimeShootPhase == 3){
+        this.slimeBulletLimit++ //Add 1 to this counter so a bullet gets shot every 2 frames. 
+        
+        if(this.slimeBulletCounter >= 500){ //If the amount of bullets shot is more or equal to 500 
+          if(this.slimeShootPhase == 3){ //When on shooting-phase 3 reset the shooting phase to 0
             this.slimeShootPhase = 0
           }
-          this.slimeShootPhase ++;
-          this.slimePhase = 0;
+          this.slimeShootPhase ++; //Change the shooting-phase by adding 1 to it
+          this.slimeBulletCounter = 0; //Reset the amount of bullets shot
         }
-        console.log(this.slimePhase)
-        this.slimeBulletSpawn++
-        this.slimeAngle += TWO_PI / this.slimeShootPhase; // change the angle for the next bullet
+        
+        // Change the angle for the next bullet
+        this.slimeAngle += TWO_PI / this.slimeShootPhase; 
         this.slimeAngle+=0.02 
       }
+      
       //Walk phase
-      if (this.attackType == 1) {
+      if (this.attackPhase == 1) {
         this.damage = 5; //When the boss is in his walking phase he will have 5 damage points
         
         //Timer for how long the boss will walk around
@@ -208,7 +205,7 @@ class Boss {
           this.walkTimer --;
         }
         if (this.walkTimer == 0) {
-          this.attackAmount = 8; //When the timer runs out, reset it
+          newAttack()
         }
         
         //Get the angle the boss will have to walk to get to the player
@@ -238,14 +235,9 @@ class Boss {
       //Apply the velocities onto the positional values
       this.x += this.vx
       this.y += this.vy
-
-      //Whenever the amount the boss has attacked, make the boss do a new attack and reset the this.attackAmount value
-      if (this.attackAmount == 8) {
-        newAttack()
-        this.attackAmount = 0;
-      }
-
-      //When getting the boss's hp to 0 or below, delete the boss from the 'boss' array
+    }
+    
+    //When getting the boss's hp to 0 or below, delete the boss from the 'boss' array
       if (this.hp <= 0) {
         this.hp = 0;
         console.log("killed Enemy: ");
@@ -253,12 +245,11 @@ class Boss {
         let idx = boss.indexOf(this); 
         boss.splice(idx,1);
       }
-    }
   }
 
   //subtract the according damage the player does from the boss's health
   hit(bulletdamage, distancedropoff){
-    if(this.attackType != 0){
+    if(this.attackPhase != 0){
       console.log(bulletdamage * distancedropoff);
       this.hp -= bulletdamage * distancedropoff; 
     }  
@@ -268,12 +259,12 @@ class Boss {
 //Change the attack the boss does whenever this function is called.
 function newAttack() {
   boss.forEach(b => {
-    if (b.attackType == 0) {
-        b.attackType = 1;
+    if (b.attackPhase == 0) {
+        b.attackPhase = 1;
         b.walkTimer = 10
         b.shootTimer = 30;
     } else {
-      b.attackType = 0;
+      b.attackPhase = 0;
     }
   })
 }
