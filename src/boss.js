@@ -1,13 +1,4 @@
-var attackType = 0;
-var attackAmount = 0;
-var walkTimer = 10;
 var direction = ['L', 'R','T','B'];
-var currentDirection = 'L';
-var enemyChance;
-var slimeAngle = 0
-var slimeBulletSpawn = 0;
-var slimeShootPhase = 1;
-var slimePhase = 0;
 
 class Boss {
   constructor(x, y, w, h, maxvx, maxvy, type, numberroom, hp) {
@@ -31,6 +22,16 @@ class Boss {
     this.lastshot = new Date().getTime();
     this.damage = 10;
     this.hitdelay = 200;
+    this.attackType = 0;
+    this.attackAmount = 0;
+    this.walkTimer = 10;
+    this.shootTimer = 30
+    this.currentDirection = 'L';
+    this.enemyChance;
+    this.slimeAngle = 0
+    this.slimeBulletSpawn = 0;
+    this.slimeShootPhase = 1;
+    this.slimePhase = 0;
   }
   show() {
     //HP bar
@@ -57,14 +58,14 @@ class Boss {
       }
       
       //Dash phase
-      if (attackType == 0) { 
+      if (this.attackType == 0) { 
         this.damage = 10; //When the boss is in his dashing phase he will have 10 damage points
         
         //Different images and movement variables in certain dash-directions
-        if(currentDirection == 'L'){this.vx = this.maxvx,this.vy = 0, image(monstrodash_right, this.x, this.y, this.w, this.h);}
-        if(currentDirection == 'R'){this.vx = -this.maxvx,this.vy = 0, image(monstrodash_left, this.x, this.y, this.w, this.h);}
-        if(currentDirection == 'T'){this.vy = this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
-        if(currentDirection == 'B'){this.vy = -this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
+        if(this.currentDirection == 'L'){this.vx = this.maxvx,this.vy = 0, image(monstrodash_right, this.x, this.y, this.w, this.h);}
+        if(this.currentDirection == 'R'){this.vx = -this.maxvx,this.vy = 0, image(monstrodash_left, this.x, this.y, this.w, this.h);}
+        if(this.currentDirection == 'T'){this.vy = this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
+        if(this.currentDirection == 'B'){this.vy = -this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
 
         //Boss and wall interaction
         rooms.forEach(r => {
@@ -75,31 +76,31 @@ class Boss {
             borderbottomy = r.y + r.h - DOORH
             
             //When the boss collides with any of the walls in that room.
-            if(currentDirection == 'L' && this.x > borderrightx + 200 ||
-              currentDirection == 'R' && this.x < borderleftx -200 ||
-              currentDirection == 'T' && this.y > borderbottomy + 200 ||
-              currentDirection == 'B' && this.y < bordertopy - 200){
-              attackAmount++;
-              currentDirection = direction[Math.floor(Math.random()*direction.length)]; //Chooses a random direction from the 'direction' array
+            if(this.currentDirection == 'L' && this.x > borderrightx + 200 ||
+              this.currentDirection == 'R' && this.x < borderleftx -200 ||
+              this.currentDirection == 'T' && this.y > borderbottomy + 200 ||
+              this.currentDirection == 'B' && this.y < bordertopy - 200){
+              this.attackAmount++;
+              this.currentDirection = direction[Math.floor(Math.random()*direction.length)]; //Chooses a random direction from the 'direction' array
               
               //Position reset when the a new direction is chosen
-              if(currentDirection == 'L'){
+              if(this.currentDirection == 'L'){
                 this.x = borderleftx -300;
                 this.y = player.y - player.h;
-              }else if(currentDirection == 'R'){
+              }else if(this.currentDirection == 'R'){
                 this.x = borderrightx +300;
                 this.y = player.y - player.h;
-              }else if(currentDirection == 'T'){
+              }else if(this.currentDirection == 'T'){
                 this.y = bordertopy -300;
                 this.x = player.x ;
-              }else if(currentDirection == 'B'){
+              }else if(this.currentDirection == 'B'){
                 this.y = borderbottomy +300;
                 this.x = player.x ;
               }
               
               //Make it a 1 in 3 chance an enemy spawns during the boss fight
-              enemyChance = Math.round(random(-0.5, 2.4))
-              if(enemyChance == 0){
+              this.enemyChance = Math.round(random(-0.5, 2.4))
+              if(this.enemyChance == 0){
                 enemies.push(new Enemy(this.x, this.y, 80, 80, 'walker', this.roomnumber, enemies, 1))
               }
             }
@@ -108,15 +109,15 @@ class Boss {
       }
 
       //Walk phase
-      if (attackType == 1) {
+      if (this.attackType == 1) {
         this.damage = 5; //When the boss is in his walking phase he will have 5 damage points
         
         //Timer for how long the boss will walk around
-        if (frameCount % 60 == 0 && walkTimer > 0) { 
-          walkTimer --;
+        if (frameCount % 60 == 0 && this.walkTimer > 0) { 
+          this.walkTimer --;
         }
-        if (walkTimer == 0) {
-          attackAmount = 8; //When the timer runs out, reset it
+        if (this.walkTimer == 0) {
+          this.attackAmount = 8; //When the timer runs out, reset it
         }
         
         //Get the angle the boss will have to walk to get to the player
@@ -144,10 +145,10 @@ class Boss {
       this.x += this.vx
       this.y += this.vy
 
-      //Whenever the amount the boss has attacked, make the boss do a new attack and reset the attackAmount value
-      if (attackAmount == 8) {
+      //Whenever the amount the boss has attacked, make the boss do a new attack and reset the this.attackAmount value
+      if (this.attackAmount == 8) {
         newAttack();
-        attackAmount = 0;
+        this.attackAmount = 0;
       }
 
       //When getting the boss's hp to 0 or below, delete the boss from the 'boss' array
@@ -169,37 +170,45 @@ class Boss {
       }
       
       //Shoot phase
-      if (attackType == 0) { 
+      if (this.attackType == 0) { 
         this.damage = 5; //When the boss is in his dashing phase he will have 10 damage points
         
-        let velocity = p5.Vector.fromAngle(slimeAngle);
+        //Timer for how long the boss will shoot around
+        if (frameCount % 60 == 0 && this.shootTimer > 0) { 
+          this.shootTimer --;
+        }
+        if (this.shootTimer == 0) {//Reset the boss's values
+          newAttack()
+        }
+        let velocity = p5.Vector.fromAngle(this.slimeAngle);
         velocity.mult(3); // set the speed of the bullet
-        if(slimeBulletSpawn == 5){
+        if(this.slimeBulletSpawn == 1){
           enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'molotov', velocity.x, velocity.y,'',this.damage))
-          slimeBulletSpawn = 0
-          slimePhase ++;
+          this.slimeBulletSpawn = 0
+          this.slimePhase ++;
         }
-        if(slimePhase >= 50){
-          slimeShootPhase++
-          slimePhase = 0;
+        if(this.slimePhase >= 500){
+          if(this.slimeShootPhase == 3){
+            this.slimeShootPhase = 0
+          }
+          this.slimeShootPhase ++;
+          this.slimePhase = 0;
         }
-        slimeBulletSpawn++
-        slimeAngle += TWO_PI / slimeShootPhase; // change the angle for the next bullet
-        slimeAngle+=0.02 
-        if(slimeShootPhase > 6){
-          attackType = 1;
-        }
+        console.log(this.slimePhase)
+        this.slimeBulletSpawn++
+        this.slimeAngle += TWO_PI / this.slimeShootPhase; // change the angle for the next bullet
+        this.slimeAngle+=0.02 
       }
       //Walk phase
-      if (attackType == 1) {
+      if (this.attackType == 1) {
         this.damage = 5; //When the boss is in his walking phase he will have 5 damage points
         
         //Timer for how long the boss will walk around
-        if (frameCount % 60 == 0 && walkTimer > 0) { 
-          walkTimer --;
+        if (frameCount % 60 == 0 && this.walkTimer > 0) { 
+          this.walkTimer --;
         }
-        if (walkTimer == 0) {
-          attackAmount = 8; //When the timer runs out, reset it
+        if (this.walkTimer == 0) {
+          this.attackAmount = 8; //When the timer runs out, reset it
         }
         
         //Get the angle the boss will have to walk to get to the player
@@ -221,16 +230,19 @@ class Boss {
           this.vx = 0; 
           image(monstrowalk_right, this.x, this.y, this.w, this.h);
         }
+      }else{ //When the boss is not walking, make him stand still
+        this.vx = 0;
+        this.vy = 0;
       }
       
       //Apply the velocities onto the positional values
       this.x += this.vx
       this.y += this.vy
 
-      //Whenever the amount the boss has attacked, make the boss do a new attack and reset the attackAmount value
-      if (attackAmount == 8) {
-        newAttack();
-        attackAmount = 0;
+      //Whenever the amount the boss has attacked, make the boss do a new attack and reset the this.attackAmount value
+      if (this.attackAmount == 8) {
+        newAttack()
+        this.attackAmount = 0;
       }
 
       //When getting the boss's hp to 0 or below, delete the boss from the 'boss' array
@@ -246,7 +258,7 @@ class Boss {
 
   //subtract the according damage the player does from the boss's health
   hit(bulletdamage, distancedropoff){
-    if(attackType != 0){
+    if(this.attackType != 0){
       console.log(bulletdamage * distancedropoff);
       this.hp -= bulletdamage * distancedropoff; 
     }  
@@ -255,10 +267,13 @@ class Boss {
 
 //Change the attack the boss does whenever this function is called.
 function newAttack() {
-  if (attackType == 0) {
-    attackType = 1;
-    walkTimer = 10
-  } else {
-    attackType = 0;
-  }
+  boss.forEach(b => {
+    if (b.attackType == 0) {
+        b.attackType = 1;
+        b.walkTimer = 10
+        b.shootTimer = 30;
+    } else {
+      b.attackType = 0;
+    }
+  })
 }

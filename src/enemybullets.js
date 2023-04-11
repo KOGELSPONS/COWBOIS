@@ -28,7 +28,19 @@ class Enemybullet {
     this.mx += this.velx;
     this.my += this.vely;
     this.playerdist += this.velx + this.vely
-    
+    if (this.x + this.velx <= borderleftx){
+      this.remove();
+    } else if (this.x + this.w + this.velx >= borderrightx){
+      this.remove();
+    } else if (this.y + this.vely <= bordertopy){
+      this.remove();
+    } else if (this.y + this.h + this.vely >= borderbottomy){
+      this.remove();
+    }
+  }
+  remove(){
+    let idx = enemybullets.indexOf(this); 
+    enemybullets.splice(idx,1);
   }
   collision(){
     if (collision(this.x,this.y,this.w,this.h,player.x,player.y,player.w,player.h)){
