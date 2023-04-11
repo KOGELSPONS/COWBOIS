@@ -18,7 +18,8 @@ var MouseClicked = false;
 var NewscoreTime = -1;
 var DeathTime = -1;
 var HighscoreTime = -1;
-
+var prevpick = -1;
+var firstClick = false;
 
 // Debug boolean
 var showData = true;
@@ -46,6 +47,8 @@ var MainMenuButtons = [];
 var SettingsMenuButtons = [];
 var DeadscreenButtons = [];
 var lastdead;
+var song = [];
+var pickone;
 
 //debug
 var FPS, BulletCount, EnemyCount, ItemCount, currentplaceables;
@@ -85,7 +88,7 @@ function setup() {
   dog = new Dog(TILEX*1.5,TILEY/2, 50,50,200)
 
   makeButton();
-
+  
   //Makes the screen resize canvis, without changing the actual game render size
   //So settings the style.height to 100% almost everybody has a screen that has less height that witdth
   //And than removing the width so the CSS aspect-ratio takes over the width
@@ -135,4 +138,12 @@ function preload() {
   shotgun_shot = loadSound('data/sounds/shotgunFire.mp3')
   shotgun_reload = loadSound('data/sounds/shotgunReload.mp3')
   hey = loadSound('data/sounds/hey.mp3');
+  song[0] = loadSound("data/sounds/songs/big-iron.mp3");
+  song[0].onended(randomMusic);
+  song[1] = loadSound("data/sounds/songs/help-me.mp3");
+  song[1].onended(randomMusic);
+  song[2] = loadSound("data/sounds/songs/its-a-sin.mp3");
+  song[2].onended(randomMusic);
+  song[3] = loadSound("data/sounds/songs/lone-star.mp3");
+  song[3].onended(randomMusic);
 }

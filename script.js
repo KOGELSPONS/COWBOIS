@@ -169,4 +169,8 @@ function updatecamera(){
 
 function mouseClicked() {
   MouseClicked = true;
+  if(!firstClick){
+    randomMusic();
+    firstClick = true;
+  } 
 }

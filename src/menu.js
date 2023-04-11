@@ -139,7 +139,7 @@ function makeButton() {
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 120 , 800, 100, "Clear LocalStorage", 50, blackpaint, function(){localStorage.clear();} ,"settings"));
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 240 , 800, 100, "Back", 50, blackpaint, function(){currentMenu = "start";} ,"settings"));
   //Deadscreen
-  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 400, 100, "Restart", 50, blackpaint, function(){Reset();} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 - 20 , 1000, 100, "Time to Death: " + DeathTime + "s", 50, blackpaint, function(){} ,""));
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 400, 100, "Restart", 50, blackpaint, function(){Reset();} ,""));
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 400, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1;} ,""));
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 400, 100, "Quit", 50, blackpaint, function(){gameState = 1; currentMenu = "quit";} ,""));
@@ -180,4 +180,18 @@ function Reset() {
   dog = new Dog(TILEX*1.5,TILEY/2, 50,50,200);
   
   gameState = 2;
+}
+
+function randomMusic() {
+  song[0].stop();
+  song[1].stop();
+  song[2].stop();
+  song[3].stop();
+  pickone=round(random(-0.5,3.4));
+  if (pickone == prevpick){
+    randomMusic(prevpick);
+  } else{
+    song[pickone].play();
+    prevpick = pickone;
+  }
 }
