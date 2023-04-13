@@ -231,6 +231,8 @@ function updateSound() {
   } if (ValueMusic < 0.01){
     ValueMusic = 0;
   } 
+  storeItem('SFX', ValueSFX);
+  storeItem('Music', myText);
   
   //SFX
   for (let i = 0; i < sfx.length; i++) {
