@@ -22,7 +22,7 @@ class Enemybullet {
     this.x = this.mx - this.halfWidth;
     this.y = this.my - this.halfHeight;
     fill('red')
-    rect(this.x, this.y, this.w,this.h)
+    circle(this.x + this.s/2, this.y + this.s/2, this.s);
   }    
   move(){
     this.mx += this.velx;
@@ -47,6 +47,8 @@ class Enemybullet {
       player.hit(this.damage);
       let idx = enemybullets.indexOf(this); 
       enemybullets.splice(idx,1);
+      player.vx += this.velx;
+      player.vy += this.vely;
     }
   }
   hit(){

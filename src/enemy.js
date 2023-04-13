@@ -1,4 +1,3 @@
-var dynamoTimer = 3;
 class Enemy{
   constructor(x, y, w, h, type, numberroom, others, mutlix){
     this.x = x;
@@ -17,6 +16,7 @@ class Enemy{
     this.damagemultiplier = mutlix;
     this.direction = "R";
     this.lastshot = new Date().getTime();
+    this.dynamoTimer = 3;
 
     if (this.type == "walker"){
       this.damage = 10;
@@ -113,7 +113,7 @@ class Enemy{
       }
     
       if(this.type == 'dynamo'){
-        
+        this.damage = 1;
         //Walking to player system
         let enemyPlayerdistance = dist(player.mx, player.my, this.mx, this.my);
         if(enemyPlayerdistance > 300){
@@ -139,24 +139,22 @@ class Enemy{
         
           if (distance < 50 && otherEnemy != this) {
             // If the enemies collide, move them apart from each other
-            angle = atan2(this.y - otherEnemy.y, this.x - otherEnemy.x);
+            let angle = atan2(this.y - otherEnemy.y, this.x - otherEnemy.x);
             this.x += cos(angle);
             this.y += sin(angle);
           }
         }
-
-        if (frameCount % 60 == 0 && dynamoTimer > 0) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
-          dynamoTimer --;
-        }
-        
-        if (dynamoTimer == 0) {
+        if (this.dynamoTimer == 0) {
           let angle = atan2(player.my - this.my, player.mx - this.mx);
-          let velX = cos(angle) * 5;
-          let velY = sin(angle) * 5;
+          let velX = (cos(angle) * 5) + random(-1, 1);
+          let velY = (sin(angle) * 5) + random(-1, 1);
           let playerEnemyDist = dist(this.x, this.y, player.x, player.y)
-          enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'molotov', velX, velY,playerEnemyDist,this.damage))
+          enemybullets.push(new Enemybullet(this.mx, this.my, 10, 'molotov', velX, velY,playerEnemyDist,this.damage))
           console.log(velX)
-          dynamoTimer = 3;
+        }
+        this.dynamoTimer ++;
+        if(this.dynamoTimer == 10){
+          this.dynamoTimer = 0
         }
       }
   }
