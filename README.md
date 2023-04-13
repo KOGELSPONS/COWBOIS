@@ -17,9 +17,9 @@ And made for a School project.
 
 ## Run Locally
 
-Install 2 apllications:
--https://nodejs.org/en
--https://gitforwindows.org/
+Install 2 apllications:  
+- https://nodejs.org/en  
+- https://gitforwindows.org/
 
 Launch git bash
 
