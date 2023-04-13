@@ -40,16 +40,19 @@ class Player {
     this.y += this.vy;
     this.mx = this.x + this.halfWidth;
     this.my = this.y + this.halfHeight;
-    
+
+    if (this.vx == 0 && this.vy == 0){
+      image(body_idle, this.x, this.y, this.w, this.h);
+    } else{
+      image(body_walk, this.x, this.y, this.w, this.h);
+    }
     //Player Head 
     fill('aqua');
     if (this.look == "Right"){
       fill('purple');
-      image(body, this.x, this.y, this.w, this.h);
       image(headRight,this.x - 5, this.y - 41 ,this.w + 10,this.h+10);
     } else if (this.look == "Left"){
       fill('purple');
-      image(body, this.x, this.y, this.w, this.h);
       image(headLeft,this.x - 5, this.y - 41 ,this.w + 10,this.h+10);
     }
     //Debug colors
@@ -69,7 +72,6 @@ class Player {
     }
     } else if (this.look == "Left"){
       fill('purple');
-      image(body, this.x, this.y, this.w, this.h);
       image(headLeft,this.x - 5, this.y - 41 ,this.w + 10,this.h+10);
     }
     //HP bar
@@ -100,28 +102,18 @@ class Player {
   }
   move(){
     //Max speed system
-    if (this.vx >= 5){
-      this.vx = 5
-    } if (this.vx <= - 5){
-      this.vx = - 5
-    } if (this.vy >= 5){
-      this.vy = 5
-    } if (this.vy <= - 5){
-      this.vy = - 5
-    }
+    this.vx = constrain(this.vx,-5,5);
+    this.vy = constrain(this.vy,-5,5);
 
     //Drag system
-    if (1.0 > this.vx < -1.0){
+    this.vx *= this.friction;
+    this.vy *= this.friction;
+    if (this.vx < 0.05 && this.vx > -0.05){
       this.vx = 0;
-    } else {
-      this.vx *= this.friction;
     }
-    
-    if (1.0 > this.vy < -1.0){
+    if (this.vy < 0.05 && this.vy > -0.05){
       this.vy = 0;
-    } else {
-      this.vy *= this.friction;
-    }
+    } 
     
     // velocity adding system
     if (keyIsDown(68)) {

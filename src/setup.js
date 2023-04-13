@@ -130,7 +130,8 @@ function preload() {
   staticnoise = loadImage('data/general/static.gif');
   headLeft = loadImage('data/player/head_left.png');
   headRight = loadImage('data/player/head_right.png');
-  body = loadImage('data/player/body.png');
+  body_idle = loadImage('data/player/body.png');
+  body_walk = loadImage('data/player/body.gif');
   coppertexture = loadImage('data/general/coppercasing.png');
   blackpaint = loadImage('data/general/blackpaint.png');
   mainmenu = loadImage('data/menu-assets/menu.png');
