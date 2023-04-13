@@ -1,4 +1,5 @@
-# COWBOIS 🤠
+
+# COWBOIS
 
 A Roguelike + Speedrun game based on Binding of Isaac.  
 This game runs on the **p5.js library**.  
@@ -6,7 +7,7 @@ And made for a School project.
 
 
 
-## Makers 👥
+## Makers
 
 - [@KOGELSPONS](https://www.github.com/KOGELSPONS)
 - [@110925](https://www.github.com/110925)
@@ -14,11 +15,40 @@ And made for a School project.
 - [@WalatH](https://www.github.com/WalatH)
 
 
-## Installation 📁
+## Run Locally
 
-How to run this game:
+Installing git bash  
+(if you allready have git bash installed skip this step)
 
-1. Install this repository 
-2. Unzip the zip file
-3. Run the [index.html](index.html) file
-4. Enjoy
+```bash
+  winget install --id Git.Git -e --source winget
+```
+
+Launch git bash
+
+Install dependencies
+
+```bash
+  npm install --global http-server
+```
+
+Clone repository (using git bash)
+
+```bash
+  git clone https://github.com/KOGELSPONS/COWBOIS
+```
+
+Go to the project directory
+
+```bash
+  cd COWBOIS
+```
+
+Start the server
+
+```bash
+  http-server 
+```
+
+Open a webbrowser and navigate to http://localhost:8080/
+
