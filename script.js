@@ -170,6 +170,7 @@ function mousePressed() {
   MouseClicked = true;
   if(!firstClick){
     randomMusic();
+    updateSound();
     firstClick = true;
   } 
 }

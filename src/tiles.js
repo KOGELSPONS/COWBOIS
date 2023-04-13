@@ -139,7 +139,7 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
       placables.push(new Placable(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'stone', true, numberroom))
     }
     if (value == 9) {
-      placables.push(new Placable(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'vent', false, numberroom))
+      placables.push(new Placable(dx + 105 + tileOffsetX, dy + 60 + tileOffsetY, 'vent', false, numberroom))
     }
     // 10 -> 19 enemies
     if (value == 10) {

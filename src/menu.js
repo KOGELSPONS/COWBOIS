@@ -116,7 +116,7 @@ class Button {
 }
 
 class Slider {
-  constructor(x, y, w, h, text, size, img) {
+  constructor(x, y, w, h, text, size, img, start) {
     this.x = x - w/2;
     this.y = y - h/2;
     this.w = w;
@@ -124,7 +124,7 @@ class Slider {
     this.text = text;
     this.size = size;
     this.img = img;
-    this.value = w/2;
+    this.value = start;
   }
   show() {
     fill(255, 0, 0,255);
@@ -168,9 +168,13 @@ function makeButton() {
 }
 
 function makeSliders() {
+  let SFX = getItem('SFX');
+  let Music = getItem('Music');
+
+  
   SettingSliders = [];
-  SettingSliders.push( new Slider(WIDTH/2, HEIGHT/2 - 120 , 800, 100, "SFX", 50, blackpaint));
-  SettingSliders.push( new Slider(WIDTH/2, HEIGHT/2 + 0 , 800, 100, "Music", 50, blackpaint));
+  SettingSliders.push( new Slider(WIDTH/2, HEIGHT/2 - 120 , 800, 100, "SFX", 50, blackpaint, SFX));
+  SettingSliders.push( new Slider(WIDTH/2, HEIGHT/2 + 0 , 800, 100, "Music", 50, blackpaint, Music));
 }
 
 function Reset() {
@@ -231,8 +235,8 @@ function updateSound() {
   } if (ValueMusic < 0.01){
     ValueMusic = 0;
   } 
-  storeItem('SFX', ValueSFX);
-  storeItem('Music', myText);
+  storeItem('SFX', SettingSliders[0].value);
+  storeItem('Music', SettingSliders[1].value);
   
   //SFX
   for (let i = 0; i < sfx.length; i++) {

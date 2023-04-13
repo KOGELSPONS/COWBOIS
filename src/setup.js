@@ -69,15 +69,19 @@ function updateDebug(){
 }
 
 function setup() {
-  background(0);
-  console.log(itemLocation);
-  console.log(theMaps);
-  console.log(enemies);
-  //framerate 
+  //Local storage
+  if(localStorage.getItem('storage') == null){
+    storeItem('storage', true);
+    storeItem('highscore', -1);
+    storeItem('deaths', -1);
+    storeItem('SFX', 400);
+    storeItem('Music', 400);
+  };
   setInterval(updateDebug, 10); 
   //Makes the canvas and adds it to the canvis-wrapper as its child
   myCanvas = createCanvas(W, H, WEBGL);
   myCanvas.parent("canvas-wrapper");
+  //Framerate
   frameRate(60);
   //Creates the camera
   createcamera = createCamera();
@@ -122,6 +126,7 @@ function preload() {
   doorLeftOpen = loadImage('data/doors/door_left_open.png');
   doorRightOpen = loadImage('data/doors/door_right_open.png');
   doorTopOpen = loadImage('data/doors/door_top_open.png');
+  saloon_door = loadImage('data/stage1/saloon_door.png');
   
   chest_open = loadImage('data/stage1/chest-open.png');
   chest_closed = loadImage('data/stage1/chest-closed.png');

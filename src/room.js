@@ -18,6 +18,7 @@ class Room{
       image(wall_img,this.x, this.y);
       if(theMaps[0].maprooms[1] === currentRoom && currentMap == 0){
         image(explain_bg, this.x+230, this.y+200,this.w-460, this.h-400)
+        image(saloon_door, this.x + this.w/2 - DOORW/2, this.y+12 , DOORW, DOORH - 10)
       }
       //Debug Rect
       if (showCollision){
