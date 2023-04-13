@@ -17,12 +17,9 @@ And made for a School project.
 
 ## Run Locally
 
-Installing git bash  
-(if you allready have git bash installed skip this step)
-
-```bash
-  winget install --id Git.Git -e --source winget
-```
+Install 2 apllications:
+-https://nodejs.org/en
+-https://gitforwindows.org/
 
 Launch git bash
 
