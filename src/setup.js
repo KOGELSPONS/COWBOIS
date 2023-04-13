@@ -146,7 +146,7 @@ function preload() {
 
   //SFX
   sfx[0] = loadSound('data/sounds/shotgunFire.mp3'); //shotgun_shot
-  sfx[0] = loadSound('data/sounds/shotgunReload.mp3'); //shotgun_reload
+  sfx[1] = loadSound('data/sounds/shotgunReload.mp3'); //shotgun_reload
   
   //Songs
   song[0] = loadSound("data/sounds/songs/big-iron.mp3");

@@ -33,12 +33,19 @@ function menu(){
   }
 }
 
+var playbackRate = 1;
 function deadscreen(){
   if (currentDeathMenu == "begin"){
+    playbackRate -= 0.005;
+    playbackRate = constrain(playbackRate, 0, 1);
+    updateSound();
     if (mouseIsPressed === true || new Date().getTime() - lastdead >= 5000){
       currentDeathMenu = "second";
     }
   } else if (currentDeathMenu == "second"){
+    playbackRate += 0.01;
+    playbackRate = constrain(playbackRate, 0, 1);
+    updateSound();
     createcamera.setPosition(W/2,H/2,780);
     image(mainmenu,0,0,WIDTH,HEIGHT);
     DeadscreenButtons.forEach(t => {
@@ -219,14 +226,21 @@ function randomMusic() {
 function updateSound() {
   let ValueSFX = round(SettingSliders[0].value)/800
   let ValueMusic = round(SettingSliders[1].value)/800
+  if (ValueSFX < 0.01){
+    ValueMusic = 0;
+  } if (ValueMusic < 0.01){
+    ValueMusic = 0;
+  } 
   
   //SFX
   for (let i = 0; i < sfx.length; i++) {
     sfx[i].setVolume(ValueSFX);
+    sfx[i].rate(playbackRate);
   }
 
   //Music
   for (let i = 0; i < song.length; i++) {
     song[i].setVolume(ValueMusic);
+    song[i].rate(playbackRate);
   }
 }
