@@ -42,12 +42,12 @@ class Enemy{
         if(this.direction == "L"){
           image(ghostenemy1_l,this.x,this.y,this.w,this.h);
         }
-      }else if(this.type == 'dynamo'){
+      }else if(this.type == 'shooter'){
         if(this.direction == "R"){
-          rect(this.x,this.y,this.w,this.h);
+          image(ghostenemy2_r,this.x,this.y,this.w,this.h);
         }
         if(this.direction == "L"){
-          rect(this.x,this.y,this.w,this.h);
+          image(ghostenemy2_l,this.x,this.y,this.w,this.h);
         }
       }
 
@@ -112,7 +112,7 @@ class Enemy{
         
       }
     
-      if(this.type == 'dynamo'){
+      if(this.type == 'shooter'){
         this.damage = 1;
         //Walking to player system
         let enemyPlayerdistance = dist(player.mx, player.my, this.mx, this.my);
@@ -149,7 +149,7 @@ class Enemy{
           let velX = (cos(angle) * 5) + random(-1, 1);
           let velY = (sin(angle) * 5) + random(-1, 1);
           let playerEnemyDist = dist(this.x, this.y, player.x, player.y)
-          enemybullets.push(new Enemybullet(this.mx, this.my, 10, 'molotov', velX, velY,playerEnemyDist,this.damage))
+          enemybullets.push(new Enemybullet(this.mx, this.my, 10, 'bullet', velX, velY,playerEnemyDist,this.damage))
           console.log(velX)
         }
         this.dynamoTimer ++;

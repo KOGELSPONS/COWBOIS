@@ -192,7 +192,7 @@ class Boss {
           velocity.mult(3); // set the speed of the bullet, using mult() because we're working with vectors
           
           if(this.slimeBulletLimit == 1){ //spawn a bullet every 2 frames
-            enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'molotov', velocity.x, velocity.y,'',this.damage))
+            enemybullets.push(new Enemybullet(this.mx, this.my, 20, 'slime', velocity.x, velocity.y,'',this.damage))
             this.slimeBulletLimit = 0 //reset the limiter 
             this.slimeBulletCounter ++; //Count the amount of bullets shot
           }

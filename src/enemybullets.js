@@ -47,8 +47,11 @@ class Enemybullet {
       player.hit(this.damage);
       let idx = enemybullets.indexOf(this); 
       enemybullets.splice(idx,1);
-      player.vx += this.velx;
-      player.vy += this.vely;
+      if(this.bullettype == 'bullet'){
+        player.vx += this.velx;
+        player.vy += this.vely;
+      }
+      
     }
   }
   hit(){

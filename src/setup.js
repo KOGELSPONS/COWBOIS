@@ -110,6 +110,8 @@ function preload() {
   wall_img = loadImage('data/stage1/wall.png');
   ghostenemy1_r = loadImage('data/enemy/ghost1_right.gif');
   ghostenemy1_l = loadImage('data/enemy/ghost1_left.gif');
+  ghostenemy2_r = loadImage('data/enemy/ghost2_right.gif');
+  ghostenemy2_l = loadImage('data/enemy/ghost2_left.gif');
   dog_r = loadImage('data/enemy/dawg_r.gif');
   dog_l = loadImage('data/enemy/dawg_l.gif');
   doorBottom = loadImage('data/doors/door_bottom.png');
