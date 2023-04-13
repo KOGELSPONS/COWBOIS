@@ -21,7 +21,11 @@ class Enemybullet {
   show(){
     this.x = this.mx - this.halfWidth;
     this.y = this.my - this.halfHeight;
-    fill('red')
+    if(this.bullettype == 'bullet'){
+      fill('#db883b');
+      }else{
+          texture(slimeball)
+        }
     circle(this.x + this.s/2, this.y + this.s/2, this.s);
   }    
   move(){
@@ -50,8 +54,9 @@ class Enemybullet {
       if(this.bullettype == 'bullet'){
         player.vx += this.velx;
         player.vy += this.vely;
-      }
-      
+      }else{
+          texture(slimeball)
+        }
     }
   }
   hit(){

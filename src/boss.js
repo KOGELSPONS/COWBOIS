@@ -37,7 +37,7 @@ class Boss {
   }
   show() {
     //HP bar
-    rect(this.x, this.y, this.w, this.h)
+    //rect(this.x, this.y, this.w, this.h)
     translate(0,0,0.01);
     fill('white');
     stroke("black");
@@ -168,18 +168,21 @@ class Boss {
       //Shoot phase
       if (this.attackPhase == 0) { 
         this.damage = 5; //When the boss is in his dashing phase he will have 10 damage points
-        
+
         let angle = atan2((ROOMY + TILEY/2) - this.my, (ROOMX + TILEX/2) - this.mx);
         if (diff(this.my, (ROOMY + TILEY/2)) >= 10){ //only move when further than 10 away from the middle of the map
+          image(slime, this.x-20, this.y-70, this.w+60, this.h+70);
           let speed = sin(angle) * this.walkSpeed; //Make a velocity from the angle
           this.vy = speed;
         }else{this.vy = 0} 
         if (diff(this.mx, (ROOMX + TILEX/2)) >= 10){ //only move when further than 10 away from the middle of the map
+          image(slime, this.x-20, this.y-70, this.w+60, this.h+70);
           let speed = cos(angle) * this.walkSpeed; //Make a velocity from the angle
           this.vx = speed;
         }else{this.vx = 0}
         
         if(this.vy == 0 && this.vx == 0){ //When the boss stands still in the middle
+          image(slime_shooting, this.x-20, this.y-70, this.w+60, this.h+70);
           //Timer for how long the boss will shoot around
           if (frameCount % 60 == 0 && this.shootTimer > 0) { 
             this.shootTimer --;
@@ -233,16 +236,8 @@ class Boss {
         if (diff(this.mx, player.mx) >= 50){ //only move when further than 50 away from the player
           let speed = cos(angle) * this.walkSpeed; //Make a velocity from the angle
           this.vx = speed;
-          //Different images for different velocities
-          if(this.vx >= 0){
-            image(monstrowalk_right, this.x, this.y, this.w, this.h)
-          }else{
-            image(monstrowalk_left, this.x, this.y, this.w, this.h)
-          }
-        }else{
-          this.vx = 0; 
-          image(monstrowalk_right, this.x, this.y, this.w, this.h);
-        }
+        } 
+        image(slime, this.x-20, this.y-140, this.w+60, this.h+140);
       }
       
       //Apply the velocities onto the positional values

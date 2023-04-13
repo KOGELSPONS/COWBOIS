@@ -151,6 +151,8 @@ function preload() {
   monstrowalk_left = loadImage('data/enemy/boss/monstrowalk-left.png');
   monstrowalk_right = loadImage('data/enemy/boss/monstrowalk-right.png');
   slime = loadImage('data/enemy/slime.gif');
+  slime_shooting = loadImage('data/enemy/slime_shooting.gif');
+  slimeball = loadImage('data/enemy/slimeball.png');
 
   //SFX
   sfx[0] = loadSound('data/sounds/shotgunFire.mp3'); //shotgun_shot
