@@ -2,8 +2,6 @@
 //items.push(new Item(1000, 750,'revolver'))
 function draw() {
   if (gameState == 0){
-    background(0);
-    //play music
     gameState = 1;
   } else if (gameState == 1){
     background(0);
@@ -110,6 +108,7 @@ function draw() {
   } else if (gameState == 4){
     winscreen();
   }
+  //all gameState's
   if (MouseClicked){
     MouseClicked = false;
   }

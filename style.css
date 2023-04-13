@@ -13,9 +13,9 @@ html, body {
   flex-wrap: wrap;
   margin: 0;
   padding: 0;
-  margin:0px;
-  width: 100%;
+  margin:0;
   height: 100%;
+  width: 100%;
   color: white;
 }
 
@@ -26,7 +26,16 @@ html, body {
   right:0px;
   bottom:0px;
   left:0px;
+  height: 100vh;
+  width: 100vw;
   z-index: -10;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100vh;
 }
 
 #canvas-wrapper {

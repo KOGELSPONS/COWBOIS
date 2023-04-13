@@ -34,7 +34,7 @@ class Player {
     this.currentWeapon = 'null';
     this.look = "Right";
   }
-  show(){    
+  show(){
     //Apply the velocity to the seen player
     this.x += this.vx;
     this.y += this.vy;
@@ -58,7 +58,20 @@ class Player {
       //Player bottom (collision)
       rect(this.x, this.y, this.w, this.h);
     }
-    
+
+    //guns
+    if (this.look == "Right"){
+      if(inventory[0] == 'revolver'){
+
+    } else if(inventory[0] == 'shotgun'){
+      image(shotgun, ROOMX + 100, ROOMY+480, 50,50);
+      
+    }
+    } else if (this.look == "Left"){
+      fill('purple');
+      image(body, this.x, this.y, this.w, this.h);
+      image(headLeft,this.x - 5, this.y - 41 ,this.w + 10,this.h+10);
+    }
     //HP bar
     translate(0,0,0.01);
     fill('floralwhite');
@@ -113,9 +126,11 @@ class Player {
     // velocity adding system
     if (keyIsDown(68)) {
       this.vx += 0.8;
+      this.look = "Right"
     }
     if (keyIsDown(65)) {
       this.vx -= 0.8;
+      this.look = "Left"
     }
     if (keyIsDown(87)) {
       this.vy -= 0.8;
@@ -123,16 +138,16 @@ class Player {
     if (keyIsDown(83)) {
       this.vy += 0.8;
     }
-    if (this.vx > 0){
-      this.look = "Right"
-    } else if (this.vx < 0){
-      this.look = "Left"
-    }
   }
   // camera(){
   //   createcamera.setPosition(camX,camY,468); //468 best camera zoom
   // }
   attack(direction){
+    if (direction == "R"){
+      this.look = "Right"
+    } else if (direction == "L"){
+      this.look = "Left"
+    }
     this.nowshot = new Date().getTime();
     if (this.nowshot - this.lastshot >= this.shottime && this.ammo > 0 && this.able_to_shoot){
       this.ammo -= 1;
@@ -148,11 +163,8 @@ class Player {
         }  
       }
       else if (this.currentWeapon == 'shotgun'){
+        sfx[0].play(); 
         for(let i = 0; i < 20; i +=1){
-          if(shotgun_shot.isPlaying()){
-            shotgun_shot.stop();
-          }
-          shotgun_shot.play(); 
           bullets.push(new Bullet(this.mx, this.my, 5,player.vx,player.vy, this.currentWeapon, direction));      
         }
         if(inventory[1] == 'dualshot'){
@@ -168,7 +180,7 @@ class Player {
     } else if (this.ammo == 0) {
       this.reload();
       if (this.currentWeapon == 'shotgun'){
-        shotgun_reload.play();
+        sfx[1].play();
       }
     }
   }

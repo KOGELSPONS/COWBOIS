@@ -69,6 +69,7 @@ function updateDebug(){
 }
 
 function setup() {
+  background(0);
   console.log(itemLocation);
   console.log(theMaps);
   console.log(enemies);
@@ -144,18 +145,18 @@ function preload() {
   slime = loadImage('data/enemy/slime.gif');
 
   //SFX
-  sfx[0] = createAudio('data/sounds/shotgunFire.mp3'); //shotgun_shot
-  sfx[0] = createAudio('data/sounds/shotgunReload.mp3'); //shotgun_reload
+  sfx[0] = loadSound('data/sounds/shotgunFire.mp3'); //shotgun_shot
+  sfx[0] = loadSound('data/sounds/shotgunReload.mp3'); //shotgun_reload
   
   //Songs
-  song[0] = createAudio("data/sounds/songs/big-iron.mp3");
+  song[0] = loadSound("data/sounds/songs/big-iron.mp3");
   song[0].onended(randomMusic);
-  song[1] = createAudio("data/sounds/songs/help-me.mp3");
+  song[1] = loadSound("data/sounds/songs/help-me.mp3");
   song[1].onended(randomMusic);
-  song[2] = createAudio("data/sounds/songs/its-a-sin.mp3");
+  song[2] = loadSound("data/sounds/songs/its-a-sin.mp3");
   song[2].onended(randomMusic);
-  song[3] = createAudio("data/sounds/songs/lone-star.mp3");
+  song[3] = loadSound("data/sounds/songs/lone-star.mp3");
   song[3].onended(randomMusic);
 
-  song[4] = createAudio('data/sounds/hey.mp3'); //hey
+  song[4] = loadSound('data/sounds/hey.mp3'); //hey
 }
