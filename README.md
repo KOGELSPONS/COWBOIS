@@ -49,3 +49,5 @@ Start the server
 
 Open a webbrowser and navigate to http://localhost:8080/
 
+Stop the server by pressing CTRL + C in git bash
+
