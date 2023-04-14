@@ -29,11 +29,12 @@ class Item {
         image(collar, this.x, this.y, 50, 50)
       }else if(this.name == 'stopwatch'){
         image(stopwatch, this.x, this.y, 50, 50)
+      }else if(this.name == 'healthpack'){
+        image(healthpack, this.x, this.y, 50, 50)
       }
     } else {
       image(chest_closed, this.x, this.y, 50, 50)
     }
-
   }
   pickup() {
     if (collision(player.x, player.y, player.w, player.h, this.x, this.y, 50, 50) && enemies.length == 0) {
@@ -60,7 +61,7 @@ class Item {
       }
 
       player.update();
-
+      
       //give items new offset so you cant pick them up twice
       if (!this.itemOffset) {
         this.x += 100;
@@ -70,6 +71,10 @@ class Item {
         this.itemOffset = false;
       }
     }
+  }
+  remove(){
+    let idx = items.indexOf(this);
+    items.splice(idx, 1);
   }
 }
 
@@ -183,6 +188,9 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
     // 40 -> 49 boosters
     if (value == 40) {
       items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'booster', 'stopwatch', numberroom, 2))
+    }
+    if (value == 41) {
+      items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'booster', 'healthpack', numberroom, 2))
     }
   }
 }

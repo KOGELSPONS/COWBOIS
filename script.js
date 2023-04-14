@@ -95,6 +95,7 @@ function draw() {
       DeathTime = gameTimer;
       //storeItem('DeathTime', DeathTime);
       makeButton();
+      createcamera.setPosition(camX,camY,468);
       translate(0,0,0.02);
       texture(deathscreen);
       textureMode(NORMAL);
@@ -107,6 +108,7 @@ function draw() {
     deadscreen();
   } else if (gameState == 4){
     winscreen();
+    gameState = 1;
   }
   //all gameState's
   if (MouseClicked){

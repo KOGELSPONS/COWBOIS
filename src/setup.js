@@ -12,6 +12,8 @@ var inventory = ["empty","empty","empty"];
 var reload_show_timer = false;
 var explored = [1];
 var dogActive = false;
+var stopwatchActive = false;
+var stopwatchTimer = 4;
 var currentMenu = "start";
 var currentDeathMenu = "begin";
 var MouseClicked = false;
@@ -134,6 +136,7 @@ function preload() {
   dualshot = loadImage('data/stage1/2_line.png');
   stopwatch = loadImage('data/stage1/stopwatch.png');
   collar = loadImage('data/stage1/collar.jpg');
+  healthpack = loadImage('data/stage1/healthpack.png');
   chest_animation = loadImage('data/stage1/chest-animation.gif');
   pixel_font = loadFont('data/fonts/font.otf');
   staticnoise = loadImage('data/general/static.gif');

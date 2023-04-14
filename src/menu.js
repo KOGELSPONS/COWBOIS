@@ -1,11 +1,28 @@
 function menu(){
+  //setting the camera so you can see the same ammount of pixels as your canvas size
   createcamera.setPosition(W/2,H/2,780);
   if (currentMenu == "start"){
+    //showing the enu image
     image(mainmenu,0,0,WIDTH,HEIGHT);
+    //Drawing the pressable buttons
     MainMenuButtons.forEach(t => {
       t.show();
       t.clicked();
     })
+    //Text
+    fill("Black");
+    textAlign(LEFT, TOP);
+    textSize(30);
+    text("Deaths: " + deaths, 50, 50);
+    text("Wins: " + wins, 50, 100);
+    text("Highscore:", 50, 150);
+    let showscore
+    if (highscore == -1){
+      showscore = "Not Set"
+    } else {
+      showscore = highscore
+    }
+    text(showscore, 50 , 180);
   } else if (currentMenu == "settings"){
     image(mainmenu,0,0,WIDTH,HEIGHT);
     SettingsMenuButtons.forEach(t => {
@@ -21,7 +38,7 @@ function menu(){
     song[0].stop();
     song[1].stop();
     song[2].stop();
-    song[3].stop();
+    song[3].stop(); 
     song[4].loop();
     fail;
   }
@@ -158,10 +175,14 @@ function makeButton() {
   //Settings
   //SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 - 120 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
   //SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 0 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
-  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 120 , 800, 100, "Clear LocalStorage", 50, blackpaint, function(){localStorage.clear();} ,"settings"));
+  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 120 , 800, 100, "Clear LocalStorage", 50, blackpaint, function(){localStorage.clear(); MakeStorage();} ,"settings"));
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 240 , 800, 100, "Back", 50, blackpaint, function(){currentMenu = "start";} ,"settings"));
   //Deadscreen
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 - 20 , 1000, 100, "Time to Death: " + DeathTime + " sec", 50, blackpaint, function(){} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Restart", 50, blackpaint, function(){Reset();} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1;} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){gameState = 1; currentMenu = "quit";} ,""));
+  //Winscreen
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Restart", 50, blackpaint, function(){Reset();} ,""));
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1;} ,""));
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){gameState = 1; currentMenu = "quit";} ,""));
@@ -217,7 +238,7 @@ function randomMusic() {
   song[0].stop();
   song[1].stop();
   song[2].stop();
-  song[3].stop();
+  song[3].stop(); 
   pickone=round(random(-0.5,3.4));
   if (pickone == prevpick){
     randomMusic(prevpick);
@@ -249,4 +270,29 @@ function updateSound() {
     song[i].setVolume(ValueMusic);
     song[i].rate(playbackRate);
   }
+}
+
+function MakeStorage(){
+  highscore = 0;
+  wins = 0;
+  deaths = 0;
+  storeItem('storage', true);
+  storeItem('highscore', -1);
+  storeItem('wins', 0);
+  storeItem('deaths', 0);
+  storeItem('SFX', 400);
+  storeItem('Music', 400);
+}
+
+function win(){
+  let newscore = gameTimer;
+  let oldscore = getItem('highscore');
+  if (newscore < oldscore && oldscore != -1){
+    highscore = newscore;
+  } else {
+    highscore = oldscore;
+  }
+  storeItem('highscore', highscore);
+  wins += 1;
+  storeItem('wins', wins);
 }

@@ -84,18 +84,20 @@ class Enemy{
         }
         
         //Walking to player system
-        let angle = atan2(player.my - this.my, player.mx - this.mx);
-        if (diff(this.my, player.my) >= 30){
-          let speed = sin(angle) * this.speed ;
-          this.y += speed;
-        } if (diff(this.mx, player.mx) >= 30){
-          let speed = cos(angle) * this.speed ;
-          if (speed > 0){
-            this.direction = "R";
-          }else if (speed < 0){
-            this.direction = "L";
+        if(!stopwatchActive){
+          let angle = atan2(player.my - this.my, player.mx - this.mx);
+          if (diff(this.my, player.my) >= 30){
+            let speed = sin(angle) * this.speed ;
+            this.y += speed;
+          } if (diff(this.mx, player.mx) >= 30){
+            let speed = cos(angle) * this.speed ;
+            if (speed > 0){
+              this.direction = "R";
+            }else if (speed < 0){
+              this.direction = "L";
+            }
+            this.x += speed;
           }
-          this.x += speed;
         }
         
         for (let i = 0; i < enemies.length; i++) {
@@ -104,7 +106,7 @@ class Enemy{
         
           if (distance < 50 && otherEnemy != this) {
             // If the enemies collide, move them apart from each other
-            angle = atan2(this.y - otherEnemy.y, this.x - otherEnemy.x);
+            let angle = atan2(this.y - otherEnemy.y, this.x - otherEnemy.x);
             this.x += cos(angle);
             this.y += sin(angle);
           }
@@ -115,21 +117,23 @@ class Enemy{
       if(this.type == 'shooter'){
         this.damage = 1;
         //Walking to player system
-        let enemyPlayerdistance = dist(player.mx, player.my, this.mx, this.my);
-        if(enemyPlayerdistance > 300){
-          let angle = atan2(player.my - this.my, player.mx - this.mx);
-          if (diff(this.my, player.my) >= 30){
-            let speed = sin(angle) * this.speed ;
-            this.y += speed;
-          } 
-          if (diff(this.mx, player.mx) >= 30){
-            let speed = cos(angle) * this.speed ;
-            if (speed > 0){
-              this.direction = "R";
-            } else if (speed < 0){
-              this.direction = "L";
+        if(!stopwatchActive){
+          let enemyPlayerdistance = dist(player.mx, player.my, this.mx, this.my);
+          if(enemyPlayerdistance > 300){
+            let angle = atan2(player.my - this.my, player.mx - this.mx);
+            if (diff(this.my, player.my) >= 30){
+              let speed = sin(angle) * this.speed ;
+              this.y += speed;
+            } 
+            if (diff(this.mx, player.mx) >= 30){
+              let speed = cos(angle) * this.speed ;
+              if (speed > 0){
+                this.direction = "R";
+              } else if (speed < 0){
+                this.direction = "L";
+              }
+              this.x += speed;
             }
-            this.x += speed;
           }
         }
         

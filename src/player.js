@@ -244,7 +244,31 @@ class Player {
     }else if(inventory[2] == 'stopwatch'){
       image(stopwatch, ROOMX + 210 , ROOMY+480, 50,50);
       dogActive = false;
+      if(keyIsDown(69) && !stopwatchActive){
+          stopwatchActive = true;
+          stopwatchTimer = 4;
+        }
+    }else if(inventory[2] == 'healthpack'){
+      image(healthpack, ROOMX + 210 , ROOMY+480, 50,50);
+      dogActive = false;
+      if(keyIsDown(69)){
+        player.hp += 40
+        if(player.hp > 100){
+          player.hp = 100;
+        }
+        inventory[2] = 'empty'
+      }
     }
+      if(stopwatchActive){
+        if (frameCount % 60 == 0 && stopwatchTimer > 0) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
+          stopwatchTimer --;
+        }
+        console.log(stopwatchTimer)
+        if (stopwatchTimer == 0) {
+          stopwatchActive = false;
+          inventory[2] = 'empty'
+        }
+      }
     translate(0,0,-0.01);
   }
   update(){
