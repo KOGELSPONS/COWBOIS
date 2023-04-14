@@ -1,7 +1,7 @@
 var direction = ['L', 'R','T','B']; //Different directions the boss can move/dash towards
 
 class Boss {
-  constructor(x, y, w, h, maxvx, maxvy, type, numberroom, hp) {
+  constructor(x, y, w, h, maxvx, maxvy, type, numberroom, hp, attackPhase) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -23,7 +23,7 @@ class Boss {
     this.lastshot = new Date().getTime(); //Make sure the boss cannot spam attack 
     this.hitdelay = 200; //The delay before the boss will attack again
     this.damage = 10; //The damage the boss does
-    this.attackPhase = 1; //The attack phase of the boss
+    this.attackPhase = attackPhase; //The attack phase of the boss
     this.attackCounter = 0; //Keeps track of the amount of times a boss does an attack
     this.walkTimer = 10; //How long bosses will walk around
     this.shootTimer = 30 //How long the (slime) boss will be in it's shoot phase
