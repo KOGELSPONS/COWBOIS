@@ -40,7 +40,7 @@ class Item {
     if (collision(player.x, player.y, player.w, player.h, this.x, this.y, 50, 50) && enemies.length == 0) {
       // console.log("pick up item");
       // console.log(this);
-
+      sfx[2].play();
       //certain things only for 1 type
       if (this.type == 'weapon') {
         player.ammo = 0;

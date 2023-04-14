@@ -114,6 +114,7 @@ function draw() {
   if (MouseClicked){
     MouseClicked = false;
   }
+  updateSound();
 }
 
 //Calculate the difference between 2 numbers but always return a positive number (so distance is not -5 but 5)

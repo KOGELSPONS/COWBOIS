@@ -55,14 +55,12 @@ function deadscreen(){
   if (currentDeathMenu == "begin"){
     playbackRate -= 0.005;
     playbackRate = constrain(playbackRate, 0, 1);
-    updateSound();
     if (mouseIsPressed === true || new Date().getTime() - lastdead >= 5000){
       currentDeathMenu = "second";
     }
   } else if (currentDeathMenu == "second"){
     playbackRate += 0.01;
     playbackRate = constrain(playbackRate, 0, 1);
-    updateSound();
     createcamera.setPosition(W/2,H/2,780);
     image(mainmenu,0,0,WIDTH,HEIGHT);
     DeadscreenButtons.forEach(t => {
@@ -159,7 +157,6 @@ class Slider {
   clicked() {
     if (mouseX > this.x && mouseX < (this.x + this.w) && mouseY > this.y && mouseY < (this.y + this.h) && mouseIsPressed === true) {
       this.value = mouseX - this.x;
-      updateSound();
     }
   }
 }
@@ -179,7 +176,7 @@ function makeButton() {
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 240 , 800, 100, "Back", 50, blackpaint, function(){currentMenu = "start";} ,"settings"));
   //Deadscreen
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 - 20 , 1000, 100, "Time to Death: " + DeathTime + " sec", 50, blackpaint, function(){} ,""));
-  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Restart", 50, blackpaint, function(){Reset();} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Restart", 50, blackpaint, function(){Reset(); playbackRate = 1;} ,""));
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1;} ,""));
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){gameState = 1; currentMenu = "quit";} ,""));
   //Winscreen
@@ -242,7 +239,7 @@ function randomMusic() {
   pickone=round(random(-0.5,3.4));
   if (pickone == prevpick){
     randomMusic(prevpick);
-  } else{
+  } else if (currentMenu != "quit"){
     song[pickone].play();
     prevpick = pickone;
   }
@@ -287,7 +284,7 @@ function MakeStorage(){
 function win(){
   let newscore = gameTimer;
   let oldscore = getItem('highscore');
-  if (newscore < oldscore && oldscore != -1){
+  if (newscore < oldscore || oldscore == -1){
     highscore = newscore;
   } else {
     highscore = oldscore;
