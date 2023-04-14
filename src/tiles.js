@@ -27,6 +27,8 @@ class Item {
         image(dualshot, this.x, this.y, 50, 50)
       }else if(this.name == 'collar'){
         image(collar, this.x, this.y, 50, 50)
+      }else if(this.name == 'stopwatch'){
+        image(stopwatch, this.x, this.y, 50, 50)
       }
     } else {
       image(chest_closed, this.x, this.y, 50, 50)
@@ -180,7 +182,7 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
     }
     // 40 -> 49 boosters
     if (value == 40) {
-      items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'booster', '??', numberroom, 2))
+      items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'booster', 'stopwatch', numberroom, 2))
     }
   }
 }

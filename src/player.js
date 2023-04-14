@@ -62,18 +62,18 @@ class Player {
       rect(this.x, this.y, this.w, this.h);
     }
 
-    //guns
-    if (this.look == "Right"){
-      if(inventory[0] == 'revolver'){
+    // //guns
+    // if (this.look == "Right"){
+    //   if(inventory[0] == 'revolver'){
 
-    } else if(inventory[0] == 'shotgun'){
-      image(shotgun, ROOMX + 100, ROOMY+480, 50,50);
+    // } else if(inventory[0] == 'shotgun'){
+    //   image(shotgun, ROOMX + 100, ROOMY+480, 50,50);
       
-    }
-    } else if (this.look == "Left"){
-      fill('purple');
-      image(headLeft,this.x - 5, this.y - 41 ,this.w + 10,this.h+10);
-    }
+    // }
+    // } else if (this.look == "Left"){
+    //   fill('purple');
+    //   image(headLeft,this.x - 5, this.y - 41 ,this.w + 10,this.h+10);
+    // }
     //HP bar
     translate(0,0,0.01);
     fill('floralwhite');
@@ -241,6 +241,9 @@ class Player {
     if(inventory[2] == "empty"){
       fill('red');
       rect(ROOMX + 210 , ROOMY+480, 50,50);
+    }else if(inventory[2] == 'stopwatch'){
+      image(stopwatch, ROOMX + 210 , ROOMY+480, 50,50);
+      dogActive = false;
     }
     translate(0,0,-0.01);
   }

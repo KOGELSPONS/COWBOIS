@@ -51,6 +51,7 @@ var lastdead;
 var song = [];
 var sfx = [];
 var pickone;
+var highscore, wins, deaths = 0;
 
 //debug
 var FPS, BulletCount, EnemyCount, ItemCount, currentplaceables;
@@ -71,12 +72,12 @@ function updateDebug(){
 function setup() {
   //Local storage
   if(localStorage.getItem('storage') == null){
-    storeItem('storage', true);
-    storeItem('highscore', -1);
-    storeItem('deaths', -1);
-    storeItem('SFX', 400);
-    storeItem('Music', 400);
-  };
+    MakeStorage();
+  }else {
+    highscore = getItem('highscore');
+    wins = getItem('wins');
+    deaths = getItem('deaths');
+  }
   setInterval(updateDebug, 10); 
   //Makes the canvas and adds it to the canvis-wrapper as its child
   myCanvas = createCanvas(W, H, WEBGL);
@@ -131,6 +132,7 @@ function preload() {
   chest_open = loadImage('data/stage1/chest-open.png');
   chest_closed = loadImage('data/stage1/chest-closed.png');
   dualshot = loadImage('data/stage1/2_line.png');
+  stopwatch = loadImage('data/stage1/stopwatch.png');
   collar = loadImage('data/stage1/collar.jpg');
   chest_animation = loadImage('data/stage1/chest-animation.gif');
   pixel_font = loadFont('data/fonts/font.otf');
