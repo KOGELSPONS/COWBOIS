@@ -66,8 +66,8 @@ class Boss {
         //Different images and movement variables in certain dash-directions
         if(this.currentDirection == 'L'){this.vx = this.maxvx,this.vy = 0, image(monstrodash_right, this.x, this.y, this.w, this.h);}
         if(this.currentDirection == 'R'){this.vx = -this.maxvx,this.vy = 0, image(monstrodash_left, this.x, this.y, this.w, this.h);}
-        if(this.currentDirection == 'T'){this.vy = this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
-        if(this.currentDirection == 'B'){this.vy = -this.maxvy,this.vx = 0, image(monstrodash_vert, this.x, this.y-20, this.w, this.h+20);}
+        if(this.currentDirection == 'T'){this.vy = this.maxvy,this.vx = 0, image(monstrodash_down, this.x, this.y-20, this.w, this.h+20);}
+        if(this.currentDirection == 'B'){this.vy = -this.maxvy,this.vx = 0, image(monstrodash_up, this.x, this.y-20, this.w, this.h+20);}
 
         //Boss and wall interaction
         rooms.forEach(r => {
@@ -133,13 +133,13 @@ class Boss {
           this.vx = speed;
           //Different images for different velocities
           if(this.vx >= 0){
-            image(monstrowalk_right, this.x, this.y, this.w, this.h)
+            image(monstrowalk_right, this.x-25, this.y-15, this.w+50, this.h+30)
           }else{
-            image(monstrowalk_left, this.x, this.y, this.w, this.h)
+            image(monstrowalk_left, this.x-25, this.y-15, this.w+50, this.h+30)
           }
         }else{
           this.vx = 0; 
-          image(monstrowalk_right, this.x, this.y, this.w, this.h);
+          image(monstrowalk_right, this.x-25, this.y-15, this.w+50, this.h+30);
         }
       }
       

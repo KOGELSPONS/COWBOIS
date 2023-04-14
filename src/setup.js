@@ -150,11 +150,12 @@ function preload() {
   exitscreen = loadImage('data/menu-assets/exitscreen.png');
   deathscreen = loadImage('data/menu-assets/death.png');
   explain_bg = loadImage('data/stage1/room1_background.png');
-  monstrodash_left = loadImage('data/enemy/boss/monstrodash-left.png');
-  monstrodash_right = loadImage('data/enemy/boss/monstrodash-right.png');
-  monstrodash_vert = loadImage('data/enemy/boss/monstrodash-vert.png');
-  monstrowalk_left = loadImage('data/enemy/boss/monstrowalk-left.png');
-  monstrowalk_right = loadImage('data/enemy/boss/monstrowalk-right.png');
+  monstrodash_left = loadImage('data/enemy/boss/monstrodash-left.gif');
+  monstrodash_right = loadImage('data/enemy/boss/monstrodash-right.gif');
+  monstrodash_up = loadImage('data/enemy/boss/monstrodash-up.gif');
+  monstrodash_down = loadImage('data/enemy/boss/monstrodash-down.gif');
+  monstrowalk_left = loadImage('data/enemy/boss/monstrowalk-left.gif');
+  monstrowalk_right = loadImage('data/enemy/boss/monstrowalk-right.gif');
   slime = loadImage('data/enemy/slime.gif');
   slime_shooting = loadImage('data/enemy/slime_shooting.gif');
   slimeball = loadImage('data/enemy/slimeball.png');
