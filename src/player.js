@@ -237,11 +237,31 @@ class Player {
           stopwatchActive = true;
           stopwatchTimer = 4;
         }
-    }else if(inventory[2] == 'healthpack'){
-      image(healthpack, ROOMX + 210 , ROOMY+480, 50,50);
+    }else if(inventory[2] == 'healthpack_40'){
+      image(healthpack_40, ROOMX + 210 , ROOMY+480, 50,50);
       dogActive = false;
       if(keyIsDown(69)){
         player.hp += 40
+        if(player.hp > 100){
+          player.hp = 100;
+        }
+        inventory[2] = 'empty'
+      }
+    }else if(inventory[2] == 'healthpack_20'){
+      image(healthpack_20, ROOMX + 210 , ROOMY+480, 50,50);
+      dogActive = false;
+      if(keyIsDown(69)){
+        player.hp += 20
+        if(player.hp > 100){
+          player.hp = 100;
+        }
+        inventory[2] = 'empty'
+      }
+    }else if(inventory[2] == 'healthpack_10'){
+      image(healthpack_10, ROOMX + 210 , ROOMY+480, 50,50);
+      dogActive = false;
+      if(keyIsDown(69)){
+        player.hp += 10
         if(player.hp > 100){
           player.hp = 100;
         }

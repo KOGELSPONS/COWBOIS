@@ -29,8 +29,12 @@ class Item {
         image(collar, this.x, this.y, 50, 50)
       }else if(this.name == 'stopwatch'){
         image(stopwatch, this.x, this.y, 50, 50)
-      }else if(this.name == 'healthpack'){
-        image(healthpack, this.x, this.y, 50, 50)
+      }else if(this.name == 'healthpack_10'){
+        image(healthpack_10, this.x, this.y, 50, 50)
+      }else if(this.name == 'healthpack_20'){
+        image(healthpack_20, this.x, this.y, 50, 50)
+      }else if(this.name == 'healthpack_40'){
+        image(healthpack_40, this.x, this.y, 50, 50)
       }
     } else {
       image(chest_closed, this.x, this.y, 50, 50)
@@ -190,7 +194,13 @@ function makeItemTiles(itemtiles, d_cols, itemsize_x, itemsize_y, numberroom) {
       items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'booster', 'stopwatch', numberroom, 2))
     }
     if (value == 41) {
-      items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'booster', 'healthpack', numberroom, 2))
+      items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'booster', 'healthpack_10', numberroom, 2))
+    }
+    if (value == 42) {
+      items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'booster', 'healthpack_20', numberroom, 2))
+    }
+    if (value == 43) {
+      items.push(new Item(dx + 80 + tileOffsetX, dy + 60 + tileOffsetY, 'booster', 'healthpack_40', numberroom, 2))
     }
   }
 }

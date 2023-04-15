@@ -113,7 +113,10 @@ function setup() {
 }
 function preload() {
   //Loading in the images/gifs (later in json)
-  rock = loadImage('data/stage1/rock.png');
+  rock = loadImage('data/stage1/blocks/rock.png');
+  rock1 = loadImage('data/stage1/blocks/rock1.png');
+  rock2 = loadImage('data/stage1/blocks/rock2.png');
+  rock3 = loadImage('data/stage1/blocks/rock3.png');
   vent = loadImage('data/stage1/vent.png');
   revolver = loadImage('data/stage1/revolver.png');
   shotgun = loadImage('data/stage1/shotgun.png');
@@ -140,7 +143,10 @@ function preload() {
   dualshot = loadImage('data/stage1/2_line.png');
   stopwatch = loadImage('data/stage1/stopwatch.png');
   collar = loadImage('data/stage1/collar.jpg');
-  healthpack = loadImage('data/stage1/healthpack.png');
+  healthpack_40 = loadImage('data/stage1/healthpack_40.png');
+  healthpack_20 = loadImage('data/stage1/healthpack_20.png');
+  healthpack_10 = loadImage('data/stage1/healthpack_10.png');
+
   chest_animation = loadImage('data/stage1/chest-animation.gif');
   pixel_font = loadFont('data/fonts/font.otf');
   staticnoise = loadImage('data/general/static.gif');
