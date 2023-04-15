@@ -45,6 +45,9 @@ class Item {
       // console.log("pick up item");
       // console.log(this);
       sfx[2].play();
+      if(this.name == 'collar'){
+        sfx[5].play();
+      }
       //certain things only for 1 type
       if (this.type == 'weapon') {
         player.ammo = 0;

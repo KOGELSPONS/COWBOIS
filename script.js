@@ -171,10 +171,8 @@ function updatecamera(){
 function mousePressed() {
   MouseClicked = true;
   if(!firstClick){
-    setTimeout(function() {
-      randomMusic(true);
-      updateSound();
-      firstClick = true;
-    }, 100);
+    randomMusic(true);
+    updateSound();
+    firstClick = true;
   } 
 }

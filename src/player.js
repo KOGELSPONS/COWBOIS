@@ -14,7 +14,7 @@ class Player {
     
     this.friction = 0.90;
 
-    this.hp = 10000;
+    this.hp = 100;
     this.resistancemutliplier = 1;
     this.damagemutliplier = 1;
     this.movementmultiplier = 1;
@@ -145,6 +145,7 @@ class Player {
       this.ammo -= 1;
       this.lastshot = this.nowshot;
       if (this.currentWeapon == 'revolver' || this.currentWeapon == 'rifle'){
+        sfx[3].play(); 
         bullets.push(new Bullet(this.mx, this.my, 8,player.vx,player.vy, this.currentWeapon, direction));
         if(inventory[1] == 'dualshot'){
           if(direction == 'L'){ direction = 'R';}
@@ -173,6 +174,8 @@ class Player {
       this.reload();
       if (this.currentWeapon == 'shotgun'){
         sfx[1].play();
+      }else{
+        sfx[4].play();
       }
     }
   }
@@ -232,14 +235,12 @@ class Player {
     //inveotory slot 2
     if(inventory[2] == 'stopwatch'){
       image(stopwatch, ROOMX + 210 , ROOMY+480, 50,50);
-      dogActive = false;
       if(keyIsDown(69) && !stopwatchActive){
           stopwatchActive = true;
           stopwatchTimer = 4;
         }
     }else if(inventory[2] == 'healthpack_40'){
       image(healthpack_40, ROOMX + 210 , ROOMY+480, 50,50);
-      dogActive = false;
       if(keyIsDown(69)){
         player.hp += 40
         if(player.hp > 100){
@@ -249,7 +250,6 @@ class Player {
       }
     }else if(inventory[2] == 'healthpack_20'){
       image(healthpack_20, ROOMX + 210 , ROOMY+480, 50,50);
-      dogActive = false;
       if(keyIsDown(69)){
         player.hp += 20
         if(player.hp > 100){
@@ -259,7 +259,6 @@ class Player {
       }
     }else if(inventory[2] == 'healthpack_10'){
       image(healthpack_10, ROOMX + 210 , ROOMY+480, 50,50);
-      dogActive = false;
       if(keyIsDown(69)){
         player.hp += 10
         if(player.hp > 100){
@@ -359,10 +358,10 @@ class Dog{
       this.healTimer = 3
       this.enemyKilled = false;
     }else if(this.healTimer > 0 && this.enemyKilled){
-      fill("floralwhite");
+      fill("lightgreen");
       circle(this.x+this.w/2, this.y+this.h/2, this.r)
       if(dist(player.mx, player.my, this.x+this.w/2, this.y+this.h/2) < this.r/1.5 && player.hp < 100){
-        player.hp += 10
+        player.hp += 5
         this.enemyKilled = false;
       }  
     }

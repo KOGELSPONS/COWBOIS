@@ -35,10 +35,6 @@ function menu(){
       t.show();
       t.clicked();
     })
-  } else if (currentMenu == "quit"){
-    image(exitscreen,0,0,WIDTH,HEIGHT);
-    randomMusic(false)
-    fail;
   } else if (currentMenu == "story"){
     if (storyActive){
       image(story_vid,0,0,WIDTH,HEIGHT);
@@ -53,14 +49,13 @@ function menu(){
     })
     playbackRate -= 0.005;
     playbackRate = constrain(playbackRate, 0, 1);
-    updateSound(false);
+    updateSound();
     if (!story[0].isPlaying()){
       gameState = 2;
       currentMenu = "start";
       storyActive = false;
       playbackRate = 1;
       updateSound();
-      randomMusic(true);
     }
     //play video
   } 
@@ -76,7 +71,7 @@ function menu(){
   blendMode(BLEND);
 }
 
-var playbackRate = 1;
+
 function deadscreen(){
   if (currentDeathMenu == "begin"){
     playbackRate -= 0.005;
@@ -99,7 +94,12 @@ function deadscreen(){
 function winscreen() {
   createcamera.setPosition(W/2,H/2,780);
   image(endscreen,0,0,WIDTH,HEIGHT);
-  //Reset();
+  WinscreenButtons.forEach(t => {
+    if (t.menu == NewHighscore){
+      t.show();
+      t.clicked();
+    }
+  })
   blendMode(MULTIPLY);
   texture(staticnoise);
   rect(0,0,W,H);
@@ -197,26 +197,6 @@ class Slider {
   }
 }
 
-class ScrollingText {
-  constructor(x, y, w, h, text, size, img, action, menu) {
-    this.x = x - w/2;
-    this.y = y - h/2;
-    this.w = w;
-    this.h = h;
-    this.text = text;
-    this.size = size;
-    this.img = img;
-    this.action = action;
-    this.menu = menu;
-  }
-  draw(){
-    
-  }
-  update(){
-    
-  }
-}
-
 function makeButton() {
   MainMenuButtons = [];
   SettingsMenuButtons = [];
@@ -224,23 +204,30 @@ function makeButton() {
   //Start menu
   MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Play", 50, blackpaint, function(){story[0].play(); story[1].play();storyTimer = 1; currentMenu = "story"; firstClick = true;} ,"start"));
   MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "Settings", 50, blackpaint, function(){currentMenu = "settings";} ,"start"));
-  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){currentMenu = "quit";} ,"start"));
+  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");} ,"start"));
   MainMenuButtons.push( new Button(WIDTH/2 + 600, HEIGHT/2 + 350 , 200, 100, "Skip", 50, blackpaint, function(){story[0].stop(); story[1].stop();} ,"story"));
-  
   
   //Settings
 
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 120 , 800, 100, "Clear LocalStorage", 50, blackpaint, function(){localStorage.clear(); MakeStorage();} ,"settings"));
-  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 240 , 800, 100, "Back", 50, blackpaint, function(){currentMenu = "start";} ,"settings"));
+  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 240 , 800, 100, "Toggle FPS", 50, blackpaint, function(){if (showFPS) { showFPS=false} else {showFPS=true}} ,"settings"));
+  SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 360 , 800, 100, "Back", 50, blackpaint, function(){currentMenu = "start";} ,"settings"));
   //Deadscreen
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 - 20 , 1000, 100, "Time to Death: " + DeathTime + " sec", 50, blackpaint, function(){} ,""));
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Restart", 50, blackpaint, function(){Reset(); playbackRate = 1;} ,""));
   DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1; storyActive = false;} ,""));
-  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){gameState = 1; currentMenu = "quit";} ,""));
+  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");} ,""));
   //Winscreen
-  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Restart", 50, blackpaint, function(){Reset();} ,""));
-  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1; storyActive = false;} ,""));
-  DeadscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){gameState = 1; currentMenu = "quit";} ,""));
+  WinscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 - 20 , 1000, 100, "Time to Win: " + newscore + " sec", 50, blackpaint, function(){} ,false));
+  WinscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Restart", 50, blackpaint, function(){Reset();} ,false));
+  WinscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1; storyActive = false;} ,false));
+  WinscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");} ,false));
+
+  WinscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 - 220 , 1500, 220, "New Highscore!!!", 100, blackpaint, function(){} ,true));
+  WinscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 - 20 , 1000, 100, "Time to Win: " + newscore + " sec", 50, blackpaint, function(){} ,true));
+  WinscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Restart", 50, blackpaint, function(){Reset();} ,true));
+  WinscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "To Menu", 50, blackpaint, function(){Reset(); gameState = 1; storyActive = false;} ,true));
+  WinscreenButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");} ,true));
 }
 
 function makeSliders() {
@@ -289,17 +276,15 @@ function Reset() {
   gameState = 2;
 }
 
-function randomMusic(active) {
-  song[0].stop();
-  song[1].stop();
-  song[2].stop();
-  song[3].stop(); 
-  pickone=round(random(-0.5,3.4));
-  if (pickone == prevpick){
-    randomMusic();
-  } else if (active){
+function randomMusic(musicactive) {
+  pickone=random([0,1,2,3]);
+  if (musicactive){
     song[pickone].play();
-    prevpick = pickone;
+  } else {
+    song[0].stop();
+    song[1].stop();
+    song[2].stop();
+    song[3].stop();
   }
 }
 
@@ -307,7 +292,7 @@ function updateSound() {
   let ValueSFX = round(SettingSliders[0].value)/800
   let ValueMusic = round(SettingSliders[1].value)/800
   if (ValueSFX < 0.01){
-    ValueMusic = 0;
+    ValueSFX = 0;
   } if (ValueMusic < 0.01){
     ValueMusic = 0;
   } 
@@ -339,12 +324,14 @@ function MakeStorage(){
 }
 
 function win(){
-  let newscore = gameTimer;
+  newscore = gameTimer;
   let oldscore = getItem('highscore');
   if (newscore < oldscore || oldscore == -1){
     highscore = newscore;
+    NewHighscore = true;
   } else {
     highscore = oldscore;
+    NewHighscore = false;
   }
   storeItem('highscore', highscore);
   wins += 1;

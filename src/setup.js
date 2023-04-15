@@ -19,12 +19,15 @@ var currentDeathMenu = "begin";
 var MouseClicked = false;
 var NewscoreTime = -1;
 var DeathTime = -1;
+var newscore = -1;
 var HighscoreTime = -1;
 var prevpick = -1;
 var firstClick = false;
+var playbackRate = 1;
+var NewHighscore = false;
 
 // Debug boolean
-var showFPS = true;
+var showFPS = false;
 var showData = false;
 var showCollision = false;
 var debugColorInteract = 'pink';
@@ -49,6 +52,7 @@ var boss = [];
 var MainMenuButtons = [];
 var SettingsMenuButtons = [];
 var DeadscreenButtons = [];
+var WinscreenButtons = [];
 var SettingSliders = [];
 var lastdead;
 var song = [];
@@ -176,6 +180,9 @@ function preload() {
   sfx[0] = loadSound('data/sounds/shotgunFire.mp3'); //shotgun_shot
   sfx[1] = loadSound('data/sounds/shotgunReload.mp3'); //shotgun_reload
   sfx[2] = loadSound('data/sounds/pickup.mp3'); //item pickup sound
+  sfx[3] = loadSound('data/sounds/gun_fire.mp3'); //gunfire 
+  sfx[4] = loadSound('data/sounds/revolverReload.mp3'); //reload
+  sfx[5] = loadSound('data/sounds/dog_barking.mp3'); //dog bark
   
   
   //Songs
@@ -187,8 +194,6 @@ function preload() {
   song[2].onended(randomMusic);
   song[3] = loadSound("data/sounds/songs/lone-star.mp3");
   song[3].onended(randomMusic);
-
-  song[4] = loadSound('data/sounds/hey.mp3'); //hey
   //Story telling
   story[0] = loadSound('data/sounds/story/storytelling.mp3');
   story[1] = loadSound('data/sounds/story/storytellingmusic.mp3');
