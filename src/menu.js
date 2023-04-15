@@ -37,12 +37,13 @@ function menu(){
     })
   } else if (currentMenu == "quit"){
     image(exitscreen,0,0,WIDTH,HEIGHT);
-    randomMusic()
+    randomMusic(false)
     fail;
   } else if (currentMenu == "story"){
-    setTimeout(function() {storyActive = true;}, 5000);
     if (storyActive){
       image(story_vid,0,0,WIDTH,HEIGHT);
+    } else {
+      setTimeout(function() {storyActive = true;}, 5000);
     }
     MainMenuButtons.forEach(t => {
       if (t.menu == currentMenu){
@@ -52,14 +53,14 @@ function menu(){
     })
     playbackRate -= 0.005;
     playbackRate = constrain(playbackRate, 0, 1);
-    updateSound();
+    updateSound(false);
     if (!story[0].isPlaying()){
       gameState = 2;
       currentMenu = "start";
       storyActive = false;
       playbackRate = 1;
       updateSound();
-      randomMusic();
+      randomMusic(true);
     }
     //play video
   } 
@@ -224,7 +225,7 @@ function makeButton() {
   MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Play", 50, blackpaint, function(){story[0].play(); story[1].play();storyTimer = 1; currentMenu = "story"; firstClick = true;} ,"start"));
   MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "Settings", 50, blackpaint, function(){currentMenu = "settings";} ,"start"));
   MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){currentMenu = "quit";} ,"start"));
-  MainMenuButtons.push( new Button(WIDTH/2 + 600, HEIGHT/2 + 350 , 200, 100, "Skip", 50, blackpaint, function(){story[0].stop(); story[1].stop(); storyActive = false;} ,"story"));
+  MainMenuButtons.push( new Button(WIDTH/2 + 600, HEIGHT/2 + 350 , 200, 100, "Skip", 50, blackpaint, function(){story[0].stop(); story[1].stop();} ,"story"));
   
   
   //Settings
@@ -288,15 +289,15 @@ function Reset() {
   gameState = 2;
 }
 
-function randomMusic() {
+function randomMusic(active) {
   song[0].stop();
   song[1].stop();
   song[2].stop();
   song[3].stop(); 
   pickone=round(random(-0.5,3.4));
   if (pickone == prevpick){
-    randomMusic(prevpick);
-  } else if (currentMenu != "quit" && currentMenu != "story"){
+    randomMusic();
+  } else if (active){
     song[pickone].play();
     prevpick = pickone;
   }

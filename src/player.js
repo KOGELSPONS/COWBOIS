@@ -14,7 +14,7 @@ class Player {
     
     this.friction = 0.90;
 
-    this.hp = 100;
+    this.hp = 10000;
     this.resistancemutliplier = 1;
     this.damagemutliplier = 1;
     this.movementmultiplier = 1;

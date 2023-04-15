@@ -18,7 +18,9 @@ class Room{
       image(wall_img,this.x, this.y);
       if(theMaps[0].maprooms[1] === currentRoom && currentMap == 0){
         image(explain_bg, this.x+230, this.y+200,this.w-460, this.h-400);
-        image(saloon_door, this.x + this.w/2 - DOORW/2, this.y+12 , DOORW, DOORH - 10);
+      }
+      if((theMaps[2].maprooms[12] === currentRoom && currentMap == 2)|| (theMaps[0].maprooms[1] === currentRoom && currentMap == 0)){
+      image(saloon_door, this.x + this.w/2 - DOORW/2, this.y+12 , DOORW, DOORH - 10);
         if (collision(player.x, player.y, player.w, player.h , this.x + this.w/2 - DOORW/2, this.y+12 , DOORW, DOORH - 10) && enemies.length == 0 && boss.length == 0) {
           win();
           gameState = 4;

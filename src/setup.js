@@ -55,7 +55,6 @@ var song = [];
 var sfx = [];
 var story = [];
 var pickone;
-var mousie;
 var highscore, wins, deaths = 0;
 
 //debug

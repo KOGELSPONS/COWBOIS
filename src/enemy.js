@@ -21,9 +21,8 @@ class Enemy{
     if (this.type == "walker"){
       this.damage = 10;
       this.hitdelay = 200;
-    } else if (this.type == "dynamo"){
-      this.damage = 30;
-      this.hitdelay = 300;
+    } else if (this.type == "shooter"){
+      this.damage = 1;
     }
 
     
@@ -115,7 +114,6 @@ class Enemy{
       }
     
       if(this.type == 'shooter'){
-        this.damage = 1;
         //Walking to player system
         if(!stopwatchActive){
           let enemyPlayerdistance = dist(player.mx, player.my, this.mx, this.my);
@@ -157,7 +155,7 @@ class Enemy{
           console.log(velX)
         }
         this.dynamoTimer ++;
-        if(this.dynamoTimer == 10){
+        if(this.dynamoTimer == 30){
           this.dynamoTimer = 0
         }
       }

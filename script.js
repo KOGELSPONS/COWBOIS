@@ -108,7 +108,6 @@ function draw() {
     deadscreen();
   } else if (gameState == 4){
     winscreen();
-    gameState = 1;
   }
   //all gameState's
   if (MouseClicked){
@@ -171,10 +170,11 @@ function updatecamera(){
 
 function mousePressed() {
   MouseClicked = true;
-  if(!firstClick && mousie){
-    randomMusic();
-    updateSound();
-    firstClick = true;
+  if(!firstClick){
+    setTimeout(function() {
+      randomMusic(true);
+      updateSound();
+      firstClick = true;
+    }, 100);
   } 
-  mousie = true;
 }
