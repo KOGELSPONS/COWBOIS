@@ -48,6 +48,11 @@ canvas {
   aspect-ratio: 16 / 9;
 }
 
+video {
+  margin:0;
+  height: 100vh;
+  aspect-ratio: 16 / 9;
+}
 .script-wrapper{
   z-index: -1;
 }

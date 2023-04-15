@@ -24,7 +24,8 @@ var prevpick = -1;
 var firstClick = false;
 
 // Debug boolean
-var showData = true;
+var showFPS = true;
+var showData = false;
 var showCollision = false;
 var debugColorInteract = 'pink';
 var debugColorStatic = 'blue';
@@ -52,7 +53,9 @@ var SettingSliders = [];
 var lastdead;
 var song = [];
 var sfx = [];
+var story = [];
 var pickone;
+var mousie;
 var highscore, wins, deaths = 0;
 
 //debug
@@ -62,6 +65,7 @@ var cameraMode = "still";
 var cameraFrameCount = 0;
 
 var gameTimer = 0;
+var storyActive = false
 
 function updateDebug(){
   FPS = round(getFrameRate());
@@ -159,11 +163,15 @@ function preload() {
   slime = loadImage('data/enemy/slime.gif');
   slime_shooting = loadImage('data/enemy/slime_shooting.gif');
   slimeball = loadImage('data/enemy/slimeball.png');
-
+  BackgroundInventory = loadImage('data/stage1/inventory.png');
+  story_vid = loadImage('data/sounds/story/story.gif');
+  endscreen = loadImage('data/sounds/story/endscreen.gif');
+  
   //SFX
   sfx[0] = loadSound('data/sounds/shotgunFire.mp3'); //shotgun_shot
   sfx[1] = loadSound('data/sounds/shotgunReload.mp3'); //shotgun_reload
   sfx[2] = loadSound('data/sounds/pickup.mp3'); //item pickup sound
+  
   
   //Songs
   song[0] = loadSound("data/sounds/songs/big-iron.mp3");
@@ -176,4 +184,7 @@ function preload() {
   song[3].onended(randomMusic);
 
   song[4] = loadSound('data/sounds/hey.mp3'); //hey
+  //Story telling
+  story[0] = loadSound('data/sounds/story/storytelling.mp3');
+  story[1] = loadSound('data/sounds/story/storytellingmusic.mp3');
 }

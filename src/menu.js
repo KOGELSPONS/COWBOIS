@@ -6,8 +6,10 @@ function menu(){
     image(mainmenu,0,0,WIDTH,HEIGHT);
     //Drawing the pressable buttons
     MainMenuButtons.forEach(t => {
-      t.show();
-      t.clicked();
+      if (t.menu == currentMenu){
+        t.show();
+        t.clicked();
+      }
     })
     //Text
     fill("Black");
@@ -35,19 +37,42 @@ function menu(){
     })
   } else if (currentMenu == "quit"){
     image(exitscreen,0,0,WIDTH,HEIGHT);
-    song[0].stop();
-    song[1].stop();
-    song[2].stop();
-    song[3].stop(); 
-    song[4].loop();
+    randomMusic()
     fail;
-  }
+  } else if (currentMenu == "story"){
+    setTimeout(function() {storyActive = true;}, 5000);
+    if (storyActive){
+      image(story_vid,0,0,WIDTH,HEIGHT);
+    }
+    MainMenuButtons.forEach(t => {
+      if (t.menu == currentMenu){
+        t.show();
+        t.clicked();
+      }
+    })
+    playbackRate -= 0.005;
+    playbackRate = constrain(playbackRate, 0, 1);
+    updateSound();
+    if (!story[0].isPlaying()){
+      gameState = 2;
+      currentMenu = "start";
+      storyActive = false;
+      playbackRate = 1;
+      updateSound();
+      randomMusic();
+    }
+    //play video
+  } 
 
   if (mouseIsPressed === true) {
     fill(255, 255, 255, 128);
     strokeWeight(1);
     ellipse(mouseX, mouseY, 15, 15);
   }
+  blendMode(MULTIPLY);
+  texture(staticnoise);
+  rect(0,0,W,H);
+  blendMode(BLEND);
 }
 
 var playbackRate = 1;
@@ -71,7 +96,13 @@ function deadscreen(){
 }
 
 function winscreen() {
-  
+  createcamera.setPosition(W/2,H/2,780);
+  image(endscreen,0,0,WIDTH,HEIGHT);
+  //Reset();
+  blendMode(MULTIPLY);
+  texture(staticnoise);
+  rect(0,0,W,H);
+  blendMode(BLEND);
 }
 
 function debug(){
@@ -97,6 +128,10 @@ function debug(){
     text("Interact: " + ItemCount, ROOMX+5, ROOMY+50);
     text("Static: " + StaticCount, ROOMX+5, ROOMY+60);
     text("Current Static: " + currentplaceables, ROOMX+5, ROOMY+70);
+  } else if (showFPS){
+    fill(51, 204, 51);
+    textSize(10);
+    text("FPS: " + FPS, ROOMX+5, ROOMY+10);
   }
 }
 
@@ -161,17 +196,39 @@ class Slider {
   }
 }
 
+class ScrollingText {
+  constructor(x, y, w, h, text, size, img, action, menu) {
+    this.x = x - w/2;
+    this.y = y - h/2;
+    this.w = w;
+    this.h = h;
+    this.text = text;
+    this.size = size;
+    this.img = img;
+    this.action = action;
+    this.menu = menu;
+  }
+  draw(){
+    
+  }
+  update(){
+    
+  }
+}
+
 function makeButton() {
   MainMenuButtons = [];
   SettingsMenuButtons = [];
   DeadscreenButtons = [];
   //Start menu
-  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Play", 50, blackpaint, function(){gameState = 2;} ,"start"));
+  MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 100 , 800, 100, "Play", 50, blackpaint, function(){story[0].play(); story[1].play();storyTimer = 1; currentMenu = "story"; firstClick = true;} ,"start"));
   MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 220 , 800, 100, "Settings", 50, blackpaint, function(){currentMenu = "settings";} ,"start"));
   MainMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 340 , 800, 100, "Quit", 50, blackpaint, function(){currentMenu = "quit";} ,"start"));
+  MainMenuButtons.push( new Button(WIDTH/2 + 600, HEIGHT/2 + 350 , 200, 100, "Skip", 50, blackpaint, function(){story[0].stop(); story[1].stop(); storyActive = false;} ,"story"));
+  
+  
   //Settings
-  //SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 - 120 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
-  //SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 0 , 800, 100, "Test", 50, blackpaint, function(){console.log("test");} ,"settings"));
+
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 120 , 800, 100, "Clear LocalStorage", 50, blackpaint, function(){localStorage.clear(); MakeStorage();} ,"settings"));
   SettingsMenuButtons.push( new Button(WIDTH/2, HEIGHT/2 + 240 , 800, 100, "Back", 50, blackpaint, function(){currentMenu = "start";} ,"settings"));
   //Deadscreen
@@ -239,7 +296,7 @@ function randomMusic() {
   pickone=round(random(-0.5,3.4));
   if (pickone == prevpick){
     randomMusic(prevpick);
-  } else if (currentMenu != "quit"){
+  } else if (currentMenu != "quit" && currentMenu != "story"){
     song[pickone].play();
     prevpick = pickone;
   }
@@ -259,7 +316,6 @@ function updateSound() {
   //SFX
   for (let i = 0; i < sfx.length; i++) {
     sfx[i].setVolume(ValueSFX);
-    sfx[i].rate(playbackRate);
   }
 
   //Music

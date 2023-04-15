@@ -39,7 +39,7 @@ class Boss {
     //HP bar
     //rect(this.x, this.y, this.w, this.h)
     translate(0,0,0.01);
-    fill('white');
+    fill('floralwhite');
     stroke("black");
     rect(this.x + this.halfWidth - 50, this.y - 15, 100, 10);
     noStroke();

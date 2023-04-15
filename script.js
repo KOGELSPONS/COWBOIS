@@ -83,10 +83,10 @@ function draw() {
 
     //debug
     debug();
-
-    textAlign(CENTER,CENTER);
+    textAlign(RIGHT,CENTER);
+    fill("red");
     textSize(30);
-    text(gameTimer,ROOMX + TILEX-57, ROOMY+45);
+    text("Time: " + gameTimer,ROOMX + TILEX-15, ROOMY+45);
     if (frameCount % 60 == 0) { 
       gameTimer++;
     }
@@ -171,9 +171,10 @@ function updatecamera(){
 
 function mousePressed() {
   MouseClicked = true;
-  if(!firstClick){
+  if(!firstClick && mousie){
     randomMusic();
     updateSound();
     firstClick = true;
   } 
+  mousie = true;
 }

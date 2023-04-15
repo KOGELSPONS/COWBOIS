@@ -201,12 +201,11 @@ class Player {
     
     translate(0,0,0.01);
     stroke("black");
-    fill('floralwhite');
+    texture(BackgroundInventory);
     rect(ROOMX + 100, ROOMY+480, 50,50);
     rect(ROOMX + 155, ROOMY+480, 50,50);
     rect(ROOMX + 210, ROOMY+480, 50,50);
     noStroke();
-    
 
     if(inventory[0] == 'revolver'){
       image(revolver, ROOMX + 100, ROOMY+480, 50,50);
@@ -216,11 +215,6 @@ class Player {
       
     } else if(inventory[0] == 'rifle'){
       image(rifle, ROOMX + 100, ROOMY+480, 50,50);
-      
-    } else {
-      fill('red');
-      rect(ROOMX + 100 , ROOMY+480, 50,50);
-      // this.able_to_shoot = false;
     }
     
     //inventory slot 1
@@ -232,16 +226,11 @@ class Player {
       dogActive = true;
     }
     else{
-      fill('red');
-      rect(ROOMX + 155 , ROOMY+480, 50,50);
       dogActive = false;
     }
     
     //inveotory slot 2
-    if(inventory[2] == "empty"){
-      fill('red');
-      rect(ROOMX + 210 , ROOMY+480, 50,50);
-    }else if(inventory[2] == 'stopwatch'){
+    if(inventory[2] == 'stopwatch'){
       image(stopwatch, ROOMX + 210 , ROOMY+480, 50,50);
       dogActive = false;
       if(keyIsDown(69) && !stopwatchActive){
@@ -350,7 +339,7 @@ class Dog{
       this.healTimer = 3
       this.enemyKilled = false;
     }else if(this.healTimer > 0 && this.enemyKilled){
-      fill("white");
+      fill("floralwhite");
       circle(this.x+this.w/2, this.y+this.h/2, this.r)
       if(dist(player.mx, player.my, this.x+this.w/2, this.y+this.h/2) < this.r/1.5 && player.hp < 100){
         player.hp += 10

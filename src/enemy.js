@@ -53,7 +53,7 @@ class Enemy{
 
       //HP bar
       translate(0,0,0.01);
-      fill('white');
+      fill('floralwhite');
       stroke("black");
       rect(this.mx - 25, this.y - 15, 50, 10);
       noStroke();
