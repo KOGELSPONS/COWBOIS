@@ -271,7 +271,7 @@ class Player {
         if (frameCount % 60 == 0 && stopwatchTimer > 0) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
           stopwatchTimer --;
         }
-        console.log(stopwatchTimer)
+        //console.log(stopwatchTimer)
         if (stopwatchTimer == 0) {
           stopwatchActive = false;
           inventory[2] = 'empty'
@@ -281,7 +281,7 @@ class Player {
   }
   update(){
     if(inventory[0] == 'revolver'){
-      console.log('revolver');
+      //console.log('revolver');
       this.able_to_shoot = true;
       this.maxammo = 8 + this.extraammo;
       this.shottime = 100 * this.shoottimemutliplier;
@@ -289,7 +289,7 @@ class Player {
       this.currentWeapon = inventory[0];
       
     } else if(inventory[0] == 'shotgun'){
-      console.log('shotgun');
+      //console.log('shotgun');
       this.able_to_shoot = true;
       this.maxammo = 2 + this.extraammo;
       this.shottime = 150 * this.shoottimemutliplier;
@@ -297,7 +297,7 @@ class Player {
       this.currentWeapon = inventory[0];
       
     } else if(inventory[0] == 'rifle'){
-      console.log('rifle');
+      //console.log('rifle');
       this.able_to_shoot = true;
       this.maxammo = 4 + this.extraammo;
       this.shottime = 300 * this.shoottimemutliplier;

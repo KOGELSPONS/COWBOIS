@@ -248,8 +248,8 @@ class Boss {
     //When getting the boss's hp to 0 or below, delete the boss from the 'boss' array
       if (this.hp <= 0) {
         this.hp = 0;
-        console.log("killed Enemy: ");
-        console.log(this);
+        //console.log("killed Enemy: ");
+        //console.log(this);
         let idx = boss.indexOf(this); 
         boss.splice(idx,1);
       }
@@ -258,7 +258,7 @@ class Boss {
   //subtract the according damage the player does from the boss's health
   hit(bulletdamage, distancedropoff){
     if(this.attackPhase != 0){
-      console.log(bulletdamage * distancedropoff);
+      //console.log(bulletdamage * distancedropoff);
       this.hp -= bulletdamage * distancedropoff; 
     }  
   }

@@ -69,8 +69,8 @@ class Enemy{
       //HP system
       if (this.hp <= 0) {
         this.hp = 0;
-        console.log("killed Enemy: ");
-        console.log(this);
+        //console.log("killed Enemy: ");
+        //console.log(this);
         let idx = enemies.indexOf(this); 
         enemies.splice(idx,1);
         dog.enemyKilled = true;
@@ -152,7 +152,7 @@ class Enemy{
           let velY = (sin(angle) * 5) + random(-1, 1);
           let playerEnemyDist = dist(this.x, this.y, player.x, player.y)
           enemybullets.push(new Enemybullet(this.mx, this.my, 10, 'bullet', velX, velY,playerEnemyDist,this.damage))
-          console.log(velX)
+          //console.log(velX)
         }
         this.dynamoTimer ++;
         if(this.dynamoTimer == 30){
@@ -173,7 +173,7 @@ class Enemy{
   }
   hit(bulletdamage, distancedropoff){
       
-    console.log(this.damagemultiplier * bulletdamage * distancedropoff);
+    //console.log(this.damagemultiplier * bulletdamage * distancedropoff);
     this.hp -= this.damagemultiplier * bulletdamage * distancedropoff;
       
   }

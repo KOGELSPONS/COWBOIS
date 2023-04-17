@@ -94,6 +94,7 @@ function draw() {
     if (player.hp <= 0){
       DeathTime = gameTimer;
       //storeItem('DeathTime', DeathTime);
+      deaths += 1;
       makeButton();
       createcamera.setPosition(camX,camY,468);
       translate(0,0,0.02);
